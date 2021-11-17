@@ -65,6 +65,8 @@ app.post("/todos", async (req, res) => {
 
     res.json(newTodo.rows[0]);
   } catch (err) {
+    console.log(process.env.NODE_ENV)
+    console.log("Hii")
     console.error(err.message);
   }
 });
