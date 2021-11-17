@@ -1,10 +1,9 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, {Fragment, useState, useEffect} from "react";
 import EditTodo from "./EditTodo";
 
 const ListTodos = () => {
   const [todos, setTodos] = useState([]);
-
-  //delete todo function
+  const [description, setDescription] = useState("");
 
   async function deleteTodo(id) {
     try {
@@ -26,46 +25,73 @@ const ListTodos = () => {
     setTodos(todoArray);
   }
 
+  const onSubmitForm = async (e) => {
+    e.preventDefault();
+    try {
+      const body = {description};
+
+      const response = await fetch("/todos", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(body),
+      });
+      setTodos([...todos, body])
+
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+
   useEffect(() => {
     getTodos();
   }, []);
 
-  console.log(todos);
 
   return (
     <Fragment>
-      {" "}
+      <h1 className="text-center my-5">Input Todo</h1>
+      <input
+        type="text"
+        placeholder="add todo"
+        className="form-control"
+        value={description}
+        onChange={(e) => {
+          setDescription(e.target.value)
+        }}
+      />
+      <button className="btn btn-success" onClick={onSubmitForm}>Add</button>
       <table class="table mt-5">
         <thead>
-          <tr>
-            <th>Description</th>
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
+        <tr>
+          <th>Description</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
         </thead>
         <tbody>
-          {/*<tr>
+        {/*<tr>
             <td>John</td>
             <td>Doe</td>
             <td>john@example.com</td>
           </tr> */}
 
-          {todos.map((todo) => (
-            <tr key={todo.todo_id}>
-              <td>{todo.description}</td>
-              <td>
-                <EditTodo todo={todo} />
-              </td>
-              <td>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => deleteTodo(todo.todo_id)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
+        {todos.map((todo) => (
+          <tr key={todo.todo_id}>
+            <td>{todo.description}</td>
+            <td>
+              <EditTodo todo={todo}/>
+            </td>
+            <td>
+              <button
+                className="btn btn-danger"
+                onClick={() => deleteTodo(todo.todo_id)}
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))}
         </tbody>
       </table>
     </Fragment>
