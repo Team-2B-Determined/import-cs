@@ -5,7 +5,7 @@ import {CodeBlock, irBlack} from "react-code-blocks";
 
 interface Step {
     description: string,
-    lineNumber: number | [number, number]
+    lineNumber: string
 }
 
 
@@ -20,19 +20,33 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
 
-    const StepsNavigation = () => (<> <Button variant="outline-primary" size="sm">
+    const [stepIndex, setStepIndex] = useState(0)
+
+
+    const addStepIndex = (otherOperand: number) => {
+        // Although extremely, extremely unlikely, avoid using functional setState as it can theoretically
+        // bypass if conditional when function is triggered too quickly due to its asynchronous nature
+        const newIndex = stepIndex + otherOperand
+        if (newIndex < codeNavigationGuide.steps.length && newIndex >= 0) {
+            setStepIndex(newIndex)
+        }
+    }
+
+    const currentStep = () => codeNavigationGuide.steps[stepIndex]
+
+    const StepsNavigation = () => (<div><Button variant="outline-primary" size="sm">
         <img src="https://static.thenounproject.com/png/1297552-200.png" width="25" height="25"/><br/>
     </Button>
         <Button variant="outline-primary" size="sm">
             <img src="https://www.vhv.rs/dpng/d/437-4375289_rewind-arrow-svg-png-icon-free-download-rewind.png"
                  width="25" height="25"/><br/>
         </Button>
-        <Button variant="outline-primary" size="sm">
+        <Button variant="outline-primary" size="sm" onClick={() => addStepIndex(-1)}>
             <img
                 src="https://e7.pngegg.com/pngimages/85/844/png-clipart-computer-icons-arrow-icon-design-encapsulated-postscript-left-arrow-angle-internet.png"
                 width="25" height="25"/><br/>
         </Button>
-        <Button variant="outline-primary" size="sm">
+        <Button variant="outline-primary" size="sm" onClick={() => addStepIndex(1)}>
             <img src="https://static.thenounproject.com/png/74838-200.png" width="25" height="25"/><br/>
         </Button>
         <Button variant="outline-primary" size="sm">
@@ -41,28 +55,31 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
         </Button>
         <Button variant="outline-primary" size="sm">
             <img src="https://static.thenounproject.com/png/1297558-200.png" width="25" height="25"/><br/>
-        </Button></>)
+        </Button></div>)
 
 
     return (
         <div>
-            <Card>
-                <Container>
+            <Container>
+                <StepsNavigation/>
+                <br/>
+                <Card>
                     <Card.Body>
                         <Row>
                             <Col style={{width: 100}}>
-                                 <CodeBlock
+                                <CodeBlock
                                     text={`const ${codeNavigationGuide.code.name} = ${codeNavigationGuide.code.toString()}`}
                                     language={"js"}
                                     showLineNumbers={true}
                                     startingLineNumber={true}
                                     theme={irBlack}
-                                    highlight={"4-5"}
+                                    highlight={currentStep().lineNumber}
                                 />
 
                             </Col>
 
                             <Col>
+                                {currentStep().description}
                                 {"['mango'] -> [apple] -> [papaya] -> [orange] -> [lychee] -> [cherry] -> [banana] -> [bread] -> [pineapple] -> [] -> [] -> []"}
                             </Col>
 
@@ -70,8 +87,9 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
                         </Row>
 
                     </Card.Body>
-                </Container>
-            </Card>
+                </Card>
+
+            </Container>
 
 
             <Offcanvas show={show} onHide={handleClose} placement={'end'}>

@@ -36,7 +36,7 @@ const SelectionSort = () => {
         <AlgorithmFrame
             codeNavigationGuide={{
                 code: selectionSort,
-                steps: [{description: "adds stuff", lineNumber: 3}, {description: "adds less", lineNumber: [4, 6]}]
+                steps: [{description: "adds stuff", lineNumber: "3"}, {description: "adds less", lineNumber: "4-6"}]
             }}
             description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\n" +
                 "\t1) The subarray which is already sorted. \n" +
