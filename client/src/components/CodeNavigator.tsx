@@ -46,16 +46,13 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
 
     return (
         <div>
-
-
             <Card>
                 <Container>
                     <Card.Body>
                         <Row>
                             <Col style={{width: 100}}>
                                  <CodeBlock
-                                    text={`// Theme name: 
-                                ${codeNavigationGuide.code.toString()}`}
+                                    text={`const ${codeNavigationGuide.code.name} = ${codeNavigationGuide.code.toString()}`}
                                     language={"js"}
                                     showLineNumbers={true}
                                     startingLineNumber={true}

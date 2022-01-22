@@ -34,7 +34,6 @@ const SelectionSort = () => {
 
     return (
         <AlgorithmFrame
-            title={"Selection Sort"}
             codeNavigationGuide={{
                 code: selectionSort,
                 steps: [{description: "adds stuff", lineNumber: 3}, {description: "adds less", lineNumber: [4, 6]}]
