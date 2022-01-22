@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "heroku-prebuild": "npm i -f",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "henry",
