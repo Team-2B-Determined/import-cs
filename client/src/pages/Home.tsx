@@ -1,10 +1,8 @@
 // contributors: Kali
 import Logo from "../images/import_cs_logo.png"
-import {Card, CardGroup, Col, Container, Nav, Row, Tab, Tabs} from "react-bootstrap";
+import {Card, Col, Container, Row, Tab, Tabs} from "react-bootstrap";
 import Algorithms from "./algorithms/Algorithms";
-import Computations from "./computations/Computations";
 import DataStructures from "./datastructures/DataStructures";
-import Conversions from "./conversions/Conversions";
 
 const Home = () => {
   return (

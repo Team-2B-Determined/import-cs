@@ -1,4 +1,4 @@
-import {Button, Form, Nav, Offcanvas} from "react-bootstrap";
+import {Button, Nav, Offcanvas} from "react-bootstrap";
 import {useState} from "react";
 import CodeNavigator, {CodeNavigationGuide} from "./CodeNavigator";
 

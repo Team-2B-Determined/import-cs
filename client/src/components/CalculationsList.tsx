@@ -1,4 +1,4 @@
-import {Accordion, Card, Nav} from "react-bootstrap";
+import {Accordion, Nav} from "react-bootstrap";
 
 
 export interface Item {

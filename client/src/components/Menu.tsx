@@ -1,14 +1,5 @@
 //<img src={"import_cs_logo.png"} alt={"import CS"}>
-import {
-  Button,
-  Container,
-    Dropdown,
-  Form,
-  FormControl,
-  Nav,
-  Navbar,
-  NavDropdown
-} from "react-bootstrap";
+import {Button, Container, Dropdown, Form, FormControl, Nav, Navbar, NavDropdown} from "react-bootstrap";
 
 const Menu = () => {
   return (

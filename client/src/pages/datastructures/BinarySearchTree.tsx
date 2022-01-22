@@ -1,5 +1,4 @@
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
-import CodeNavigator from "../../components/CodeNavigator";
+import {Col, Container, Form, Row} from "react-bootstrap";
 
 const BinarySearchTree = () => {
   return (

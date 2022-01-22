@@ -1,5 +1,5 @@
 //Kali
-import {Button, Card, Form, Nav} from "react-bootstrap";
+import {Button, Card, Form} from "react-bootstrap";
 
 const Register = () => {
     return (

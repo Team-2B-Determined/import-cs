@@ -1,6 +1,5 @@
-import {Button, Card, Col, Container, Form, Offcanvas, Row} from "react-bootstrap";
+import {Button, Card, Col, Container, Offcanvas, Row} from "react-bootstrap";
 import {useState} from "react";
-import * as All from "react-code-blocks";
 import {CodeBlock, irBlack} from "react-code-blocks";
 
 interface Step {

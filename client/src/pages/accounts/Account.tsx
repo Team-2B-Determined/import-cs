@@ -1,17 +1,7 @@
 // Edited by Thomas
 
 import React, {useContext, useState} from "react";
-import {
-  Button,
-  Col,
-  Container,
-  Dropdown,
-  DropdownButton, Form,
-  FormControl,
-  InputGroup,
-  Row,
-  ToggleButton
-} from "react-bootstrap";
+import {Button, Col, Container, Form, FormControl, InputGroup, Row} from "react-bootstrap";
 import "./Account.css"
 import {DarkModeContext} from "../../context/DarkModeProvider";
 
