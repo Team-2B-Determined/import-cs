@@ -1,6 +1,7 @@
 import {Button, Card, Col, Container, Form, Offcanvas, Row} from "react-bootstrap";
 import {useState} from "react";
 import * as All from "react-code-blocks";
+import {CodeBlock, irBlack} from "react-code-blocks";
 
 interface Step {
     description: string,
@@ -52,15 +53,15 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
                     <Card.Body>
                         <Row>
                             <Col style={{width: 100}}>
-                                {Object.entries(All).map(([k, v]) => <All.CodeBlock
-                                    text={`// Theme name: ${k} 
-                                lolll`}
+                                 <CodeBlock
+                                    text={`// Theme name: 
+                                ${codeNavigationGuide.code.toString()}`}
                                     language={"js"}
                                     showLineNumbers={true}
                                     startingLineNumber={true}
-                                    theme={v}
+                                    theme={irBlack}
                                     highlight={"4-5"}
-                                />)}
+                                />
 
                             </Col>
 
