@@ -1,27 +1,22 @@
 import {Button, Form, Nav, Offcanvas} from "react-bootstrap";
 import {useState} from "react";
-import CodeNavigator from "./CodeNavigator";
+import CodeNavigator, {CodeNavigationGuide} from "./CodeNavigator";
 
-export interface ExternalLinks {
+export interface ExternalLink {
     name: string,
     url: string
 }
 
-export interface Parameter {
-    name: string,
-    type: string,
-    default: string
-}
 
-export interface Algorithm {
+export interface AlgorithmFrameProp {
     title: string,
     description: string,
-    parameters: Parameter[],
-    links: ExternalLinks[],
+    codeNavigationGuide: CodeNavigationGuide,
+    links: ExternalLink[],
     image?: string
 }
 
-const AlgorithmFrame = ({title, description, parameters, links, image}: Algorithm) => {
+const AlgorithmFrame = ({title, description, codeNavigationGuide, links, image}: AlgorithmFrameProp) => {
 
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
@@ -38,16 +33,8 @@ const AlgorithmFrame = ({title, description, parameters, links, image}: Algorith
             <h3>{title}</h3>
             {image ? <img src={image} width="50" height="50"/> : null}<br/>
 
-            <Form>
-                {parameters.map((parameter) => (
-                    <Form.Group>
-                        <Form.Label>{parameter.name}</Form.Label>
-                        <Form.Control placeholder={parameter.default}/>
-                    </Form.Group>
-                ))}
-            </Form>
 
-            <CodeNavigator/>
+            <CodeNavigator codeNavigationGuide={codeNavigationGuide}/>
 
             <Offcanvas show={show} onHide={handleClose} placement={'end'}>
                 <Offcanvas.Header>

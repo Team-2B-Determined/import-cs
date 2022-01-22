@@ -15,7 +15,6 @@ const BinarySearchTree = () => {
                   <Form.Label>Array</Form.Label>
                   <Form.Control type="p1" placeholder="['mango', 'apple', 'papaya', 'orange', 'lychee', 'cherry', 'banana', 'bread', 'pineapple',..." />
                 </Form.Group><br/>
-                <CodeNavigator/>
               </Form>
             </Col>
 
