@@ -2,9 +2,10 @@ import {Button, Card, Col, Container, Offcanvas, Row} from "react-bootstrap";
 import {useState} from "react";
 import {CodeBlock, irBlack} from "react-code-blocks";
 
-interface Step {
+export interface Step {
     description: string,
-    lineNumber: string
+    lineNumber: string,
+    dataStructure: any[]
 }
 
 
@@ -20,7 +21,6 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
     const handleClose = () => setShow(false);
 
     const [stepIndex, setStepIndex] = useState(0)
-
 
     const addStepIndex = (otherOperand: number) => {
         // Although extremely, extremely unlikely, avoid using functional setState as it can theoretically
@@ -57,6 +57,30 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
         </Button></div>)
 
 
+    let codeLines = codeNavigationGuide.code.toString().split('\n')
+    let parsedCodeLines = ""
+    let ignoreLine = false
+    for (let i = 0; i < codeLines.length; i++) {
+        const line = codeLines[i]
+
+        if (line.includes("__hidden")) {
+            ignoreLine = true
+        } else if (ignoreLine) {
+            if (line.includes("});")){
+                // We know that the hidden statement ends here
+                ignoreLine = false
+
+                // Skip next element due to an additional newline created automatically from these hidden calls
+                // MAY CAUSE BUGS
+                ++i;
+            }
+        } else {
+            parsedCodeLines += line + "\n"
+        }
+    }
+
+    console.log(codeNavigationGuide)
+
     return (
         <div>
             <Container>
@@ -67,7 +91,7 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
                         <Row>
                             <Col style={{width: 100}}>
                                 <CodeBlock
-                                    text={`const ${codeNavigationGuide.code.name} = ${codeNavigationGuide.code.toString()}`}
+                                    text={`const ${codeNavigationGuide.code.name} = ${parsedCodeLines}`}
                                     language={"js"}
                                     showLineNumbers={true}
                                     startingLineNumber={true}
@@ -78,11 +102,20 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
                             </Col>
 
                             <Col>
-                                <strong>Step {stepIndex+1}</strong>
-                                <br/>
-                                {currentStep().description}
-                                <br/>
-                                {"['mango'] -> [apple] -> [papaya] -> [orange] -> [lychee] -> [cherry] -> [banana] -> [bread] -> [pineapple] -> [] -> [] -> []"}
+
+                                {
+                                    codeNavigationGuide.steps.slice(0,stepIndex+1).map((step, index) => {
+
+                                        return (<div style={{marginBottom:15}}>
+                                            <strong>Step {index+1}</strong>
+                                            <br/>
+                                            {step.description}
+                                            <br/>
+                                            arr = [{step.dataStructure.toString()}]
+                                        </div>)
+                                    }).reverse()
+                                }
+
                             </Col>
 
 
