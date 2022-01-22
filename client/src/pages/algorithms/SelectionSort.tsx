@@ -1,8 +1,5 @@
 import CalculatorPage, {ExternalLink} from "../../components/CalculatorPage";
-import {useEffect} from "react";
 import {Step} from "../../components/CodeNavigator";
-
-const clonedeep = require('lodash.clonedeep');
 
 const SelectionSort = () => {
 
