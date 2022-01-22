@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "heroku-prebuild": "npm i -f",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install --dev typescript && npm install && npm run build"
   },
   "author": "henry",
   "license": "ISC",
