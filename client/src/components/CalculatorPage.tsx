@@ -9,14 +9,14 @@ export interface ExternalLink {
     url: string
 }
 
-export interface AlgorithmFrameProp {
+export interface CalculatorPageProp {
     description: string,
     codeNavigationGuide: CodeNavigationGuide,
     links: ExternalLink[],
     image?: string
 }
 
-const AlgorithmFrame = ({description, codeNavigationGuide, links, image}: AlgorithmFrameProp) => {
+const CalculatorPage = ({description, codeNavigationGuide, links, image}: CalculatorPageProp) => {
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
@@ -57,4 +57,4 @@ const AlgorithmFrame = ({description, codeNavigationGuide, links, image}: Algori
     );
 };
 
-export default AlgorithmFrame;
+export default CalculatorPage;

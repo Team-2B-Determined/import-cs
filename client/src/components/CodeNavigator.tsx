@@ -79,7 +79,10 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
                             </Col>
 
                             <Col>
+                                <strong>Step {stepIndex+1}</strong>
+                                <br/>
                                 {currentStep().description}
+                                <br/>
                                 {"['mango'] -> [apple] -> [papaya] -> [orange] -> [lychee] -> [cherry] -> [banana] -> [bread] -> [pineapple] -> [] -> [] -> []"}
                             </Col>
 

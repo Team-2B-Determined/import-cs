@@ -1,4 +1,4 @@
-import AlgorithmFrame, {ExternalLink} from "../../components/AlgorithmFrame";
+import CalculatorPage, {ExternalLink} from "../../components/CalculatorPage";
 
 const SelectionSort = () => {
     const selectionSort = (arr: number[]): number[] => {
@@ -33,7 +33,7 @@ const SelectionSort = () => {
     ]
 
     return (
-        <AlgorithmFrame
+        <CalculatorPage
             codeNavigationGuide={{
                 code: selectionSort,
                 steps: [{description: "adds stuff", lineNumber: "3"}, {description: "adds less", lineNumber: "4-6"}]
