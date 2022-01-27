@@ -5,7 +5,7 @@
 # Installation
 - Clone the Repository
 ```
-$ git clone https://github.com/Team-2B-Determined/pern-template.git
+$ git clone https://github.com/Team-2B-Determined/import-cs.git
 ```
 - Navigate to the root directory in the command line and run the following command to install the package.json dependencies for the backend:
 ```
