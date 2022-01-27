@@ -28,9 +28,10 @@ const BinaryAddition = () => {
 
         </DropdownButton>
 
+
           <Form.Group className= "mb-3"
                       controlId= "exampleForm.ControlInput1">
-            <FormLabel> Input 2 </FormLabel>
+            <FormLabel> Input 4 </FormLabel>
             <FormControl type = "input" placeholder = "1111 0011 0111 1010" />
           </Form.Group>
 
