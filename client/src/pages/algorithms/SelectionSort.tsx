@@ -49,10 +49,10 @@ const SelectionSort = () => {
             url: "https://www.youtube.com/watch?v=g-PGLbMth_g"
         }
     ]
-
+    
+    selectionSort([81, -62, -92, 37, 85])
     return (
         <>
-            {selectionSort([81, -62, -92, 37, 85])}
             <CalculatorPage
                 codeNavigationGuide={{
                     code: selectionSort,
