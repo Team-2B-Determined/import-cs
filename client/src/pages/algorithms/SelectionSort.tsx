@@ -8,9 +8,8 @@ const SelectionSort = () => {
     const selectionSort = (arr: number[]): any[] => {
         for (let i = 0; i < (arr.length - 1); i++) {
             __hiddenSteps.push({
-                dataStructure: [...arr],
                 lineNumber: "3",
-                description: `The minimum index is initialized to ${i} as its element is the smallest value we know as of this iteration`
+                description: `The minimum index is initialized to ${i} as the element at that index, ${arr[i]}, is the smallest value we know as of this iteration\nHey there`
             })
             let minInd = i
 
@@ -18,7 +17,6 @@ const SelectionSort = () => {
 
                 if (arr[j] < arr[minInd]) {
                     __hiddenSteps.push({
-                        dataStructure: [...arr],
                         lineNumber: "7",
                         description: `The current element ${arr[j]} is smaller than ${arr[minInd]}, so we want minInd to be ${arr[j]} now`
                     })
@@ -31,7 +29,6 @@ const SelectionSort = () => {
             }
         }
         __hiddenSteps.push({
-            dataStructure: [...arr],
             lineNumber: "16",
             description: `Finished! The array should look like`
         })
@@ -49,7 +46,7 @@ const SelectionSort = () => {
             url: "https://www.youtube.com/watch?v=g-PGLbMth_g"
         }
     ]
-    
+
     selectionSort([81, -62, -92, 37, 85])
     return (
         <>

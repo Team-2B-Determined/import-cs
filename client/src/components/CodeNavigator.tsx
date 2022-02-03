@@ -5,7 +5,6 @@ import {CodeBlock, irBlack} from "react-code-blocks";
 export interface Step {
     description: string,
     lineNumber: string,
-    dataStructure: any[]
 }
 
 
@@ -123,8 +122,6 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
                                             <strong>Step {index + 1}</strong>
                                             <br/>
                                             {step.description}
-                                            <br/>
-                                            arr = [{step.dataStructure.toString()}]
                                         </div>)
                                     }).reverse()
                                 }
