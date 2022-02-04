@@ -5,11 +5,19 @@ const SelectionSort = () => {
 
     const __hiddenSteps: Step[] = []
 
+    const displayArray = (arr: any, highlightAtIndexes?: number[]) => {
+        return [...arr].map((num, arrIndex) => highlightAtIndexes?.includes(arrIndex) ? <>
+            <strong>{num}</strong>, </> : num + ", ")
+    }
+
     const selectionSort = (arr: number[]): any[] => {
         for (let i = 0; i < (arr.length - 1); i++) {
             __hiddenSteps.push({
                 lineNumber: "3",
-                description: `The minimum index is initialized to ${i} as the element at that index, ${arr[i]}, is the smallest value we know as of this iteration\nHey there`
+                description: <>minInd is initialized to {i} as the element at that index, {arr[i]}, is the
+                    smallest value we know as of this iteration <br/>
+                    arr=[{displayArray(arr, [i])}]
+                </>
             })
             let minInd = i
 
@@ -17,20 +25,39 @@ const SelectionSort = () => {
 
                 if (arr[j] < arr[minInd]) {
                     __hiddenSteps.push({
-                        lineNumber: "7",
-                        description: `The current element ${arr[j]} is smaller than ${arr[minInd]}, so we want minInd to be ${arr[j]} now`
+                        lineNumber: "6-8",
+                        description: <>The current element, {arr[j]}, is less than {arr[minInd]}, so we set minInd
+                            to {j} now <br/>
+                            arr=[{displayArray(arr, [j])}]
+                        </>
                     })
                     minInd = j
                 }
             }
 
             if (minInd !== i) {
-                [arr[i], arr[minInd]] = [arr[minInd], arr[i]];
+                __hiddenSteps.push({
+                    lineNumber: "11-13",
+                    description: <>Swap the elements between indexes {i} and {minInd} since a smaller element was found<br/>
+                        arr=[{displayArray(arr, [i, minInd])}]
+                    </>
+                })
+                arr[i], arr[minInd] = arr[minInd], arr[i]
+            } else {
+                __hiddenSteps.push({
+                    lineNumber: "13-15",
+                    description: <>A smaller element than {arr[i]} was not found<br/>
+                        arr=[{displayArray(arr, [i])}]
+                    </>
+                })
+                console.log("No need to swap!")
             }
         }
         __hiddenSteps.push({
-            lineNumber: "16",
-            description: `Finished! The array should look like`
+            lineNumber: "18",
+            description: <>Finished! The array is now sorted!<br/>
+                arr=[{displayArray(arr)}]
+            </>
         })
         return arr
     }

@@ -3,7 +3,7 @@ import {useState} from "react";
 import {CodeBlock, irBlack} from "react-code-blocks";
 
 export interface Step {
-    description: string,
+    description: string | JSX.Element,
     lineNumber: string,
 }
 
@@ -121,7 +121,7 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
                                         return (<div style={{marginBottom: 15}}>
                                             <strong>Step {index + 1}</strong>
                                             <br/>
-                                            {step.description}
+                                                {step.description}
                                         </div>)
                                     }).reverse()
                                 }
