@@ -19,6 +19,7 @@ import {Route, Switch} from "react-router-dom";
 import Layout from "./layout/Layout";
 import {DarkModeContext} from "./context/DarkModeProvider";
 import Search from "./pages/Search";
+import OtherFeatures from "./pages/OtherFeatures";
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
             <Route path="/history"> <History/> </Route>
             <Route path="/selectionsort"><SelectionSort/></Route>
             <Route path="/binarysearchtree"><BinarySearchTree/></Route>
+            <Route path="/otherFeatures"><OtherFeatures/></Route>
           </Switch>
         </Container>
       </Layout>
