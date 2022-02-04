@@ -2,10 +2,10 @@
 
 --\c pernstack
 DROP TABLE todo;
-DROP TABLE font;
-DROP TABLE keyboardMap;
-DROP TABLE historyEntry;
-DROP TABLE "user";
+DROP TABLE fonts;
+DROP TABLE keyboardMaps;
+DROP TABLE historyEntries;
+DROP TABLE "users";
 
 
 CREATE TABLE todo(
@@ -13,7 +13,7 @@ CREATE TABLE todo(
   description VARCHAR(255)
 );
 
-CREATE TABLE "user"(
+CREATE TABLE "users"(
     user_id SERIAL PRIMARY KEY,
     email VARCHAR(100) NOT NULL,
     accountCreated TIMESTAMP NOT NULL,
@@ -21,15 +21,15 @@ CREATE TABLE "user"(
     darkMode BOOL
 );
 
-CREATE TABLE historyEntry(
+CREATE TABLE historyEntries(
     user_id INT,
     queue INT,
     feature VARCHAR(40),
     PRIMARY KEY (user_id, queue),
-    FOREIGN KEY (user_id) REFERENCES "user"(user_id)
+    FOREIGN KEY (user_id) REFERENCES "users"(user_id)
 );
 
-CREATE TABLE keyboardMap(
+CREATE TABLE keyboardMaps(
     user_id INT,
     home CHAR,
     algorithms CHAR,
@@ -38,17 +38,17 @@ CREATE TABLE keyboardMap(
     dataStructures CHAR,
     history CHAR,
     PRIMARY KEY (user_id),
-    FOREIGN KEY (user_id) REFERENCES "user"(user_id)
+    FOREIGN KEY (user_id) REFERENCES "users"(user_id)
 );
 
-CREATE TABLE font(
+CREATE TABLE fonts(
     user_id INT,
     name VARCHAR (25),
     size INT,
     PRIMARY KEY (user_id),
-    FOREIGN KEY (user_id) REFERENCES "user"(user_id)
+    FOREIGN KEY (user_id) REFERENCES "users"(user_id)
 );
 
-INSERT INTO "user"(user_id, email, accountCreated, password, darkMode)
+INSERT INTO "users"(user_id, email, accountCreated, password, darkMode)
 VALUES(1, 'testAccount@yahoo.com', '2022-02-04', '123456789',True)
 
