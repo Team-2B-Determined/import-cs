@@ -37,15 +37,17 @@ const SelectionSort = () => {
 
             if (minInd !== i) {
                 __hiddenSteps.push({
-                    lineNumber: "11-13",
+                    lineNumber: "12-14",
                     description: <>Swap the elements between indexes {i} and {minInd} since a smaller element was found<br/>
                         arr=[{displayArray(arr, [i, minInd])}]
                     </>
                 })
-                arr[i], arr[minInd] = arr[minInd], arr[i]
+                const temp = arr[minInd];
+                arr[minInd] = arr[i];
+                arr[i] = temp;
             } else {
                 __hiddenSteps.push({
-                    lineNumber: "13-15",
+                    lineNumber: "15-17",
                     description: <>A smaller element than {arr[i]} was not found<br/>
                         arr=[{displayArray(arr, [i])}]
                     </>
