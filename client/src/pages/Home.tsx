@@ -7,9 +7,9 @@ import DataStructures from "./datastructures/DataStructures";
 const Home = () => {
   return (
       <div>
-          <Container>
+          <Container fluid>
               <Row>
-                  <Col>
+                  <Col xs={8} sm={6} md={4} lg={true}>
                       <Card>
                           <Card.Img variant="top" src={Logo} />
                           <Card.Body>
@@ -18,20 +18,30 @@ const Home = () => {
                           </Card.Body>
                       </Card>
                   </Col>
-                  <Col xs={8}>
+                  <Col sm={12} lg={8}>
                       <Card>
                           <Card.Body>
                               <Tabs defaultActiveKey="algorithms" id="home-quick-access" className="mb-3">
                                   <Tab eventKey="algorithms" title="Algorithms">
+                                      <a href={"/algorithms"}>View Main Page</a>
                                       <Algorithms/>
                                   </Tab>
                                   <Tab eventKey="datastructures" title="Data Structures">
+                                      <a href={"/datastructures"}>View Main Page</a>
                                       <DataStructures/>
                                   </Tab>
                                   <Tab eventKey="more" title="More">
-                                      <div>Link to conversions?</div>
-                                      <div>Link to calculations?</div>
-                                      <div>Link to external resources?</div>
+                                      <div>Links to:</div>
+                                      <p>
+                                          <a href={"/calculations"}>Calculations Page</a>
+                                      </p>
+                                      <p>
+                                          <a href={"/conversions"}>Conversions Page</a>
+                                      </p>
+                                      <div>External Resources:</div>
+                                      <p>
+                                          <a href={"https://www.w3schools.com/bootstrap5/index.php"}>W3 Schools</a>
+                                      </p>
                                   </Tab>
                                   <Tab eventKey="about" title="About">
                                       <div>import CS</div>

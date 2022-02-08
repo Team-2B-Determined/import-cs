@@ -3,9 +3,8 @@ import {useState} from "react";
 import {CodeBlock, irBlack} from "react-code-blocks";
 
 export interface Step {
-    description: string,
+    description: string | JSX.Element,
     lineNumber: string,
-    dataStructure: any[]
 }
 
 
@@ -22,21 +21,34 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
 
     const [stepIndex, setStepIndex] = useState(0)
 
+    const setStepToStart = () => {
+        setStepIndex(0)
+    }
+
+    const setStepToEnd = () => {
+        setStepIndex(codeNavigationGuide.steps.length - 1)
+    }
+
     const addStepIndex = (otherOperand: number) => {
         // Although extremely, extremely unlikely, avoid using functional setState as it can theoretically
         // bypass if conditional when function is triggered too quickly due to its asynchronous nature
         const newIndex = stepIndex + otherOperand
-        if (newIndex < codeNavigationGuide.steps.length && newIndex >= 0) {
+        if (newIndex >= codeNavigationGuide.steps.length) {
+            setStepToEnd()
+        } else if (newIndex < 0) {
+            setStepToStart()
+        } else {
             setStepIndex(newIndex)
         }
     }
 
     const currentStep = () => codeNavigationGuide.steps[stepIndex]
 
-    const StepsNavigation = () => (<div><Button variant="outline-primary" size="sm">
-        <img src="https://static.thenounproject.com/png/1297552-200.png" width="25" height="25"/><br/>
-    </Button>
-        <Button variant="outline-primary" size="sm">
+    const StepsNavigation = () => (<div>
+        <Button variant="outline-primary" size="sm" onClick={setStepToStart}>
+            <img src="https://static.thenounproject.com/png/1297552-200.png" width="25" height="25"/><br/>
+        </Button>
+        <Button variant="outline-primary" size="sm" onClick={() => addStepIndex(-5)}>
             <img src="https://www.vhv.rs/dpng/d/437-4375289_rewind-arrow-svg-png-icon-free-download-rewind.png"
                  width="25" height="25"/><br/>
         </Button>
@@ -48,11 +60,11 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
         <Button variant="outline-primary" size="sm" onClick={() => addStepIndex(1)}>
             <img src="https://static.thenounproject.com/png/74838-200.png" width="25" height="25"/><br/>
         </Button>
-        <Button variant="outline-primary" size="sm">
+        <Button variant="outline-primary" size="sm" onClick={() => addStepIndex(5)}>
             <img src="https://cdn0.iconfinder.com/data/icons/playback-1/24/fast-forward-512.png" width="25"
                  height="25"/><br/>
         </Button>
-        <Button variant="outline-primary" size="sm">
+        <Button variant="outline-primary" size="sm" onClick={setStepToEnd}>
             <img src="https://static.thenounproject.com/png/1297558-200.png" width="25" height="25"/><br/>
         </Button></div>)
 
@@ -66,7 +78,7 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
         if (line.includes("__hidden")) {
             ignoreLine = true
         } else if (ignoreLine) {
-            if (line.includes("});")){
+            if (line.includes("});")) {
                 // We know that the hidden statement ends here
                 ignoreLine = false
 
@@ -104,14 +116,12 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
                             <Col>
 
                                 {
-                                    codeNavigationGuide.steps.slice(0,stepIndex+1).map((step, index) => {
+                                    codeNavigationGuide.steps.slice(0, stepIndex + 1).map((step, index) => {
 
-                                        return (<div style={{marginBottom:15}}>
-                                            <strong>Step {index+1}</strong>
+                                        return (<div style={{marginBottom: 15}}>
+                                            <strong>Step {index + 1}</strong>
                                             <br/>
-                                            {step.description}
-                                            <br/>
-                                            arr = [{step.dataStructure.toString()}]
+                                                {step.description}
                                         </div>)
                                     }).reverse()
                                 }

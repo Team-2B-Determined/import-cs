@@ -1,55 +1,92 @@
-import {Button, Col, Form, Row} from "react-bootstrap";
+import React, {Component, useState} from "react";
+import {Button, Col, Dropdown, DropdownButton, Form, Row} from "react-bootstrap";
+import BinaryToDecimal from "./tobinary/BinaryToDecimal";
 
 const Conversions = () => {
-  return (
-    <div>
-        <h1>Conversions Page</h1>
-        <Form>
-            <Row>
-                <Form.Group as={Col} controlId="formGridInputType">
-                    <Form.Label>Input Type:</Form.Label>
-                    <Form.Select aria-label="InputConversionType">
-                        <option>Binary</option>
-                        <option>Decimal</option>
-                        <option>Hexadecimal</option>
-                    </Form.Select>
-                </Form.Group>
-                <Form.Group as={Col} controlId="formGridOutputType">
-                    <Form.Label>Output Type:</Form.Label>
-                    <Form.Select aria-label="OutputConversionType">
-                        <option>Binary</option>
-                        <option>Decimal</option>
-                        <option>Hexadecimal</option>
-                    </Form.Select>
-                </Form.Group>
-            </Row>
-            <Row>
-                <Form.Group as={Col} controlId="formGridInputBox">
-                    <Form.Label>Input Value:</Form.Label>
-                    <Form.Control type="string" placeholder="10110101" />
-                </Form.Group>
-                <Form.Group as={Col} controlId="formGridOutputBox">
-                    <Form.Label>Output Value:</Form.Label>
-                    <Form.Control type="string" placeholder="Readonly converted output value here..." readOnly />
-                </Form.Group>
-            </Row>
-            <Button variant="primary" type="submit">
-                Convert
-            </Button>
+    const [inputType, setInputType] = useState<string>("Binary")
+    const [outputType, setOutputType] = useState<string>("Binary")
+    const [inputValue, setInputValue] = useState<string>("")
+    const [outputValue, setOutputValue] = useState<string>("")
+    const [showConversion, setShowConversion] = useState<boolean>(false)
 
-            <Form.Group controlId="Explanation">
-                <Form.Label>Explanation:</Form.Label>
-                <Form.Control plaintext readOnly defaultValue="Lorem ipsum..." />
-                <Button variant="primary" type="submit">
-                    Next Step
+    const handleInputSelect = (e) => {
+        setShowConversion(false)
+        setOutputValue("")
+        setInputType(e.target.value)
+    }
+    const handleOutputSelect = (e) => {
+        setShowConversion(false)
+        setOutputValue("")
+        setOutputType(e.target.value)
+    }
+    const handleInputValue = (e) => {
+        setShowConversion(false)
+        setOutputValue("")
+        setInputValue(e.target.value)
+    }
+    const onSubmitClick = (e) => {
+        e.preventDefault()
+        setShowConversion(true)
+    }
+    const showOutput = () => {
+        if (!showConversion)
+            return null
+        if (inputType === "Binary") {
+            if (outputType === "Decimal") {
+                return <BinaryToDecimal inputType={inputType} outputType={outputType} inputValue={inputValue} setOutputValue={setOutputValue}/>
+            }
+        }
+    }
+
+    return (
+        <div>{showOutput()}
+            <h1>Conversions Page {inputType} {outputType} {inputValue}</h1>
+            <Form>
+                <Row>
+                    <Form.Group as={Col} controlId="formGridInputType">
+                        <Form.Label>Input Type:</Form.Label>
+                        <Form.Select aria-label="OutputConversionType" onChange={handleInputSelect}>
+                            <option>Binary</option>
+                            <option>Decimal</option>
+                            <option>Hexadecimal</option>
+                        </Form.Select>
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formGridOutputType">
+                        <Form.Label>Output Type:</Form.Label>
+                        <Form.Select aria-label="OutputConversionType" onChange={handleOutputSelect}>
+                            <option>Binary</option>
+                            <option>Decimal</option>
+                            <option>Hexadecimal</option>
+                        </Form.Select>
+                    </Form.Group>
+                </Row>
+                <Row>
+                    <Form.Group as={Col} controlId="formGridInputBox">
+                        <Form.Label>Input Value:</Form.Label>
+                        <Form.Control type="string" placeholder="10110101" onChange={handleInputValue}/>
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formGridOutputBox">
+                        <Form.Label>Output Value:</Form.Label>
+                        <Form.Control type="string" value={outputValue} placeholder="Readonly converted output value here..." readOnly/>
+                    </Form.Group>
+                </Row>
+                <Button variant="primary" type="submit" onClick={onSubmitClick}>
+                    Convert
                 </Button>
-                <Button variant="primary" type="submit">
-                    Show All Steps
-                </Button>
-            </Form.Group>
-        </Form>
-    </div>
-  );
+
+                <Form.Group controlId="Explanation">
+                    <Form.Label>Explanation:</Form.Label>
+                    <Form.Control plaintext readOnly defaultValue="Lorem ipsum..."/>
+                    <Button variant="primary" type="submit">
+                        Next Step
+                    </Button>
+                    <Button variant="primary" type="submit">
+                        Show All Steps
+                    </Button>
+                </Form.Group>
+            </Form>
+        </div>
+    );
 };
 
 export default Conversions;
