@@ -10,7 +10,7 @@ const Computations = () => {
         </h1>
       <div>
         <h5>
-        Performing Binary Computations <Badge> New </Badge>
+         Binary Computations-Add, Subtract, Multiply, or Divide <Badge> New </Badge>
         </h5>
         <BinaryAddition />
       </div>
