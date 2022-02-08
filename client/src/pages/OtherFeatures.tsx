@@ -6,8 +6,8 @@ import Algorithms from "./algorithms/Algorithms";
 import DataStructures from "./datastructures/DataStructures";
 import React, {useContext, useState} from "react";
 import {DarkModeContext} from "../context/DarkModeProvider";
-import {ThemeContext, themes} from '../context/ThemeContext';
-import ThemeButton from '../components/ThemeButton';
+// import {ThemeContext, themes} from '../context/ThemeContext';
+// import ThemeButton from '../components/ThemeButton';
 
 const OtherFeatures = () => {
     function Toolbar(props) {
