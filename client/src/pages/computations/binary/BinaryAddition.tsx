@@ -1,4 +1,4 @@
-import {Dropdown, Row, Col ,DropdownButton, Form, FormControl, FormLabel,} from "react-bootstrap";
+import {Dropdown, Row, Col, DropdownButton, Form, FormControl, FormLabel, Button,} from "react-bootstrap";
 
 const BinaryAddition = () => {
     return <div>
@@ -24,6 +24,13 @@ const BinaryAddition = () => {
                 <FormControl type = "input" placeholder = "1111 0011 0111 1010" />
             </Form.Group>
 
+
+        <Button variant="primary" type="submit" >
+            Calculate
+        </Button>
+            <Button variant="outline-primary" type="submit" >
+                Clear
+            </Button>
 
 
             <Form.Group className= "mb-3"
