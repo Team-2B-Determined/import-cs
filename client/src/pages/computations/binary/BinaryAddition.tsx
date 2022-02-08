@@ -36,13 +36,14 @@ const BinaryAddition = () => {
             <Form.Group className= "mb-3"
                         controlId= "exampleForm.ControlInput1">
                 <FormLabel> Binary Value </FormLabel>
-                <FormControl type = "output" placeholder = "answer" />
+                <FormControl type = "output" placeholder = "answer ?" />
             </Form.Group>
+
 
             <Form.Group className= "mb-3"
                         controlId= "exampleForm.ControlInput1">
                 <FormLabel> Decimal Value </FormLabel>
-                <FormControl type = "output" placeholder = "answer" />
+                <FormControl type = "output" placeholder = "answer ?" />
             </Form.Group>
 
 
