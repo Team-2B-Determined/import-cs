@@ -1,9 +1,9 @@
 export {}
 const {DataTypes} = require('sequelize');
 const db = require('../dataAccess/db-sequelize');
-const historyEntry = require('./HistoryEntry');
-const font = require('./Font');
-const keyboardMaps = require('./KeyboardMaps')
+//const historyEntry = require('./HistoryEntry');
+//const font = require('./Font');
+//const keyboardMaps = require('./KeyboardMaps')
 
 
 const User = db.define('User', {
@@ -39,6 +39,7 @@ const User = db.define('User', {
     }
 );
 
+/*
 User.hasMany(historyEntry, {
     foreignKey: 'user_id'
 });
@@ -48,5 +49,5 @@ User.hasOne(font, {
 User.hasOne(keyboardMaps, {
     foreignKey: 'user_id'
 });
-
-module.exports.User = User;
+*/
+export default User;
