@@ -3,17 +3,17 @@
 
 import {Table} from "react-bootstrap";
 
-interface Row {
+export interface HistoryRow {
     calculationFeature: "Algorithms" | "Computations" | "Conversions" | "Data Structures",
     input: string,
     link: string
 }
 
 
-const rows: Row[] = [
+const rows: HistoryRow[] = [
     {calculationFeature: "Computations", input: "(111)2 + (10101011)2", link: "/computations"}, {
         calculationFeature: "Computations",
-        input: "(11)2 + (1)2",
+        input: "(11)21)2",
         link: "/computations"
     }, {
         calculationFeature: "Algorithms",
@@ -27,7 +27,21 @@ const rows: Row[] = [
 ]
 
 
-const History = () => {
+const History = ({historyRows}:{historyRows:HistoryRow[]|undefined}) => {
+    const HistoryRows = () => {
+        if (historyRows) {
+          return <>
+              {historyRows?.map((e, i) => <tr>
+                  <td>{i + 1}</td>
+                  <td>{e.calculationFeature}</td>
+                  <td>{e.input}</td>
+                  <td>{e.link}</td>
+              </tr>)}
+          </>
+        }
+        return <>History is empty. Use a calculator feature to populate it!</>
+    }
+
     return <>
         <Table striped bordered hover>
             <thead>
@@ -39,12 +53,7 @@ const History = () => {
             </tr>
             </thead>
             <tbody>
-            {rows.map((e, i) => <tr>
-                <td>{i + 1}</td>
-                <td>{e.calculationFeature}</td>
-                <td>{e.input}</td>
-                <td>{e.link}</td>
-            </tr>)}
+            <HistoryRows/>
             </tbody>
         </Table>
     </>;
