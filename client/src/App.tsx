@@ -57,7 +57,7 @@ function App() {
             <Route path="/login"> <Login/> </Route>
             <Route path="/register"> <Register/> </Route>
             <Route path="/account"> <Account/> </Route>
-            <Route path="/history"> <History historyRows={historyRows}/> </Route>
+            <Route path="/history"> <History /> </Route>
             <Route path="/selectionsort"><SelectionSort /></Route>
             <Route path="/binarysearchtree"><BinarySearchTree/></Route>
             <Route path="/otherFeatures"><OtherFeatures/></Route>

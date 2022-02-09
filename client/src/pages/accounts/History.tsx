@@ -27,7 +27,9 @@ const rows: HistoryRow[] = [
 ]
 
 
-const History = ({historyRows}:{historyRows:HistoryRow[]|undefined}) => {
+const History = () => {
+    const historyRows = JSON.parse(localStorage.getItem("historyRows") || "[]");
+
     const HistoryRows = () => {
         if (historyRows) {
           return <>
