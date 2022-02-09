@@ -1,6 +1,6 @@
 export {}
 const {DataTypes} = require('sequelize');
-const db = require('../../../db-sequelize');
+const db = require('../dataAccess/db-sequelize');
 const historyEntry = require('./HistoryEntry');
 const font = require('./Font');
 const keyboardMaps = require('./KeyboardMaps')

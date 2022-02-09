@@ -9,7 +9,7 @@ require("dotenv").config();
 //   port: process.env.PG_PORT,
 // };
 
-const db = require('./db-sequelize');
+const db = require('./client/src/dataAccess/db-sequelize');
 
 console.log('Database attempting connection...')
 db.authenticate()

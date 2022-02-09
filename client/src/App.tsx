@@ -11,6 +11,7 @@ import Account from "./pages/accounts/Account";
 import History from "./pages/accounts/History";
 import SelectionSort from "./pages/algorithms/SelectionSort";
 import BinarySearchTree from "./pages/datastructures/BinarySearchTree";
+import Test from "./pages/Test"
 
 import {Container} from "react-bootstrap";
 import {Route, Switch} from "react-router-dom";
@@ -43,6 +44,7 @@ function App() {
             <Route path="/history"> <History/> </Route>
             <Route path="/selectionsort"><SelectionSort/></Route>
             <Route path="/binarysearchtree"><BinarySearchTree/></Route>
+            <Route path="/test"><Test/></Route>
           </Switch>
         </Container>
       </Layout>
