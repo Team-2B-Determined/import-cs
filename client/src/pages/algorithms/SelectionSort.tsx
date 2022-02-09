@@ -77,6 +77,13 @@ const SelectionSort = () => {
     ]
 
     selectionSort([81, -62, -92, 37, 85])
+
+    const historyRows = JSON.parse(localStorage.getItem("historyRows") || "[]");
+    historyRows.push({calculationFeature: "C123123omputations", input: "(111)2 + (10101011)2", link: "/computations"});
+
+    console.log(historyRows)
+    localStorage.setItem("historyRows", JSON.stringify(historyRows));
+
     return (
         <>
             <CalculatorPage
