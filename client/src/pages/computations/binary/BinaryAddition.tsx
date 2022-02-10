@@ -1,6 +1,11 @@
-import { Form, FormControl, FormLabel, Button,} from "react-bootstrap";
+import { Form, FormControl, FormLabel, Button,Offcanvas} from "react-bootstrap";
+import React, {Component, useState} from "react";
 
 const BinaryAddition = () => {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     return <div>
 
         <Form>
@@ -10,7 +15,7 @@ const BinaryAddition = () => {
                 <FormControl type = "input" placeholder = "1001 0011 0101 0010" />
             </Form.Group>
 
-            <Form.Select aria-label="Default select example">
+            <Form.Select aria-label ="Default select example">
                 <option value="+">+</option>
                 <option value="-"> - </option>
                 <option value="×">×</option>
@@ -40,6 +45,21 @@ const BinaryAddition = () => {
             </Form.Group>
 
 
+            <Button variant="primary" onClick={handleShow}>
+                Show Detail
+            </Button>
+            <Offcanvas show={show} onHide={handleClose}>
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title>Full Explanation</Offcanvas.Title>
+                </Offcanvas.Header>
+                Binary Value
+                <Offcanvas.Body>
+                    Testing Off Canvas
+                </Offcanvas.Body>
+            </Offcanvas>
+
+
+
             <Form.Group className= "mb-3"
                         controlId= "exampleForm.ControlInput1">
                 <FormLabel> Decimal Value </FormLabel>
@@ -47,6 +67,27 @@ const BinaryAddition = () => {
             </Form.Group>
 
 
+            <Button variant="primary" onClick={handleShow}>
+                Show Detail
+            </Button>
+            <Offcanvas show={show} onHide={handleClose}>
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title>Full Explanation</Offcanvas.Title>
+                </Offcanvas.Header>
+
+                <Offcanvas.Body>
+                    Decimal Value:
+                    <br/>
+                    <br/>
+                    Example:
+                    <br/>
+                    <br/>
+                    170 + 204
+                    <br/>
+                    = 374 (Answer)
+                </Offcanvas.Body>
+            </Offcanvas>
+            <br/><br/>
 
         </Form>
 
