@@ -10,13 +10,14 @@ export interface ExternalLink {
 }
 
 export interface CalculatorPageProp {
+    title: string,
     description: string,
     codeNavigationGuide: CodeNavigationGuide,
     links: ExternalLink[],
     image?: string
 }
 
-const CalculatorPage = ({description, codeNavigationGuide, links, image}: CalculatorPageProp) => {
+const CalculatorPage = ({title, description, codeNavigationGuide, links, image}: CalculatorPageProp) => {
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
@@ -29,7 +30,7 @@ const CalculatorPage = ({description, codeNavigationGuide, links, image}: Calcul
             </Button>
             <br/><br/>
 
-            <h3>{startCase(codeNavigationGuide.code.name)}</h3>
+            <h3>{startCase(title)}</h3>
             {image ? <img src={image} width="50" height="50"/> : null}<br/>
 
 
@@ -38,7 +39,7 @@ const CalculatorPage = ({description, codeNavigationGuide, links, image}: Calcul
             <Offcanvas show={show} onHide={handleClose} placement={'end'}>
                 <Offcanvas.Header>
                     <Offcanvas.Title>
-                        <h3>{startCase(codeNavigationGuide.code.name)}</h3>
+                        <h3>{startCase(title)}</h3>
                     </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>

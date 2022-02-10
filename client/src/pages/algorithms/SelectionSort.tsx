@@ -1,18 +1,19 @@
 import CalculatorPage, {ExternalLink} from "../../components/CalculatorPage";
 import {Step} from "../../components/CodeNavigator";
+import displayCodes from "../../codeDisplays";
 
 const SelectionSort = () => {
 
-    const __hiddenSteps: Step[] = []
+    const steps: Step[] = []
 
     const displayArray = (arr: any, highlightAtIndexes?: number[]) => {
         return [...arr].map((num, arrIndex) => highlightAtIndexes?.includes(arrIndex) ? <>
             <strong>{num}</strong>, </> : num + ", ")
     }
 
-    const selectionSort = (arr: number[]): any[] => {
+    const _selectionSort = (arr: number[]): any[] => {
         for (let i = 0; i < (arr.length - 1); i++) {
-            __hiddenSteps.push({
+            steps.push({
                 lineNumber: "3",
                 description: <>minInd is initialized to {i} as the element at that index, {arr[i]}, is the
                     smallest value we know as of this iteration <br/>
@@ -24,8 +25,8 @@ const SelectionSort = () => {
             for (let j = (i + 1); j < arr.length; j++) {
 
                 if (arr[j] < arr[minInd]) {
-                    __hiddenSteps.push({
-                        lineNumber: "6-8",
+                    steps.push({
+                        lineNumber: "5-7",
                         description: <>The current element, {arr[j]}, is less than {arr[minInd]}, so we set minInd
                             to {j} now <br/>
                             arr=[{displayArray(arr, [j])}]
@@ -36,8 +37,8 @@ const SelectionSort = () => {
             }
 
             if (minInd !== i) {
-                __hiddenSteps.push({
-                    lineNumber: "12-14",
+                steps.push({
+                    lineNumber: "11-13",
                     description: <>Swap the elements between indexes {i} and {minInd} since a smaller element was found<br/>
                         arr=[{displayArray(arr, [i, minInd])}]
                     </>
@@ -46,8 +47,8 @@ const SelectionSort = () => {
                 arr[minInd] = arr[i];
                 arr[i] = temp;
             } else {
-                __hiddenSteps.push({
-                    lineNumber: "15-17",
+                steps.push({
+                    lineNumber: "14-16",
                     description: <>A smaller element than {arr[i]} was not found<br/>
                         arr=[{displayArray(arr, [i])}]
                     </>
@@ -55,7 +56,7 @@ const SelectionSort = () => {
                 console.log("No need to swap!")
             }
         }
-        __hiddenSteps.push({
+        steps.push({
             lineNumber: "18",
             description: <>Finished! The array is now sorted!<br/>
                 arr=[{displayArray(arr)}]
@@ -76,20 +77,20 @@ const SelectionSort = () => {
         }
     ]
 
-    selectionSort([81, -62, -92, 37, 85])
+    _selectionSort([81, -62, -92, 37, 85])
 
     const historyRows = JSON.parse(localStorage.getItem("historyRows") || "[]");
     historyRows.push({calculationFeature: "C123123omputations", input: "(111)2 + (10101011)2", link: "/computations"});
 
-    console.log(historyRows)
     localStorage.setItem("historyRows", JSON.stringify(historyRows));
 
     return (
         <>
             <CalculatorPage
+                title={"Selection Sort"}
                 codeNavigationGuide={{
-                    code: selectionSort,
-                    steps: __hiddenSteps
+                    codeDisplay: displayCodes.selectionSort,
+                    steps: steps
                 }}
                 description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\n" +
                     "\t1) The subarray which is already sorted. \n" +
