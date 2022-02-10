@@ -6,6 +6,9 @@ export interface Parameters {
 }
 
 const BinaryToDecimal = ({inputType, outputType, inputValue, setOutputValue}: Parameters) => {
+  val = inputValue
+  
+
   setOutputValue("helloWorld")
   return <div>BinaryToDecimal</div>;
 };
