@@ -1,5 +1,5 @@
 import {Button, Nav, Offcanvas} from "react-bootstrap";
-import {useState} from "react";
+import {FC, ReactNode, useState} from "react";
 import CodeNavigator, {CodeNavigationGuide} from "./CodeNavigator";
 
 const startCase = require('lodash.startcase');
@@ -10,6 +10,8 @@ export interface ExternalLink {
 }
 
 export interface CalculatorPageProp {
+    showCalculation: boolean,
+    inputs: ReactNode,
     title: string,
     description: string,
     codeNavigationGuide: CodeNavigationGuide,
@@ -17,14 +19,15 @@ export interface CalculatorPageProp {
     image?: string
 }
 
-const CalculatorPage = ({title, description, codeNavigationGuide, links, image}: CalculatorPageProp) => {
+const CalculatorPage: FC<CalculatorPageProp> = ({showCalculation,inputs, title, description, codeNavigationGuide, links, image}) => {
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
 
+
     return (
         <div>
-
+            {}
             <Button variant="primary" onClick={handleShow}>
                 Show details
             </Button>
@@ -33,8 +36,8 @@ const CalculatorPage = ({title, description, codeNavigationGuide, links, image}:
             <h3>{startCase(title)}</h3>
             {image ? <img src={image} width="50" height="50"/> : null}<br/>
 
-
-            <CodeNavigator codeNavigationGuide={codeNavigationGuide}/>
+            {inputs}
+            {showCalculation ? <CodeNavigator codeNavigationGuide={codeNavigationGuide}/> : null}
 
             <Offcanvas show={show} onHide={handleClose} placement={'end'}>
                 <Offcanvas.Header>
