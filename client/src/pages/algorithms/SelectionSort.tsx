@@ -1,13 +1,10 @@
 import CalculatorPage, {ExternalLink} from "../../components/CalculatorPage";
 import {Step} from "../../components/CodeNavigator";
 import displayCodes from "../../codeDisplays";
-import {Button, Col, Container, Form, FormControl, InputGroup} from "react-bootstrap";
-import React, {useState} from "react";
 
 const SelectionSort = () => {
-    const [numbersInput, setNumbersInput] = useState<string>("")
-    const [showCalculation, setShowCalculation] = useState<boolean>(false)
 
+    const steps: Step[] = []
 
     const displayArray = (arr: any, highlightAtIndexes?: number[]) => {
         return [...arr].map((num, arrIndex) => highlightAtIndexes?.includes(arrIndex) ? <>
@@ -15,8 +12,6 @@ const SelectionSort = () => {
     }
 
     const _selectionSort = (arr: number[]): any[] => {
-        const steps: Step[] = []
-
         for (let i = 0; i < (arr.length - 1); i++) {
             steps.push({
                 lineNumber: "3",
@@ -44,8 +39,7 @@ const SelectionSort = () => {
             if (minInd !== i) {
                 steps.push({
                     lineNumber: "11-13",
-                    description: <>Swap the elements between indexes {i} and {minInd} since a smaller element was
-                        found<br/>
+                    description: <>Swap the elements between indexes {i} and {minInd} since a smaller element was found<br/>
                         arr=[{displayArray(arr, [i, minInd])}]
                     </>
                 })
@@ -68,7 +62,7 @@ const SelectionSort = () => {
                 arr=[{displayArray(arr)}]
             </>
         })
-        return steps
+        return arr
     }
 
 
@@ -83,45 +77,20 @@ const SelectionSort = () => {
         }
     ]
 
+    _selectionSort([81, -62, -92, 37, 85])
 
-    // const historyRows = JSON.parse(localStorage.getItem("historyRows") || "[]");
-    // historyRows.push({calculationFeature: "C123123omputations", input: "(111)2 + (10101011)2", link: "/computations"});
-    //
-    // localStorage.setItem("historyRows", JSON.stringify(historyRows));
+    const historyRows = JSON.parse(localStorage.getItem("historyRows") || "[]");
+    historyRows.push({calculationFeature: "C123123omputations", input: "(111)2 + (10101011)2", link: "/computations"});
 
-    let steps: any[] = _selectionSort(numbersInput.split(/[ ,]+/).map(e => Number(e)))
-    const handleSolve = () => {
-        steps = _selectionSort(numbersInput.split(/[ ,]+/).map(e => Number(e)))
-        setShowCalculation(true)
-    }
+    localStorage.setItem("historyRows", JSON.stringify(historyRows));
 
     return (
         <>
-
             <CalculatorPage
-                showCalculation={showCalculation}
-                inputs={<Container>
-                    <Col xs={6}>
-                        <InputGroup className="mb-3">
-                            <FormControl
-                                value={numbersInput}
-                                onChange={e => setNumbersInput(e.target.value)}
-                                placeholder="81 -62 -92 37 85"
-                                aria-label="81 -62 -92 37 85"
-                                aria-describedby="basic-addon2"
-                            />
-                            <Button variant="outline-secondary" id="button-addon2" onClick={handleSolve}>
-                                Solve
-                            </Button>
-                        </InputGroup>
-                    </Col>
-                    <Col>Enter a sequence of numbers separated with spaces " " or commas ","</Col>
-                </Container>}
                 title={"Selection Sort"}
                 codeNavigationGuide={{
                     codeDisplay: displayCodes.selectionSort,
                     steps: steps
-
                 }}
                 description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\n" +
                     "\t1) The subarray which is already sorted. \n" +
@@ -129,9 +98,7 @@ const SelectionSort = () => {
                     "In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray. "}
                 links={links}
                 image={"https://i.imgur.com/EerzUpo.png"}
-            >
-
-            </CalculatorPage>
+            />
         </>
 
 
