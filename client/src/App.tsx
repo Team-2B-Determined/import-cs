@@ -44,27 +44,27 @@ function App() {
 
   style?.setAttribute("href",isDarkMode ? 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/darkly/bootstrap.min.css' : 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/flatly/bootstrap.min.css')
   return (
-    <>
-      <Layout>
-        <Container>
-          <Switch>
-            <Route exact path="/"> <Home/> </Route>
-            <Route path="/algorithms"> <Algorithms /> </Route>
-            <Route path="/computations"> <Computations/> </Route>
-            <Route path="/conversions"> <Conversions/> </Route>
-            <Route path="/datastructures"> <DataStructures/> </Route>
-            <Route path="/search"> <Search/> </Route>
-            <Route path="/login"> <Login/> </Route>
-            <Route path="/register"> <Register/> </Route>
-            <Route path="/account"> <Account/> </Route>
-            <Route path="/history"> <History /> </Route>
-            <Route path="/selectionsort"><SelectionSort /></Route>
-            <Route path="/binarysearchtree"><BinarySearchTree/></Route>
-            <Route path="/otherFeatures"><OtherFeatures/></Route>
-          </Switch>
-        </Container>
-      </Layout>
-    </>
+      <>
+        <Layout>
+          <Container>
+            <Switch>
+              <Route exact path="/"> <Home/> </Route>
+              <Route path="/algorithms"> <Algorithms /> </Route>
+              <Route path="/computations"> <Computations/> </Route>
+              <Route path="/conversions"> <Conversions/> </Route>
+              <Route path="/datastructures"> <DataStructures/> </Route>
+              <Route path="/search"> <Search/> </Route>
+              <Route path="/login"> <Login/> </Route>
+              <Route path="/register"> <Register/> </Route>
+              <Route path="/account"> <Account/> </Route>
+              <Route path="/history"> <History /> </Route>
+              <Route path="/selectionsort"><SelectionSort /></Route>
+              <Route path="/binarysearchtree"><BinarySearchTree/></Route>
+              <Route path="/otherFeatures"><OtherFeatures/></Route>
+            </Switch>
+          </Container>
+        </Layout>
+      </>
   );
 }
 
