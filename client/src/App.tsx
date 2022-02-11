@@ -41,8 +41,11 @@ function App() {
   ]
   const [historyRows, setHistoryRows] = useState<HistoryRow[]>([])
   const style = document.getElementById('dark-mode')
+  if (localStorage.getItem('darkMode') == null) {
+    localStorage.setItem('darkMode', JSON.stringify(false) );
+  }
 
-  style?.setAttribute("href",isDarkMode ? 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/darkly/bootstrap.min.css' : 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/flatly/bootstrap.min.css')
+  style?.setAttribute("href", JSON.parse(localStorage.getItem('darkMode') || '') ? 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/darkly/bootstrap.min.css' : 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/flatly/bootstrap.min.css')
   return (
     <>
       <Layout>
