@@ -1,6 +1,6 @@
 export {}
 const {DataTypes} = require('sequelize');
-const db = require('../dataAccess/db-sequelize');
+const {db} = require('../Database/db');
 const user = require('./User');
 
 
@@ -23,7 +23,7 @@ const HistoryEntry = db.define('HistoryEntry', {
     {
         db,
         modelName: 'HistoryEntry',
-        timestamps: true
+        //timestamps: true
     }
 );
 

@@ -1,10 +1,10 @@
 export {}
 const {DataTypes} = require('sequelize');
-const db = require('../dataAccess/db-sequelize');
+const {db} = require('../Database/db');
 const user = require('./User');
 
 
-const KeyboardMaps = db.define('KeyboardMaps', {
+const Settings = db.define('Settings', {
     user_id: {
         type: DataTypes.INTEGER,
         primaryKey: true

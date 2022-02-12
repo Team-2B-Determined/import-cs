@@ -1,10 +1,10 @@
 export {}
 const {DataTypes} = require('sequelize');
-const db = require('../dataAccess/db-sequelize');
+const {db} = require('../Database/db');
 const user = require('./User');
 
 
-const Font = db.define('Font', {
+const Font1 = db.define('Font', {
     user_id: {
         type: DataTypes.INTEGER,
         primaryKey: true
@@ -26,6 +26,6 @@ const Font = db.define('Font', {
     }
 );
 
-Font.belongsTo(user);
+Font1.belongsTo(user);
 
-module.exports.Font = Font;
+module.exports.Font = Font1;
