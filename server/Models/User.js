@@ -45,8 +45,7 @@ User.hasOne(keyboardMaps, {
 });
 */
 //const x = User.sync({force: true});
-//const jane = User.create({ email: "Jane"});
-//const fred = User.create({ email: "Fred"});
+
 
 //sequelize define returns the model to User
 console.log(User === db.models.User)
