@@ -12,15 +12,20 @@ const Menu = () => {
   const DarkLightMode = () => {
     return <>
       <label className="switch">
-        <input className="checkbox" type="checkbox" checked={checked}
+        <input className="checkbox"
+               type="checkbox"
+               defaultChecked={JSON.parse(localStorage.getItem('darkMode') || '')}
                onChange={(event) => {
                  setChecked(event.currentTarget.checked)
                  setDarkMode(event.currentTarget.checked)
+                 localStorage.setItem('darkMode',JSON.stringify(!JSON.parse(localStorage.getItem('darkMode') || '')))
                }}/>
         <span className="slider"></span>
       </label>
     </>
   }
+
+
 
 
   return (

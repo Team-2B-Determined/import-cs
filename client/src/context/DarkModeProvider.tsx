@@ -9,7 +9,10 @@ interface AppContextInterface {
 export const DarkModeContext = createContext<AppContextInterface>({isDarkMode:false, setDarkMode: (val)=>{}});
 
 const DarkModeProvider:React.FC = ({ children }) => {
-    const [isDarkMode, setDarkMode] = useState<boolean>(false);
+    if (localStorage.getItem('darkMode') == null) {
+        localStorage.setItem('darkMode', JSON.stringify(false) );
+    }
+    const [isDarkMode, setDarkMode] = useState<boolean>(JSON.parse(localStorage.getItem('darkMode') || ''));
 
 
     // @ts-ignore

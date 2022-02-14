@@ -9,7 +9,7 @@ export interface Step {
 
 
 export interface CodeNavigationGuide {
-    code: Function,
+    codeDisplay: string,
     steps: Step[]
 }
 
@@ -69,29 +69,6 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
         </Button></div>)
 
 
-    let codeLines = codeNavigationGuide.code.toString().split('\n')
-    let parsedCodeLines = ""
-    let ignoreLine = false
-    for (let i = 0; i < codeLines.length; i++) {
-        const line = codeLines[i]
-
-        if (line.includes("__hidden")) {
-            ignoreLine = true
-        } else if (ignoreLine) {
-            if (line.includes("});")) {
-                // We know that the hidden statement ends here
-                ignoreLine = false
-
-                // Skip next element due to an additional newline created automatically from these hidden calls
-                // MAY CAUSE BUGS
-                ++i;
-            }
-        } else {
-            parsedCodeLines += line + "\n"
-        }
-    }
-
-    console.log(codeNavigationGuide)
 
     return (
         <div>
@@ -103,7 +80,7 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
                         <Row>
                             <Col style={{width: 100}}>
                                 <CodeBlock
-                                    text={`const ${codeNavigationGuide.code.name} = ${parsedCodeLines}`}
+                                    text={codeNavigationGuide.codeDisplay}
                                     language={"js"}
                                     showLineNumbers={true}
                                     startingLineNumber={true}

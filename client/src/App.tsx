@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React from "react";
 
 import Home from "./pages/Home";
 import Algorithms from "./pages/algorithms/Algorithms";
@@ -8,64 +8,70 @@ import DataStructures from "./pages/datastructures/DataStructures";
 import Login from "./pages/accounts/Login";
 import Register from "./pages/accounts/Register";
 import Account from "./pages/accounts/Account";
-import History, {HistoryRow} from "./pages/accounts/History";
+import History from "./pages/accounts/History";
 import SelectionSort from "./pages/algorithms/SelectionSort";
 import BinarySearchTree from "./pages/datastructures/BinarySearchTree";
 
 import {Container} from "react-bootstrap";
-import {Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
+import hotkeys from "hotkeys-js";
+// import useNavigate from "react-router-dom";
 
 // Layout
 import Layout from "./layout/Layout";
-import {DarkModeContext} from "./context/DarkModeProvider";
 import Search from "./pages/Search";
 import OtherFeatures from "./pages/OtherFeatures";
 
 
 function App() {
-  const {isDarkMode} = useContext(DarkModeContext)
-  const rows: HistoryRow[] = [
-    {calculationFeature: "Computations", input: "(111)2 + (10101011)2", link: "/computations"}, {
-      calculationFeature: "Computations",
-      input: "(1lollll+ (1)2",
-      link: "/computations"
-    }, {
-      calculationFeature: "Algorithms",
-      input: "SelectionSort([222,9719,719,17,91,1621,910,5])",
-      link: "/algorithms"
-    }, {
-      calculationFeature: "Data Structures",
-      input: "Linked List([222,9719,719,17,91,1621,910,5])",
-      link: "/datastructures"
-    }, {calculationFeature: "Conversions", input: "(1101)2 =>()10", link: "/conversions"}
-  ]
-  const [historyRows, setHistoryRows] = useState<HistoryRow[]>([])
-  const style = document.getElementById('dark-mode')
+    const style = document.getElementById('dark-mode')
+    if (localStorage.getItem('darkMode') == null) {
+        localStorage.setItem('darkMode', JSON.stringify(false));
+    }
 
-  style?.setAttribute("href",isDarkMode ? 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/darkly/bootstrap.min.css' : 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/flatly/bootstrap.min.css')
-  return (
-    <>
-      <Layout>
-        <Container>
-          <Switch>
-            <Route exact path="/"> <Home/> </Route>
-            <Route path="/algorithms"> <Algorithms /> </Route>
-            <Route path="/computations"> <Computations/> </Route>
-            <Route path="/conversions"> <Conversions/> </Route>
-            <Route path="/datastructures"> <DataStructures/> </Route>
-            <Route path="/search"> <Search/> </Route>
-            <Route path="/login"> <Login/> </Route>
-            <Route path="/register"> <Register/> </Route>
-            <Route path="/account"> <Account/> </Route>
-            <Route path="/history"> <History /> </Route>
-            <Route path="/selectionsort"><SelectionSort /></Route>
-            <Route path="/binarysearchtree"><BinarySearchTree/></Route>
-            <Route path="/otherFeatures"><OtherFeatures/></Route>
-          </Switch>
-        </Container>
-      </Layout>
-    </>
-  );
+    style?.setAttribute("href", JSON.parse(localStorage.getItem('darkMode') || '') ? 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/darkly/bootstrap.min.css' : 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/flatly/bootstrap.min.css')
+
+    hotkeys('alt+1,alt+2,alt+3,alt+4,alt+5,alt+0', function(event, handler){
+        switch (handler.key) {
+            case 'alt+1': window.location.href=("/algorithms");
+                break;
+            case 'alt+2': window.location.href=("/computations");
+                break;
+            case 'alt+3': window.location.href=("/datastructures");
+                break;
+            case 'alt+4': window.location.href=("/conversions");
+                break;
+            case 'alt+5': window.location.href=("/account");
+                break;
+            case 'alt+0': window.location.href=("/");
+                break;
+            default: alert(event);
+        }
+    });
+
+    return (
+        <>
+            <Layout>
+                <Container>
+                    <Routes>
+                        <Route path="*" element={<Home/>}/>
+                        <Route path="/algorithms" element={<Algorithms/>}/>
+                        <Route path="/computations" element={<Computations/>}/>
+                        <Route path="/conversions" element={<Conversions/>}/>
+                        <Route path="/datastructures" element={<DataStructures/>}/>
+                        <Route path="/search" element={<Search/>}/>
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/register" element={<Register/>}/>
+                        <Route path="/account" element={<Account/>}/>
+                        <Route path="/history" element={<History/>}/>
+                        <Route path="/selectionsort" element={<SelectionSort/>}/>
+                        <Route path="/binarysearchtree" element={<BinarySearchTree/>}/>
+                        <Route path="/otherFeatures" element={<OtherFeatures/>}/>
+                    </Routes>
+                </Container>
+            </Layout>
+        </>
+    );
 }
 
 export default App;
