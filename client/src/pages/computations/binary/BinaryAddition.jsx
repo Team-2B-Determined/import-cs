@@ -1,5 +1,4 @@
 import CalculatorPage from "../../../components/CalculatorPage";
-
 const SelectionSort = () => {
 
 
@@ -21,7 +20,6 @@ const SelectionSort = () => {
       const carry2 = or(carry, x[1]);
       return [y[0], carry2];
     }
-
 // output the sum of 2 binary numbers
     const addBinary = (a, b) => {
 

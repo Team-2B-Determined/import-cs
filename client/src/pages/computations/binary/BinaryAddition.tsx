@@ -6,6 +6,10 @@ const BinaryAddition = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const [show1, setShow1] = useState(false);
+    const handleClose1 = () => setShow1(false);
+    const handleShow1 = () => setShow1(true);
+
     return <div>
 
         <Form>
@@ -48,16 +52,24 @@ const BinaryAddition = () => {
             <Button variant="primary" onClick={handleShow}>
                 Show Detail
             </Button>
-            <Offcanvas show={show} onHide={handleClose}>
+            <Offcanvas show={show} onHide={handleClose} placement={'end'}>
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title>Full Explanation</Offcanvas.Title>
                 </Offcanvas.Header>
-                Binary Value
                 <Offcanvas.Body>
-                    Testing Off Canvas
+                    Binary Value:
+                    <br/>
+                    <br/>
+                    Answer:
+                    <br/>
+                    <br/>
+                        10101010
+                    +
+                        11001100
+                    <br/>
+                    = 0101110110
                 </Offcanvas.Body>
             </Offcanvas>
-
 
 
             <Form.Group className= "mb-3"
@@ -67,10 +79,10 @@ const BinaryAddition = () => {
             </Form.Group>
 
 
-            <Button variant="primary" onClick={handleShow}>
+            <Button variant="primary" onClick ={handleShow1}>
                 Show Detail
             </Button>
-            <Offcanvas show={show} onHide={handleClose}>
+            <Offcanvas show ={show1} onHide={handleClose1} placement ={'end'}>
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title>Full Explanation</Offcanvas.Title>
                 </Offcanvas.Header>
