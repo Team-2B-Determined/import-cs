@@ -31,9 +31,10 @@ const Account = () => {
   }
 
   const KeyboardMapping = () => {
+    let KeyBindDict = JSON.parse(localStorage.getItem("keyBinds") || '').KeyBindDict;
     return <>
       Keyboard Mappings
-      {["Home Page", "Algorithms Page", "Computations Page", "Conversions Page", "Datastructures Page", "History"].map((e, i) =>
+      {["Algorithms Page", "Computations Page", "Conversions Page", "Datastructures Page", "Account", "History", "Home Page"].map((e, i) =>
         <div>
           <Container>
             <Row style={{marginTop:15, marginBottom:15}}>

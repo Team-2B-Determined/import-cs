@@ -28,22 +28,45 @@ function App() {
     if (localStorage.getItem('darkMode') == null) {
         localStorage.setItem('darkMode', JSON.stringify(false));
     }
+    if (localStorage.getItem('keyBinds') == null || true) {
+        localStorage.setItem('keyBinds',
+            JSON.stringify(
+                {KeyBindString: "alt+1,alt+2,alt+3,alt+4,alt+8,alt+9,alt+0",
+                    KeyBindDict: {
+                        algorithms: "alt+1",
+                        computations: "alt+2",
+                        datastructures: "alt+3",
+                        conversions: "alt+4",
+                        account: "alt+8",
+                        history: "alt+9",
+                        home: "alt+0",}}));}
+    let bindsDict = JSON.parse(localStorage.getItem("keyBinds") || '');
 
     style?.setAttribute("href", JSON.parse(localStorage.getItem('darkMode') || '') ? 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/darkly/bootstrap.min.css' : 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/flatly/bootstrap.min.css')
 
-    hotkeys('alt+1,alt+2,alt+3,alt+4,alt+5,alt+0', function(event, handler){
+
+    hotkeys(bindsDict.KeyBindString, function(event, handler){
         switch (handler.key) {
-            case 'alt+1': window.location.href=("/algorithms");
+            case bindsDict.KeyBindDict.algorithms:
+                window.location.href=("/algorithms");
                 break;
-            case 'alt+2': window.location.href=("/computations");
+            case bindsDict.KeyBindDict.computations:
+                window.location.href=("/computations");
                 break;
-            case 'alt+3': window.location.href=("/datastructures");
+            case bindsDict.KeyBindDict.datastructures:
+                window.location.href=("/datastructures");
                 break;
-            case 'alt+4': window.location.href=("/conversions");
+            case bindsDict.KeyBindDict.conversions:
+                window.location.href=("/conversions");
                 break;
-            case 'alt+5': window.location.href=("/account");
+            case bindsDict.KeyBindDict.account:
+                window.location.href=("/account");
                 break;
-            case 'alt+0': window.location.href=("/");
+            case bindsDict.KeyBindDict.history:
+                window.location.href=("/history");
+                break;
+            case bindsDict.KeyBindDict.home:
+                window.location.href=("/");
                 break;
             default: alert(event);
         }
