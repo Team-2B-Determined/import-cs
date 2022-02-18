@@ -15,20 +15,22 @@ const User = db.define('User', {
 
         email: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
 
         password: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
+        },
+
+        role: {
+            type: DataTypes.STRING,
+            allowNull: false
         }},
 
     {
         db: db,
-        tableName: 'users',
-        modelName: 'HistoryEntry',
-        timestamps: true
-        //timestamps: true => requires 'createdAt' & 'updatedAt' column
+        timestamps: true    //Establishes requires 'createdAt' & 'updatedAt' column
 
     }
 );
@@ -40,14 +42,10 @@ User.hasMany(historyEntry, {
 User.hasOne(font, {
     foreignKey: 'user_id'
 });
-User.hasOne(keyboardMaps, {
-    foreignKey: 'user_id'
-});
 */
-//const x = User.sync({force: true});
+
+const x = User.sync({force: false, alter: true});   //This checks what is the current state of the table in the database (which columns it has, what are their data types, etc), and then performs the necessary changes in the table to make it match the model.
 
 
-//sequelize define returns the model to User
-console.log(User === db.models.User)
 
 module.exports.user = User;

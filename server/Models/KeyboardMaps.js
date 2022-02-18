@@ -1,51 +1,28 @@
 export {}
 const {DataTypes} = require('sequelize');
 const {db} = require('../Database/db');
-const user = require('./User');
+const setting = require('./Setting');
 
 
-const Settings = db.define('Settings', {
+const KeyboardMap = db.define('KeyboardMap', {
     user_id: {
         type: DataTypes.INTEGER,
         primaryKey: true
     },
 
-    home: {
+    page: {
         type: DataTypes.CHAR,
-        allowNull: true
+        primaryKey: true
     },
 
-    algorithms: {
-        type: DataTypes.CHAR,
-        allowNull: true
-    },
-
-    computations: {
-        type: DataTypes.CHAR,
-        allowNull: true
-    },
-
-    conversions: {
-        type: DataTypes.CHAR,
-        allowNull: true
-    },
-
-    dataStructures: {
-        type: DataTypes.CHAR,
-        allowNull: true
-    },
-
-    history: {
-        type: DataTypes.CHAR,
-        allowNull: true
+    key: {
+        type: DataTypes.CHAR
     }},
 
     {
-        db,
-        modelName: 'KeyboardMaps',
+        db
     }
 );
 
-KeyboardMaps.belongsTo(user);
 
 module.exports.KeyboardMaps = KeyboardMaps;

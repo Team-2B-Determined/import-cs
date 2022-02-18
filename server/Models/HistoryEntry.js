@@ -22,11 +22,9 @@ const HistoryEntry = db.define('HistoryEntry', {
 
     {
         db,
-        modelName: 'HistoryEntry',
-        //timestamps: true
+        timestamps: true
     }
 );
 
-HistoryEntry.belongsTo(user);
 
 module.exports.HistoryEntry = HistoryEntry;
