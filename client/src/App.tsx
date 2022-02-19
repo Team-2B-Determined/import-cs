@@ -28,7 +28,7 @@ function App() {
     if (localStorage.getItem('darkMode') == null) {
         localStorage.setItem('darkMode', JSON.stringify(false));
     }
-    if (localStorage.getItem('keyBinds') == null || true) {
+    if (localStorage.getItem('keyBinds') == null) {
         localStorage.setItem('keyBinds',
             JSON.stringify(
                 {KeyBindString: "alt+1,alt+2,alt+3,alt+4,alt+8,alt+9,alt+0",
