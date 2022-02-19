@@ -13,13 +13,11 @@ import SelectionSort from "./pages/algorithms/SelectionSort";
 import BinarySearchTree from "./pages/datastructures/BinarySearchTree";
 
 import {Container} from "react-bootstrap";
-import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import hotkeys from "hotkeys-js";
 // import useNavigate from "react-router-dom";
-
 // Layout
 import Layout from "./layout/Layout";
-import Search from "./pages/Search";
 import OtherFeatures from "./pages/OtherFeatures";
 
 
@@ -82,7 +80,6 @@ function App() {
                         <Route path="/computations" element={<Computations/>}/>
                         <Route path="/conversions" element={<Conversions/>}/>
                         <Route path="/datastructures" element={<DataStructures/>}/>
-                        <Route path="/search" element={<Search/>}/>
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/register" element={<Register/>}/>
                         <Route path="/account" element={<Account/>}/>

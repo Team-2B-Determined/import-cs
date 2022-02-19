@@ -1,12 +1,20 @@
 //<img src={"import_cs_logo.png"} alt={"import CS"}>
-import {Button, Container, Dropdown, Form, FormControl, Nav, Navbar, NavDropdown} from "react-bootstrap";
+import {Badge, Container, Dropdown, Form, FormControl, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import React, {useContext, useState} from "react";
 import {DarkModeContext} from "../context/DarkModeProvider";
+import Fuse from "fuse.js";
+import features from "../features.json";
 
 const Menu = () => {
   //darkMode toggle stuff
   const [checked, setChecked] = useState(false);
   const {setDarkMode} = useContext(DarkModeContext)
+  const [query, setQuery] = useState('');
+
+  const fuse = new Fuse(features, {
+    keys: ['name', 'runtime', 'description'],
+    includeScore: true
+  });
 
   //darkmode stuff ripped from account page
   const DarkLightMode = () => {
@@ -18,7 +26,7 @@ const Menu = () => {
                onChange={(event) => {
                  setChecked(event.currentTarget.checked)
                  setDarkMode(event.currentTarget.checked)
-                 localStorage.setItem('darkMode',JSON.stringify(!JSON.parse(localStorage.getItem('darkMode') || '')))
+                 localStorage.setItem('darkMode', JSON.stringify(!JSON.parse(localStorage.getItem('darkMode') || '')))
                }}/>
         <span className="slider"></span>
       </label>
@@ -26,13 +34,33 @@ const Menu = () => {
   }
 
 
+  const SearchDropdown = () => (
+    <Nav>
+      <NavDropdown title="" show={query !== ""} drop="down">
+        {fuse.search(query).map(feature => feature.item).map((feature, i, arr) => (<>
+            <NavDropdown.Item href="/history" style={{width: "calc(60px + 20vw)"}}>
+              <div style={{whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}
+                   className="ms-2 me-auto">
+                <div className="fw-bold">{feature.name}</div>
+                {feature.description}
+              </div>
+              <Badge bg="primary" pill>
+                O({feature.runtime})
+              </Badge>
+            </NavDropdown.Item>
+            {i < arr.length - 1 ? <Dropdown.Divider/> : null}
+          </>
+        ))}
+      </NavDropdown>
+    </Nav>
+  )
 
 
   return (
-    <Navbar collapseOnSelect expand="lg"  bg="primary" variant="dark" style={{marginBottom: 20}}>
+    <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark" style={{marginBottom: 20}}>
       <Container>
         <Navbar.Brand href="/">import CS</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <NavDropdown title="Calculator" id="collasible-nav-dropdown">
@@ -48,26 +76,28 @@ const Menu = () => {
               </NavDropdown.Item>
             </NavDropdown>
             <Nav.Link href="/otherFeatures">Other Features</Nav.Link>
-
           </Nav>
 
+          <SearchDropdown/>
           <Form className="d-flex">
             <FormControl
               type="search"
               placeholder="Search"
+              value={query}
+              onChange={event => setQuery(event.currentTarget.value)}
               className="mr-2"
               aria-label="Search"
             />
-            <Button href="/search">Search</Button>
           </Form>
-            <Nav>
+
+          <Nav>
             <NavDropdown title="Account" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="/account">Account</NavDropdown.Item>
-            <NavDropdown.Item href="/history">History</NavDropdown.Item>
-            <Dropdown.Divider />
-            <NavDropdown.Item href="/login">Login</NavDropdown.Item>
-          </NavDropdown>
-            </Nav>
+              <NavDropdown.Item href="/account">Account</NavDropdown.Item>
+              <NavDropdown.Item href="/history">History</NavDropdown.Item>
+              <Dropdown.Divider/>
+              <NavDropdown.Item href="/login">Login</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
 
           <DarkLightMode/>
 
