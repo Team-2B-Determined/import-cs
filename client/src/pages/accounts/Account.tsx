@@ -4,6 +4,7 @@ import React, {useContext, useState} from "react";
 import {Button, Col, Container, Form, FormControl, InputGroup, Row} from "react-bootstrap";
 import "./Account.css"
 import {DarkModeContext} from "../../context/DarkModeProvider";
+import KeyBindEditor from "./KeyBindEditor";
 
 
 const Account = () => {
@@ -30,36 +31,7 @@ const Account = () => {
     </>
   }
 
-  const KeyboardMapping = () => {
-    let KeyBindDict = JSON.parse(localStorage.getItem("keyBinds") || '').KeyBindDict;
-    return <>
-      Keyboard Mappings
-      {["Algorithms Page", "Computations Page", "Conversions Page", "Datastructures Page", "Account", "History", "Home Page"].map((e, i) =>
-        <div>
-          <Container>
-            <Row style={{marginTop:15, marginBottom:15}}>
-              <Col xs={3}>Alt + <strong>{i + 1}</strong> = {e}</Col>
-              <Col xs={2}>{i === 2 ? <InputGroup className="mb-3">
-                  <FormControl
-                    placeholder="Recipient's username"
-                    aria-label="Recipient's username"
-                    aria-describedby="basic-addon2"
-                    value={i + 1}
-                  />
-                  <Button variant="primary" id="button-addon2">
-                    Save
-                  </Button>
-                </InputGroup> :
-                <Button variant="outline-secondary" id="button-addon2">
-                  Change
-                </Button>
-              }
-              </Col>
-            </Row>
-          </Container>
-        </div>)}
-    </>
-  }
+
   const Font = () => {
     return <>
       <div>
@@ -110,7 +82,7 @@ const Account = () => {
     <hr/>
     <Font/>
     <hr/>
-    <KeyboardMapping/>
+    <KeyBindEditor/>
   </>);
 };
 
