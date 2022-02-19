@@ -1,10 +1,14 @@
 import {Button, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
 import React from "react";
+import {forEach} from "react-bootstrap/ElementChildren";
 
 const KeyBindEditor = () => {
 
     let keyBindDict = JSON.parse(localStorage.getItem("keyBinds") || '').KeyBindDict;
     let keyBindList = ["ifYouSeeThisItsError"];
+    let modifiers = document.getElementsByTagName("select");
+    let keys = document.getElementsByName("key");
+
     Object.keys(keyBindDict).forEach(function(key) {
         keyBindList.push(keyBindDict[key]);
     });
@@ -18,7 +22,40 @@ const KeyBindEditor = () => {
     }
 
     const saveBinds = () => {
-        alert();
+        console.log("savingbinds...")
+        let newMods = [""]
+        for (let m = 0; m < modifiers.length; m++) {
+            let modifierSelectElement = modifiers.item(m);
+            if (modifierSelectElement != null && modifierSelectElement.name == "modifier") {
+                let temp = modifierSelectElement.options[modifierSelectElement.selectedIndex].getAttributeNode("value");
+                let value = temp != null ? temp.value : "";
+                //newMods.push(modifierSelectElement.options[modifierSelectElement.selectedIndex].value || "");
+                newMods.push(value || "");
+                console.log(value);
+            }
+        }
+        let newKeys = [""]
+        for (let k = 0; k < keys.length; k++) {
+            let keyFormElement = keys.item(k);
+            if (keyFormElement != null && keyFormElement.getAttribute("name") == "key") {
+                let temp = keyFormElement.getAttributeNode("value");
+                let v = temp != null ? temp.value : "";
+                //newKeys.push(keyFormElement.getAttribute("value") || "");
+                newKeys.push(v || "");
+                console.log(v || "");
+            }
+        }
+        let j = 1;
+        let newKeyBindString = [""];
+        let newKeyBinds = JSON.parse(localStorage.getItem("keyBinds") || '');
+        Object.keys(newKeyBinds.KeyBindDict).forEach(function(key) {
+            newKeyBinds.KeyBindDict[key] = newMods[j] + "+" + newKeys[j];
+            j++;
+            newKeyBindString.push(newKeyBinds.KeyBindDict[key])
+        });
+        newKeyBinds.KeyBindString = newKeyBindString.slice(1,newKeyBindString.length-1);
+        localStorage.setItem("keyBinds", JSON.stringify(newKeyBinds));
+        alert(newKeyBinds.KeyBindString);
     }
 
     return <>
@@ -30,11 +67,10 @@ const KeyBindEditor = () => {
                         <Col xs={4}>{
                             <InputGroup className="mb-3">
                                 <Col xs={6}>
-                                    <div className="input-group-prepend">
-                                        <span className="input-group-text" id="">{e}</span>
-                                    </div>
+                                    <span className="input-group-text" id="">{e}</span>
                                 </Col>
                                 <select className="custom-select"
+                                        name="modifier"
                                         id="inputGroupSelect01"
                                         defaultValue={extractModifier(keyBindList[i+1])}>
                                     <option value="alt">ALT</option>
@@ -42,11 +78,12 @@ const KeyBindEditor = () => {
                                     <option value="shift">SHIFT</option>
                                 </select>
                                 <FormControl
-                                    placeholder="assign hotkey"
-                                    aria-label="assign hotkey"
+                                    name="key"
+                                    placeholder="key"
+                                    aria-label="key"
                                     aria-describedby="character for the hotkey"
-                                    value={extractKey(keyBindList[i+1])}
-                                    //onChange
+                                    defaultValue={extractKey(keyBindList[i+1])}
+                                    //onChange={event => }
                                 />
                                 <Button
                                     variant="primary"
