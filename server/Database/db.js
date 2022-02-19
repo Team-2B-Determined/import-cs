@@ -14,8 +14,6 @@ require("dotenv").config();
 const devConfig = "postgres://mrvuwwyisjimno:e714cf015e8c52869c218cd902d152ae90d7b13f7d13302b852c26c4f87215b3@ec2-34-203-114-67.compute-1.amazonaws.com:5432/d2o4rot4olu8hs";
 const proConfig = process.env.DATABASE_URL; //heroku addons
 
-
-
 const db = new Sequelize(devConfig, {
   dialectOptions: { ssl: {rejectUnauthorized: false}},
   pool: {
@@ -25,14 +23,6 @@ const db = new Sequelize(devConfig, {
     idle: 10000
   }
 });
-
-db.authenticate()
-    .then(() => {
-      console.log('Database connection has been established successfully.');
-    })
-    .catch(err => {
-      console.error('Unable to connect to the database:', err);
-    });
 
 
 /*

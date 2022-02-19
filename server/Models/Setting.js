@@ -1,32 +1,30 @@
-export {}
-const {DataTypes} = require('sequelize');
-const {db} = require('../Database/db');
-const user = require('./User');
+const Sequelize = require('sequelize');
 
+module.exports = (db) => {
+    const Setting = db.define('Setting', {
+            id: {
+                type: Sequelize.INTEGER,
+                primaryKey: true,
+                autoIncrement: true
+            },
 
-const Setting = db.define('Setting', {
-        user_id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true
-        },
+            font: {
+                type: Sequelize.STRING
+            },
 
-        font: {
-            type: DataTypes.STRING
-        },
+            fontSize: {
+                type: Sequelize.INTEGER
+            },
 
-        fontSize: {
-            type: DataTypes.INTEGER
-        },
+            darkMode: {
+                type: Sequelize.BOOLEAN
+            }},
 
-        darkMode: {
-            type: DataTypes.BOOLEAN
-        }},
+        //OPTIONS
+        {
+            db: db,
+            timestamps: false
+        });
 
-    {
-        db
-    }
-);
-
-//Setting.belongsTo(user);
-
-module.exports.Font = Font1;
+    return Setting;
+};

@@ -1,28 +1,26 @@
-export {}
-const {DataTypes} = require('sequelize');
-const {db} = require('../Database/db');
-const setting = require('./Setting');
+const Sequelize = require('sequelize');
 
+module.exports = (db) => {
+    const KeyboardMap = db.define('KeyboardMap', {
+            id: {
+                type: Sequelize.INTEGER,
+                primaryKey: true,
+                autoIncrement: true
+            },
 
-const KeyboardMap = db.define('KeyboardMap', {
-    user_id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true
-    },
+            page: {
+                type: Sequelize.STRING
+            },
 
-    page: {
-        type: DataTypes.CHAR,
-        primaryKey: true
-    },
+            key: {
+                type: Sequelize.CHAR
+            }},
 
-    key: {
-        type: DataTypes.CHAR
-    }},
+        //OPTIONS//
+        {
+            db: db,
+            timestamps: false
+        });
 
-    {
-        db
-    }
-);
-
-
-module.exports.KeyboardMaps = KeyboardMaps;
+    return KeyboardMap
+};

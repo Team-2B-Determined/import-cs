@@ -1,30 +1,26 @@
-export {}
-const {DataTypes} = require('sequelize');
-const {db} = require('../Database/db');
-const user = require('./User');
+const Sequelize = require('sequelize');
 
+module.exports = (db) => {
+    const HistoryEntry = db.define('HistoryEntry', {
+            id: {
+                type: Sequelize.INTEGER,
+                primaryKey: true,
+                autoIncrement: true
+            },
 
-const HistoryEntry = db.define('HistoryEntry', {
-    user_id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true
-    },
+            queue: {
+                type: Sequelize.INTEGER
+            },
 
-    queue: {
-        type: DataTypes.INTEGER,
-        primaryKey: true
-    },
+            feature: {
+                type: Sequelize.STRING,
+                allowNull: false
+            }},
 
-    feature: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }},
-
-    {
-        db,
-        timestamps: true
-    }
-);
-
-
-module.exports.HistoryEntry = HistoryEntry;
+        //OPTIONS//
+        {
+            db: db,
+            timestamps: true
+        });
+    return HistoryEntry;
+}
