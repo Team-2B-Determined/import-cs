@@ -15,6 +15,7 @@ export interface CodeNavigationGuide {
 
 let autoPlayer;
 
+
 const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigationGuide }) => {
 
     const [show, setShow] = useState(false);
@@ -77,8 +78,11 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
             </Button></div> Auto Play (every x seconds)
         <Col xs={3}>
             <InputGroup className="mb-3">
+                {/* Using autoFocus is a hack, better solution found here: https://stackoverflow.com/a/47660885
+                 too lazy to fix at the moment though */}
                 <FormControl
                     value={autoPlayDelay}
+                    autoFocus={true}
                     onChange={e => setAutoPlayDelay(Number(e.target.value))}
                 />
                 <Button variant="outline-secondary" id="button-addon2" onClick={() => {
@@ -103,8 +107,8 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
                 <br/>
                 <Card>
                     <Card.Body>
-                        <Row >
-                            <Col style={{height:600, overflowY:"auto"}}>
+                        <Row>
+                            <Col style={{height: 600, overflowY: "auto"}}>
                                 <CodeBlock
                                     text={codeNavigationGuide.codeDisplay}
                                     language={"js"}
@@ -114,7 +118,7 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
                                     highlight={currentStep().lineNumber}
                                 />
                             </Col>
-                            <Col style={{height:600, overflowY:"auto"}}>
+                            <Col style={{height: 600, overflowY: "auto"}}>
                                 {
                                     codeNavigationGuide.steps.slice(0, stepIndex + 1).map((step, index) => {
                                         return (<div style={{marginBottom: 15}}>
