@@ -1,6 +1,6 @@
 import React, {Component, useState} from "react";
 import {Button, Col, Dropdown, DropdownButton, Form, Row} from "react-bootstrap";
-import BinaryToDecimal from "./tobinary/BinaryToDecimal";
+import ConversionAlgorithms from "./tobinary/ConversionAlgorithms";
 
 const Conversions = () => {
     const [inputType, setInputType] = useState<string>("Binary")
@@ -31,16 +31,13 @@ const Conversions = () => {
     const showOutput = () => {
         if (!showConversion)
             return null
-        if (inputType === "Binary") {
-            if (outputType === "Decimal") {
-                return <BinaryToDecimal inputType={inputType} outputType={outputType} inputValue={inputValue} setOutputValue={setOutputValue}/>
-            }
-        }
+        else
+            return <ConversionAlgorithms inputType={inputType} outputType={outputType} inputValue={inputValue} setOutputValue={setOutputValue}/>
     }
 
     return (
         <div>{showOutput()}
-            <h1>Conversions Page {inputType} {outputType} {inputValue}</h1>
+            <h1>Conversions Page</h1>
             <Form>
                 <Row>
                     <Form.Group as={Col} controlId="formGridInputType">
