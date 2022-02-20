@@ -37,6 +37,7 @@ const CalculatorPage: FC<CalculatorPageProp> = ({showCalculation,inputs, title, 
             {image ? <img src={image} width="50" height="50"/> : null}<br/>
 
             {inputs}
+            <br/>
             {showCalculation ? <CodeNavigator codeNavigationGuide={codeNavigationGuide}/> : null}
 
             <Offcanvas show={show} onHide={handleClose} placement={'end'}>

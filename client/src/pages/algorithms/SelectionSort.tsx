@@ -109,7 +109,6 @@ const SelectionSort = ():any => {
     }
 
     return (
-        <>
             <CalculatorPage
                 showCalculation={showCalculation}
                 inputs={<Container>
@@ -127,7 +126,7 @@ const SelectionSort = ():any => {
                             </Button>
                         </InputGroup>
                     </Col>
-                    <Col>Enter a sequence of numbers separated with spaces " " or commas ","</Col>
+                    Enter a sequence of numbers separated with spaces " " or commas ","
                 </Container>}
                 title={"Selection Sort"}
                 codeNavigationGuide={{
@@ -141,12 +140,7 @@ const SelectionSort = ():any => {
                     "In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray. "}
                 links={links}
                 image={"https://i.imgur.com/EerzUpo.png"}
-            >
-
-            </CalculatorPage>
-        </>
-
-
+            />
     );
 };
 
