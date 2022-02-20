@@ -103,8 +103,8 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
                 <br/>
                 <Card>
                     <Card.Body>
-                        <Row>
-                            <Col>
+                        <Row >
+                            <Col style={{height:600, overflowY:"auto"}}>
                                 <CodeBlock
                                     text={codeNavigationGuide.codeDisplay}
                                     language={"js"}
@@ -114,7 +114,7 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
                                     highlight={currentStep().lineNumber}
                                 />
                             </Col>
-                            <Col>
+                            <Col style={{height:600, overflowY:"auto"}}>
                                 {
                                     codeNavigationGuide.steps.slice(0, stepIndex + 1).map((step, index) => {
                                         return (<div style={{marginBottom: 15}}>
