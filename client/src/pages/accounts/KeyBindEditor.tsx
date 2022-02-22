@@ -1,17 +1,76 @@
 import {Button, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
 import React from "react";
 import {forEach} from "react-bootstrap/ElementChildren";
+import account from "./Account";
 
 const KeyBindEditor = () => {
 
     let keyBindDict = JSON.parse(localStorage.getItem("keyBinds") || '').KeyBindDict;
-    let keyBindList = ["ifYouSeeThisItsError"];
-    let modifiers = document.getElementsByTagName("select");
-    let keys = document.getElementsByName("key");
 
-    Object.keys(keyBindDict).forEach(function(key) {
-        keyBindList.push(keyBindDict[key]);
-    });
+    const [state, setState] = React.useState({
+        algorithms: keyBindDict["algorithms"],
+        computations: keyBindDict["computations"],
+        datastructures: keyBindDict["datastructures"],
+        conversions: keyBindDict["conversions"],
+        account: keyBindDict["account"],
+        history: keyBindDict["history"],
+        home: keyBindDict["home"],});
+    const boundDisplay = [
+        "Algorithms Page",
+        "Computations Page",
+        "Datastructures Page",
+        "Conversions Page",
+        "Account",
+        "History",
+        "Home Page"];
+    const boundActions = [
+        "algorithms",
+        "computations",
+        "datastructures",
+        "conversions",
+        "account",
+        "history",
+        "home"];
+    function restoreDefaults() {
+        localStorage.setItem('keyBinds',
+            JSON.stringify(
+                {KeyBindString: "alt+1,alt+2,alt+3,alt+4,alt+8,alt+9,alt+0",
+                    KeyBindDict: {
+                        algorithms: "alt+1",
+                        computations: "alt+2",
+                        datastructures: "alt+3",
+                        conversions: "alt+4",
+                        account: "alt+8",
+                        history: "alt+9",
+                        home: "alt+0",}}));
+        window.location.reload();
+    }
+
+    function handleChangeKey(evt) {
+        const value = evt.target.value;
+        const action = boundActions[parseInt(evt.target.name)];
+        const modifier = extractModifier(state[action]) || "error";
+        if (value.length == 1) {
+            setState({
+                ...state,
+                [action]: modifier + "+" + value
+                //[action]: extractModifier(state.keyBindDict[action]) + "+" + value
+            });
+            console.log(action + modifier + "+" + value)
+        }
+    }
+
+    function handleChangeMod(evt) {
+        const value = evt.target.value;
+        const action = boundActions[parseInt(evt.target.name)];
+        const key = extractKey(state[action]) || "error";
+        setState({
+            ...state,
+            [action]: value + "+" + key
+            //[action]: extractModifier(state.keyBindDict[action]) + "+" + value
+        });
+        console.log(action + value + "+" + key)
+    }
 
     function extractModifier(str) {
         return str.split("+",1);
@@ -22,82 +81,88 @@ const KeyBindEditor = () => {
     }
 
     const saveBinds = () => {
-        console.log("savingbinds...")
-        let newMods = [""]
-        for (let m = 0; m < modifiers.length; m++) {
-            let modifierSelectElement = modifiers.item(m);
-            if (modifierSelectElement != null && modifierSelectElement.name == "modifier") {
-                let temp = modifierSelectElement.options[modifierSelectElement.selectedIndex].getAttributeNode("value");
-                let value = temp != null ? temp.value : "";
-                //newMods.push(modifierSelectElement.options[modifierSelectElement.selectedIndex].value || "");
-                newMods.push(value || "");
-                console.log(value);
-            }
-        }
-        let newKeys = [""]
-        for (let k = 0; k < keys.length; k++) {
-            let keyFormElement = keys.item(k);
-            if (keyFormElement != null && keyFormElement.getAttribute("name") == "key") {
-                let temp = keyFormElement.getAttributeNode("value");
-                let v = temp != null ? temp.value : "";
-                //newKeys.push(keyFormElement.getAttribute("value") || "");
-                newKeys.push(v || "");
-                console.log(v || "");
-            }
-        }
-        let j = 1;
+        console.log("savingbinds...");
         let newKeyBindString = [""];
-        let newKeyBinds = JSON.parse(localStorage.getItem("keyBinds") || '');
-        Object.keys(newKeyBinds.KeyBindDict).forEach(function(key) {
-            newKeyBinds.KeyBindDict[key] = newMods[j] + "+" + newKeys[j];
-            j++;
-            newKeyBindString.push(newKeyBinds.KeyBindDict[key])
+        Object.keys(state).forEach(function(key) {
+            newKeyBindString.push(state[key]);
         });
-        newKeyBinds.KeyBindString = newKeyBindString.slice(1,newKeyBindString.length-1);
-        localStorage.setItem("keyBinds", JSON.stringify(newKeyBinds));
-        alert(newKeyBinds.KeyBindString);
+        let formatString = newKeyBindString.toString().substring(1);
+        localStorage.setItem('keyBinds',
+            JSON.stringify(
+                {KeyBindString: formatString,
+                    KeyBindDict: {
+                        algorithms: state["algorithms"],
+                        computations: state["computations"],
+                        datastructures: state["datastructures"],
+                        conversions: state["conversions"],
+                        account: state["account"],
+                        history: state["history"],
+                        home: state["home"],}}));
+        console.log(formatString);
     }
 
     return <>
-        Keyboard Mappings
-        {["Algorithms Page", "Computations Page", "Conversions Page", "Datastructures Page", "Account", "History", "Home Page"].map((e, i) =>
-            <div>
-                <Container>
-                    <Row style={{marginTop:15, marginBottom:15}}>
-                        <Col xs={4}>{
-                            <InputGroup className="mb-3">
-                                <Col xs={6}>
-                                    <span className="input-group-text" id="">{e}</span>
-                                </Col>
-                                <select className="custom-select"
-                                        name="modifier"
-                                        id="inputGroupSelect01"
-                                        defaultValue={extractModifier(keyBindList[i+1])}>
-                                    <option value="alt">ALT</option>
-                                    <option value="ctrl">CTRL</option>
-                                    <option value="shift">SHIFT</option>
-                                </select>
-                                <FormControl
-                                    name="key"
-                                    placeholder="key"
-                                    aria-label="key"
-                                    aria-describedby="character for the hotkey"
-                                    defaultValue={extractKey(keyBindList[i+1])}
-                                    //onChange={event => }
-                                />
-                                <Button
-                                    variant="primary"
-                                    id="save-binding"
-                                    onClick={saveBinds}
-                                >
-                                    Save
-                                </Button>
-                            </InputGroup>
-                        }
+        <Container>
+            <Row>
+                Keyboard Mappings
+            </Row>
+            <Row>
+                <Col xs={6}>
+                    <Row>
+                        <Col>
+                            <Button
+                                variant="primary"
+                                id="restoreDefaults"
+                                onClick={restoreDefaults}>
+                                Restore Defaults
+                            </Button>
+                        </Col>
+                        <Col>
+                            <Button
+                                variant="primary"
+                                id="save-binding"
+                                onClick={saveBinds}>
+                                Save
+                            </Button>
                         </Col>
                     </Row>
-                </Container>
-            </div>)}
+                </Col>
+            </Row>
+        </Container>
+        {boundDisplay.map((e, i) =>
+        <div>
+            <Container>
+                <Row style={{marginTop:15, marginBottom:15}}>
+                    <Col xs={4}>{
+                        <InputGroup className="mb-3">
+                            <Col xs={8}>
+                                <span className="input-group-text"
+                                      id=""
+                                >{e}</span>
+                            </Col>
+                            <select className="custom-select"
+                                    name={i.toString()}
+                                    id="inputGroupSelect01"
+                                    defaultValue={extractModifier(state[boundActions[i]])}
+                                    onChange={handleChangeMod}>
+                                <option value="alt">ALT</option>
+                                <option value="ctrl">CTRL</option>
+                                <option value="shift">SHIFT</option>
+                            </select>
+                            <FormControl
+                                name={i.toString()}
+                                placeholder="key"
+                                aria-label="key"
+                                aria-describedby="character for the hotkey"
+                                defaultValue={extractKey(state[boundActions[i]])}
+                                onChange={handleChangeKey}
+                            />
+                        </InputGroup>
+                    }
+                    </Col>
+                </Row>
+            </Container>
+        </div>)}
     </>
 
 }
