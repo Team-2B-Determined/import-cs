@@ -1,7 +1,5 @@
 import {Button, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
 import React from "react";
-import {forEach} from "react-bootstrap/ElementChildren";
-import account from "./Account";
 
 const KeyBindEditor = () => {
 
@@ -50,13 +48,11 @@ const KeyBindEditor = () => {
         const value = evt.target.value;
         const action = boundActions[parseInt(evt.target.name)];
         const modifier = extractModifier(state[action]) || "error";
-        if (value.length == 1) {
+        if (value.length === 1) {
             setState({
                 ...state,
                 [action]: modifier + "+" + value
-                //[action]: extractModifier(state.keyBindDict[action]) + "+" + value
             });
-            console.log(action + modifier + "+" + value)
         }
     }
 
@@ -67,9 +63,7 @@ const KeyBindEditor = () => {
         setState({
             ...state,
             [action]: value + "+" + key
-            //[action]: extractModifier(state.keyBindDict[action]) + "+" + value
         });
-        console.log(action + value + "+" + key)
     }
 
     function extractModifier(str) {
@@ -99,6 +93,7 @@ const KeyBindEditor = () => {
                         history: state["history"],
                         home: state["home"],}}));
         console.log(formatString);
+        window.location.reload();
     }
 
     return <>
