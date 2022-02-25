@@ -49,6 +49,7 @@ const User = require('./Models/User')(db);
 const Setting = require('./Models/Setting')(db);
 const KeyboardMaps = require('./Models/KeyboardMaps')(db);
 const HistoryEntry = require('./Models/HistoryEntry')(db);
+const Role = require('./Models/Role')(db);
 
 //Setting -> User
 User.hasOne(Setting, {
@@ -74,6 +75,10 @@ User.hasMany(HistoryEntry, {
 });
 HistoryEntry.belongsTo(User)
 
+//*User -> Role
+Role.hasMany(User)
+User.belongsTo(Role)
+
 
 
 /// SYNCHRONIZATION ///
@@ -81,11 +86,12 @@ User.sync({force: false, alter: true});
 Setting.sync({force: false, alter: true});
 KeyboardMaps.sync({force: false, alter: true});
 HistoryEntry.sync({force: false, alter: true});
+Role.sync({force: true, alter: true});
 
 
 
 /// ROUTES ///
-router.use('/user', require('./Routes/Routes.User'));
+router.all('/user', require('./Routes/Routes.User'));
 router.use('/setting', require("./Routes/Routes.Setting"))
 router.use('/history', require("./Routes/Routes.History"))
 
