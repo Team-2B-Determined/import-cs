@@ -14,7 +14,10 @@ const KeyBindEditor = () => {
         conversions: keyBindDict["conversions"],
         account: keyBindDict["account"],
         history: keyBindDict["history"],
-        home: keyBindDict["home"],});
+        home: keyBindDict["home"]});
+    const [valid, setValid] = React.useState(
+        {arr: [0, 0, 0, 0, 0, 0, 0]}
+    )
     const boundDisplay = [
         "Algorithms Page",
         "Computations Page",
@@ -42,7 +45,7 @@ const KeyBindEditor = () => {
                         conversions: "alt+4",
                         account: "alt+8",
                         history: "alt+9",
-                        home: "alt+0",}}));
+                        home: "alt+0"}}));
         window.location.reload();
     }
 
@@ -50,12 +53,10 @@ const KeyBindEditor = () => {
         const value = evt.target.value;
         const action = boundActions[parseInt(evt.target.name)];
         const modifier = extractModifier(state[action]) || "error";
-        if (value.length === 1) {
-            setState({
-                ...state,
-                [action]: modifier + "+" + value
-            });
-        }
+        setState({
+            ...state,
+            [action]: modifier + "+" + value
+        });
     }
 
     function handleChangeMod(evt) {
@@ -69,33 +70,76 @@ const KeyBindEditor = () => {
     }
 
     function extractModifier(str) {
-        return str.split("+",1);
+        return str.split("+",1)[0];
     }
 
     function extractKey(str) {
         return str[str.length-1];
     }
 
-    const saveBinds = () => {
-        console.log("savingbinds...");
-        let newKeyBindString = [""];
+    function validateBinds() {
+        let validationList = [""];
+        let success = true;
+        let validationState = valid.arr;
         Object.keys(state).forEach(function(key) {
-            newKeyBindString.push(state[key]);
-        });
-        let formatString = newKeyBindString.toString().substring(1);
-        localStorage.setItem('keyBinds',
-            JSON.stringify(
-                {KeyBindString: formatString,
-                    KeyBindDict: {
-                        algorithms: state["algorithms"],
-                        computations: state["computations"],
-                        datastructures: state["datastructures"],
-                        conversions: state["conversions"],
-                        account: state["account"],
-                        history: state["history"],
-                        home: state["home"],}}));
-        console.log(formatString);
-        window.location.reload();
+            let uniqueBind = state[key];
+            if (uniqueBind.length - extractModifier(uniqueBind).length != 2) {
+                // error not valid bind
+                validationState[boundActions.indexOf(key)] = 1;
+                success = false;
+                validationList.push("e1");
+            } else if (validationList.includes(uniqueBind)) {
+                // error not unique binds
+                validationState[boundActions.indexOf(key)] = 2;
+                validationState[validationList.indexOf(uniqueBind)-1] = 2;
+                success = false;
+                validationList.push("e2");
+            } else {
+                validationState[boundActions.indexOf(key)] = 0;
+                validationList.push(uniqueBind);
+            }});
+        setValid({arr: validationState});
+        return success;
+    }
+
+    const saveBinds = () => {
+        if (validateBinds()) {
+            console.log("savingbinds...");
+            let newKeyBindString = [""];
+            Object.keys(state).forEach(function (key) {
+                newKeyBindString.push(state[key]);
+            });
+            let formatString = newKeyBindString.toString().substring(1);
+            localStorage.setItem('keyBinds',
+                JSON.stringify(
+                    {
+                        KeyBindString: formatString,
+                        KeyBindDict: {
+                            algorithms: state["algorithms"],
+                            computations: state["computations"],
+                            datastructures: state["datastructures"],
+                            conversions: state["conversions"],
+                            account: state["account"],
+                            history: state["history"],
+                            home: state["home"]
+                        }
+                    }));
+            console.log(formatString);
+            //window.location.reload();
+        } else {
+            alert("invalid binds:" + valid.arr.toString());
+        }
+    }
+
+    function errorCodeMessage(i) {
+        switch (i) {
+            case 1:
+                return "Please enter one single character";
+            case 2:
+                return "Please enter a unique binding";
+            default:
+                return "";
+        }
     }
 
     return <>
@@ -108,7 +152,7 @@ const KeyBindEditor = () => {
                     <Row>
                         <Col>
                             <Button
-                                variant="primary"
+                                variant="secondary"
                                 id="restoreDefaults"
                                 onClick={restoreDefaults}>
                                 Restore Defaults
@@ -130,8 +174,8 @@ const KeyBindEditor = () => {
         <div>
             <Container>
                 <Row style={{marginTop:15, marginBottom:15}}>
-                    <Col xs={4}>{
-                        <InputGroup className="mb-3">
+                    <Col xs={8}>{
+                        <InputGroup className="mb-3" hasValidation>
                             <Col xs={8}>
                                 <span className="input-group-text"
                                       id=""
@@ -153,7 +197,12 @@ const KeyBindEditor = () => {
                                 aria-describedby="character for the hotkey"
                                 defaultValue={extractKey(state[boundActions[i]])}
                                 onChange={handleChangeKey}
+                                required
+                                isInvalid={!(valid.arr[i]==0)}
                             />
+                            <FormControl.Feedback type="invalid">
+                                {errorCodeMessage(valid.arr[i])}
+                            </FormControl.Feedback>
                         </InputGroup>
                     }
                     </Col>
