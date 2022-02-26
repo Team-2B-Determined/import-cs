@@ -30,7 +30,7 @@ verifyToken = (req, res, next) => {
         req.userId = decoded.id;
         next();
     })
-}
+};
 
 //Retrieves the user's list of roles, and checks if one of them is the 'admin' role
 //  Need to implement user.getRoles() to retrieve a list of their roles.
@@ -50,6 +50,6 @@ isAdmin = (req, res, next) => {
                     })
                 })
         })
-}
+};
 
-module.exports = tokenAuth
+module.exports = tokenAuth;
