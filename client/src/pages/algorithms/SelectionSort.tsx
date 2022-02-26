@@ -21,6 +21,7 @@ const displayArray = (arr: number[], highlightAtIndexes?: number[]) => {
 
 const _selectionSort = (arr: number[]): any[] => {
     const steps: Step[] = []
+    arr = [...arr]
 
     for (let i = 0; i < (arr.length - 1); i++) {
         steps.push({
@@ -89,18 +90,16 @@ const links: ExternalLink[] = [
 ]
 
 const SelectionSort = ():any => {
-    const location = useLocation();
+    const location:any = useLocation();
     console.log(location.state)
     const historyRows:HistoryRow[] = JSON.parse(localStorage.getItem("historyRows") || "[]");
 
-
-    // @ts-ignore
     const [numbersInput, setNumbersInput] = useState<string>(location.state === null ? "" : location.state.input)
+    const [numbers,setNumbers] = useState<any[]>([])
     const [showCalculation, setShowCalculation] = useState<boolean>(false)
 
-    let steps: any[] = _selectionSort(numbersInput.split(/[ ,]+/).map(e => Number(e)))
     const handleSolve = () => {
-        steps = _selectionSort(numbersInput.split(/[ ,]+/).map(e => Number(e)))
+        setNumbers(numbersInput.split(/[ ,]+/).map(e => Number(e)))
         setShowCalculation(true)
         historyRows.push({calculationFeature: "Selection Sort", input: numbersInput,pathname:"/selectionsort", state:`${numbersInput}`
         });
@@ -131,7 +130,7 @@ const SelectionSort = ():any => {
                 title={"Selection Sort"}
                 codeNavigationGuide={{
                     codeDisplay: displayCodes.selectionSort,
-                    steps: steps
+                    steps: _selectionSort(numbers)
 
                 }}
                 description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\n" +

@@ -149,7 +149,7 @@ class CodeNavigator extends React.Component<{ codeNavigationGuide: CodeNavigatio
                         </Card.Body>
                     </Card>
                 </Container>
-                
+
                 <Offcanvas show={this.state.show} onHide={()=>this.setState({show: false})} placement={'end'}>
                     <Offcanvas.Header>
                         <Offcanvas.Title>
