@@ -125,9 +125,9 @@ const KeyBindEditor = () => {
                         }
                     }));
             console.log(formatString);
-            //window.location.reload();
+            window.location.reload();
         } else {
-            alert("invalid binds:" + valid.arr.toString());
+            //alert("invalid binds:" + valid.arr.toString());
         }
     }
 
@@ -143,12 +143,12 @@ const KeyBindEditor = () => {
     }
 
     return <>
-        <Container>
+        <Container fluid="md">
             <Row>
                 Keyboard Mappings
             </Row>
             <Row>
-                <Col xs={6}>
+                <Col md={6}>
                     <Row>
                         <Col>
                             <Button
@@ -172,11 +172,11 @@ const KeyBindEditor = () => {
         </Container>
         {boundDisplay.map((e, i) =>
         <div>
-            <Container>
+            <Container fluid="sm">
                 <Row style={{marginTop:15, marginBottom:15}}>
-                    <Col xs={8}>{
+                    <Col lg={6}>{
                         <InputGroup className="mb-3" hasValidation>
-                            <Col xs={8}>
+                            <Col xs={7} sm={8}>
                                 <span className="input-group-text"
                                       id=""
                                 >{e}</span>
