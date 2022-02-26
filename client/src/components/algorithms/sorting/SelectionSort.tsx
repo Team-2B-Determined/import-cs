@@ -1,9 +1,9 @@
-import CalculatorPage, {ExternalLink} from "../../components/CalculatorPage";
-import {Step} from "../../components/CodeNavigator";
-import displayCodes from "../../codeDisplays";
+import CalculatorPage, {ExternalLink} from "../../CalculatorPage";
+import {Step} from "../../CodeNavigator";
+import displayCodes from "../../../codeDisplays";
 import {Button, Col, Container, Form, FormControl, InputGroup} from "react-bootstrap";
 import React, {useState} from "react";
-import {HistoryRow} from "../accounts/History";
+import {HistoryRow} from "../../../pages/accounts/History";
 import {useLocation} from "react-router-dom";
 
 const displayArray = (arr: number[], highlightAtIndexes?: number[]) => {
@@ -89,51 +89,19 @@ const links: ExternalLink[] = [
     }
 ]
 
-const SelectionSort = ():any => {
-    const location:any = useLocation();
-    console.log(location.state)
-    const historyRows:HistoryRow[] = JSON.parse(localStorage.getItem("historyRows") || "[]");
 
-    const [numbersInput, setNumbersInput] = useState<string>(location.state === null ? "" : location.state.input)
-    const [numbers,setNumbers] = useState<any[]>([])
-    const [showCalculation, setShowCalculation] = useState<boolean>(false)
 
-    const handleSolve = () => {
-        setNumbers(numbersInput.split(/[ ,]+/).map(e => Number(e)))
-        setShowCalculation(true)
-        historyRows.push({calculationFeature: "Selection Sort", input: numbersInput,pathname:"/selectionsort", state:`${numbersInput}`
-        });
-
-        localStorage.setItem("historyRows", JSON.stringify(historyRows));
-    }
+const SelectionSort = ({numbers}:{numbers:number[]}) => {
 
     return (
             <CalculatorPage
-                showCalculation={showCalculation}
-                inputs={<Container>
-                    <Col xs={6}>
-                        <InputGroup className="mb-3">
-                            <FormControl
-                                value={numbersInput}
-                                onChange={e => setNumbersInput(e.target.value)}
-                                placeholder="81 -62 -92 37 85"
-                                aria-label="81 -62 -92 37 85"
-                                aria-describedby="basic-addon2"
-                            />
-                            <Button variant="outline-secondary" id="button-addon2" onClick={handleSolve}>
-                                Solve
-                            </Button>
-                        </InputGroup>
-                    </Col>
-                    Enter a sequence of numbers separated with spaces " " or commas ","
-                </Container>}
                 title={"Selection Sort"}
                 codeNavigationGuide={{
                     codeDisplay: displayCodes.selectionSort,
                     steps: _selectionSort(numbers)
 
                 }}
-                description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\n" +
+                description={"The selection sort algorithm sorting an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\n" +
                     "\t1) The subarray which is already sorted. \n" +
                     "\te2) Remaining subarray which is unsorted.\n" +
                     "In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray. "}

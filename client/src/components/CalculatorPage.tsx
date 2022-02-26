@@ -10,8 +10,6 @@ export interface ExternalLink {
 }
 
 export interface CalculatorPageProp {
-    showCalculation: boolean,
-    inputs: ReactNode,
     title: string,
     description: string,
     codeNavigationGuide: CodeNavigationGuide,
@@ -19,7 +17,7 @@ export interface CalculatorPageProp {
     image?: string
 }
 
-const CalculatorPage: FC<CalculatorPageProp> = ({showCalculation,inputs, title, description, codeNavigationGuide, links, image}) => {
+const CalculatorPage: FC<CalculatorPageProp> = ({title, description, codeNavigationGuide, links, image}) => {
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
@@ -36,9 +34,8 @@ const CalculatorPage: FC<CalculatorPageProp> = ({showCalculation,inputs, title, 
             <h3>{startCase(title)}</h3>
             {image ? <img src={image} width="50" height="50"/> : null}<br/>
 
-            {inputs}
             <br/>
-            {showCalculation ? <CodeNavigator codeNavigationGuide={codeNavigationGuide}/> : null}
+            <CodeNavigator codeNavigationGuide={codeNavigationGuide}/>
 
             <Offcanvas show={show} onHide={handleClose} placement={'end'}>
                 <Offcanvas.Header>
