@@ -11,8 +11,7 @@ const verifySignup = {
 //If so, returns an error message
 checkDuplicateUser = (req, res, next) => {
     User.findOne({
-        where: {
-            email: req.body.email }
+        where: { email: req.body.email }
     })
         //If the query returns a user, send an error status, otherwise call next()
         .then(user => {
