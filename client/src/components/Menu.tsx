@@ -37,16 +37,15 @@ const Menu = () => {
   const SearchDropdown = () => (
     <Nav>
       <NavDropdown title="" show={query !== ""} drop="down">
-        {fuse.search(query).map(feature => feature.item).map((feature, i, arr) => (<>
-            <NavDropdown.Item href="/history" style={{width: "calc(60px + 20vw)"}}>
+        {fuse.search(query).slice(0,5).map(feature => feature.item).map((feature, i, arr) => (<>
+            <NavDropdown.Item href={feature.href} style={{width: "calc(60px + 20vw)"}}>
               <div style={{whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}
                    className="ms-2 me-auto">
                 <div className="fw-bold">{feature.name}</div>
                 {feature.description}
               </div>
-              <Badge bg="primary" pill>
-                O({feature.runtime})
-              </Badge>
+              {feature.runtime ? <Badge bg="primary" pill>O({feature.runtime})</Badge>: null}
+
             </NavDropdown.Item>
             {i < arr.length - 1 ? <Dropdown.Divider/> : null}
           </>
