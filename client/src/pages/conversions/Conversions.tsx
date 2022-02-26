@@ -1,11 +1,11 @@
 import React, {Component, useState} from "react";
-import {Button, Col, Dropdown, DropdownButton, Form, Row} from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 import ConversionAlgorithms from "./tobinary/ConversionAlgorithms";
 
 const Conversions = () => {
     const [inputType, setInputType] = useState<string>("Binary")
-    const [outputType, setOutputType] = useState<string>("Binary")
-    const [inputValue, setInputValue] = useState<string>("")
+    const [outputType, setOutputType] = useState<string>("Decimal")
+    const [inputValue, setInputValue] = useState<string>("1011")
     const [outputValue, setOutputValue] = useState<string>("")
     const [showConversion, setShowConversion] = useState<boolean>(false)
 
@@ -52,7 +52,7 @@ const Conversions = () => {
                         <Form.Label>Output Type:</Form.Label>
                         <Form.Select aria-label="OutputConversionType" onChange={handleOutputSelect}>
                             <option>Binary</option>
-                            <option>Decimal</option>
+                            <option selected>Decimal</option>
                             <option>Hexadecimal</option>
                         </Form.Select>
                     </Form.Group>
@@ -60,7 +60,7 @@ const Conversions = () => {
                 <Row>
                     <Form.Group as={Col} controlId="formGridInputBox">
                         <Form.Label>Input Value:</Form.Label>
-                        <Form.Control type="string" placeholder="10110101" onChange={handleInputValue}/>
+                        <Form.Control type="string" placeholder="1011" onChange={handleInputValue}/>
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridOutputBox">
                         <Form.Label>Output Value:</Form.Label>
