@@ -93,7 +93,6 @@ const FontEditor = () => {
                 });
                 break;
         }
-
     }
 
     /**
@@ -129,9 +128,30 @@ const FontEditor = () => {
         window.location.reload();
     }
 
+    function restoreDefaults(){
+        localStorage.setItem('fontsPref',
+            JSON.stringify(
+                {
+                    family: "Lato, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+                    fSize: "1.0rem"
+                }));
+        window.location.reload();
+    }
+
+
     return <>
         <div>
-            Font Options
+            <Row>
+                <Col>
+                    Font Options
+                </Col>
+                <Col>
+                    <Button type="submit"
+                            onClick={restoreDefaults}>
+                        Restore Defaults
+                    </Button>
+                </Col>
+            </Row>
         </div>
         <Form>
             <Row className="align-items-center">
