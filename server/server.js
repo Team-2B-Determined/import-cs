@@ -32,6 +32,7 @@ app.use(express.json()); // => allows us to access the req.body
 app.all('/api', require('./Routes/api'));
 
 
+
 ///KEEP BELOW CODE UNTIL SUCCESSFUL DEPLOYMENT ON HEROKU///
 // app.use(express.static(path.join(__dirname, "client/build")));
 // app.use(express.static("./client/build")); => for demonstration
