@@ -23,10 +23,49 @@ import Sorting from "./pages/algorithms/Sorting";
 
 
 function App() {
-    const style = document.getElementById('dark-mode')
+    const darkLight = document.getElementById('dark-mode')
+    const fontStyle = document.getElementById('styleElement');
+
+    /**
+     * Sets default light theme if local storage is empty.
+     */
     if (localStorage.getItem('darkMode') == null) {
         localStorage.setItem('darkMode', JSON.stringify(false));
     }
+
+    /**
+     * Sets theme of the site from local storage.
+     */
+    darkLight?.setAttribute("href", JSON.parse(localStorage.getItem('darkMode') || '') ? 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/darkly/bootstrap.min.css' : 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/flatly/bootstrap.min.css')
+
+    /**
+     * Sets default font preferences if local storage is empty.
+     */
+    if (localStorage.getItem('fontsPref') == null) {
+        localStorage.setItem('fontsPref',
+            JSON.stringify(
+                {
+                    family: "Lato, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+                    fSize: "1.0rem"
+                }));
+    }
+
+    /**
+     * Sets the font settings of the site from local storage
+     */
+    if (fontStyle != null) {
+        let family = JSON.parse(localStorage.getItem('fontsPref') || '').family
+        let fSize = JSON.parse(localStorage.getItem('fontsPref') || '').fSize
+        console.log(family + fSize)
+        fontStyle.innerHTML = "* {\n" +
+            "    font-size: " + fSize + ";\n" +
+            "    font-family: \"" + family + "\", sans-serif;\n" +
+            "}"
+    }
+
+    /**
+     * Sets default hotkey mappings if local storage is empty.
+     */
     if (localStorage.getItem('keyBinds') == null) {
         localStorage.setItem('keyBinds',
             JSON.stringify(
@@ -43,11 +82,12 @@ function App() {
                     }
                 }));
     }
+
+    /**
+     * Establishes hotkey mappings.
+     * Keys are taken from local storage and applied to location paths.
+     */
     let bindsDict = JSON.parse(localStorage.getItem("keyBinds") || '');
-
-    style?.setAttribute("href", JSON.parse(localStorage.getItem('darkMode') || '') ? 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/darkly/bootstrap.min.css' : 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/flatly/bootstrap.min.css')
-
-
     hotkeys(bindsDict.KeyBindString, function (event, handler) {
         switch (handler.key) {
             case bindsDict.KeyBindDict.algorithms:
