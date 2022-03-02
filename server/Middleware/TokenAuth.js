@@ -2,9 +2,8 @@ const jwt = require("jsonwebtoken");
 const db = require('../Models');
 const User = db.user;
 
-//Refactor to config file eventually
-//Should be the same key used to sign the JWT when creating (on the client side)
-const secret = "DFxT4rhf245gDG#%5rGKGgr435hju35g7^"
+
+const key = require('../Config/config.auth')
 
 const tokenAuth = {
     verifyToken: verifyToken,
@@ -23,7 +22,7 @@ verifyToken = (req, res, next) => {
     }
 
     //Verify token using jwt library
-    jwt.verify(token, secret, (err, decoded) => {
+    jwt.verify(token, key, (err, decoded) => {
         if(err) {
             return res.status(401).send({message: "Token is unauthenticated."});
         }
@@ -33,7 +32,7 @@ verifyToken = (req, res, next) => {
 };
 
 //Retrieves the user's list of roles, and checks if one of them is the 'admin' role
-//  Need to implement user.getRoles() to retrieve a list of their roles.
+//Need to implement user.getRoles() to retrieve a list of their roles.
 isAdmin = (req, res, next) => {
     User.findByPk(req.body.id)
         .then(user => {
