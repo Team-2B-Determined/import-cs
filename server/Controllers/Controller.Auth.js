@@ -1,14 +1,9 @@
-const db = require("../Models")
-const User = db.user;
-const Role = db.role;
+const {db} = require("../Database/db");
+const User = require("../Models/User")(db);
+const Role = require("../Models/Role")(db);
 const bcrypt = require('bcryptjs')
 const Op = require('sequelize')
 
-
-const controllerAuth = {
-    signup: signup,
-    signin: signin
-};
 
 //Creates a new user and saves to database
 signup = (req, res) => {
@@ -70,15 +65,16 @@ signin = (req, res) => {
                         roles: authorities,
                         accessToken: token
                     });
-
                 })
                 .catch(err => {
                     res.status(500).send({ message: err.message });
                 })
-
-
         })
 };
 
+const controllerAuth = {
+    signup: signup,
+    signin: signin
+};
 
 module.exports = controllerAuth;

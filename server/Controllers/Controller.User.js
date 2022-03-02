@@ -1,5 +1,5 @@
-const {db} = require('./Database/db')
-const User = require('../Models/User')(db)
+const {db} = require("../Database/db");
+const User = require("../Models/User")(db);
 
 
 //Standard Promise

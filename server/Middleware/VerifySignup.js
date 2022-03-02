@@ -1,11 +1,6 @@
-const db = require('../Models');
-const User = db.user;
-const Role = db.role;
-
-const verifySignup = {
-    checkDuplicateUser: checkDuplicateUser,
-    checkRole: checkRole
-}
+const {db} = require("../Database/db");
+const User = require("../Models/User")(db);
+const Role = require("../Models/Role")(db);
 
 //Checks if there is a user with the same email already
 //If so, returns an error message
@@ -38,6 +33,11 @@ checkRole = (req, res, next) => {
         }
     }
     next();
+}
+
+const verifySignup = {
+    checkDuplicateUser: checkDuplicateUser,
+    checkRole: checkRole
 }
 
 module.exports = verifySignup;

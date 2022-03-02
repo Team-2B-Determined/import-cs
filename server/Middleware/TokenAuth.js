@@ -1,14 +1,9 @@
 const jwt = require("jsonwebtoken");
-const db = require('../Models');
-const User = db.user;
+const {db} = require("../Database/db");
+const User = require("../Models/User")(db);
 
 
 const key = require('../Config/config.auth')
-
-const tokenAuth = {
-    verifyToken: verifyToken,
-    isAdmin: isAdmin
-};
 
 
 verifyToken = (req, res, next) => {
@@ -49,6 +44,11 @@ isAdmin = (req, res, next) => {
                     })
                 })
         })
+};
+
+const tokenAuth = {
+    verifyToken: verifyToken,
+    isAdmin: isAdmin
 };
 
 module.exports = tokenAuth;

@@ -1,4 +1,4 @@
-const {db} = require('./Database/db')
+const {db} = require('../Database/db')
 const History = require('../Models/Setting')(db)
 
 //Implement CRUD for settings

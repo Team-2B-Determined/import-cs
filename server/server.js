@@ -27,9 +27,11 @@ app.use(express.json()); // => allows us to access the req.body
 
 
 /// ROUTES ///
-//Routes all api HTTP requests to be handled by api.js
+//Routes all api HTTP requests to be handled by /routes/api.js
 //We do NOT need to send the express app object as a parameter
 app.all('/api', require('./Routes/api'));
+//Routes all test HTTP requests to /routes/test.js
+app.all('/test', require('./Routes/test'));
 
 
 
@@ -51,5 +53,5 @@ console.log(path.join(__dirname, "../client/build"));
 
 //app begins listening for HTTP requests on specified port
 app.listen(PORT, () => {
-    console.log(`Server is starting on port ${PORT}`);
+    console.log(`Server is listening on port ${PORT}`);
 });
