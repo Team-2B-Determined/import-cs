@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 module.exports = (db) => {
-    const KeyboardMap = db.define('KeyboardMap', {
+    return db.define('KeyboardMap', {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
@@ -21,6 +21,4 @@ module.exports = (db) => {
             db: db,
             timestamps: false
         });
-
-    return KeyboardMap
 };

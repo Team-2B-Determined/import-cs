@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 module.exports = (db) => {
-    const HistoryEntry = db.define('HistoryEntry', {
+    return db.define('HistoryEntry', {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
@@ -22,5 +22,4 @@ module.exports = (db) => {
             db: db,
             timestamps: true
         });
-    return HistoryEntry;
 }

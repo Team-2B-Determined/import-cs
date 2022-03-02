@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 module.exports = (db) => {
-    const Setting = db.define('Setting', {
+    return db.define('Setting', {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
@@ -25,6 +25,4 @@ module.exports = (db) => {
             db: db,
             timestamps: false
         });
-
-    return Setting;
 };

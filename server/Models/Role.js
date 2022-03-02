@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 
 
 module.exports = (db) => {
-    const Role = db.define('User', {
+    return db.define('User', {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
@@ -19,6 +19,4 @@ module.exports = (db) => {
             db: db,
             timestamps: true    //Establishes 'createdAt' & 'updatedAt' column
         });
-
-    return Role
 };
