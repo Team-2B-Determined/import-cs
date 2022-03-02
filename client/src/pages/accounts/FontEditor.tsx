@@ -21,22 +21,24 @@ const FontEditor = () => {
      */
     const familyOptions = [
         "Lato, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
-        "Times New Roman",
         "Arial",
-        "Roboto",
-        "Lora",
-        "Comic Sans MS"];
+        "Comic Sans MS",
+        "Courier",
+        "Georgia",
+        "Impact",
+        "Times New Roman"];
 
     /**
      * List of font family display names
      */
     const familyDisplay = [
         "Lato (Default)",
-        "Times New Roman",
         "Arial",
-        "Roboto",
-        "Lora",
-        "Comic Sans MS"];
+        "Comic Sans MS",
+        "Courier",
+        "Georgia",
+        "Impact",
+        "Times New Roman"];
 
     /**
      * List of font sizing options
