@@ -5,12 +5,10 @@ const cors = require("cors");
 const {db} = require('./Database/db')
 const PORT = process.env.PORT || 5000;
 
-const router = express.Router()
 
 //const path = require("path");
 //process.env.PORT
 //process.env.NODE_ENV => production or undefined
-
 
 
 /// TEST DB CONNECTION ///
@@ -23,11 +21,15 @@ db.authenticate()
     });
 
 
-
 /// MIDDLEWARE ///
 app.use(cors());
 app.use(express.json()); // => allows us to access the req.body
 
+
+/// ROUTES ///
+//Routes all api HTTP requests to be handled by api.js
+//We do NOT need to send the express app object as a parameter
+app.all('/api', require('./Routes/api'));
 
 
 // app.use(express.static(path.join(__dirname, "client/build")));
@@ -88,12 +90,6 @@ KeyboardMaps.sync({force: false, alter: true});
 HistoryEntry.sync({force: false, alter: true});
 Role.sync({force: true, alter: true});
 
-
-
-/// ROUTES ///
-router.all('/user', require('./Routes/Routes.User'));
-router.use('/setting', require("./Routes/Routes.Setting"))
-router.use('/history', require("./Routes/Routes.History"))
 
 
 //app begins listening for HTTP requests on specified port
