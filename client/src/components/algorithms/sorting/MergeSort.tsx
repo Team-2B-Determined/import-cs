@@ -105,11 +105,11 @@ const generateSteps = (arr) => {
 const links: ExternalLink[] = [
     {
         name: "GeeksForGeeks",
-        url: "https://www.geeksforgeeks.org/selection-sort/"
+        url: "https://www.geeksforgeeks.org/merge-sort/"
     },
     {
         name: "Video (2:42)",
-        url: "https://www.youtube.com/watch?v=g-PGLbMth_g"
+        url: "https://youtu.be/4VqmGXwpLqc"
     }
 ]
 
@@ -118,17 +118,9 @@ const MergeSort = ({numbers}: { numbers: number[] }) => {
 
     return (
         <CalculatorPage
-            title={"Merge Sort"}
-            codeNavigationGuide={{
-                codeDisplay: displayCodes.mergeSort,
-                steps: generateSteps(numbers)
-
-            }}
-            description={"The merge sort algorithm sorting an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\n" +
-                "\t1) The subarray which is already sorted. \n" +
-                "\te2) Remaining subarray which is unsorted.\n" +
-                "In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray. "}
-            links={links}
+            calculatorFeature={"MergeSort"}
+            steps={generateSteps(numbers)}
+           links={links}
             image={"https://i.imgur.com/EerzUpo.png"}
         />
     );
