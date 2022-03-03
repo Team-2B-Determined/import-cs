@@ -5,6 +5,7 @@ import {HistoryRow} from "../accounts/History";
 import {useLocation} from "react-router-dom";
 import SelectionSort from "../../components/algorithms/sorting/SelectionSort";
 import MergeSort from "../../components/algorithms/sorting/MergeSort";
+import {startCase} from 'lodash';
 
 
 export type SortingAlgorithms = "SelectionSort" | "MergeSort"
@@ -13,7 +14,7 @@ const Sorting = () => {
 
     const [numbersInput, setNumbersInput] = useState<string>(location.state === null ? "" : location.state.input)
     const [numbers, setNumbers] = useState<any[]>([])
-    const historyRows: HistoryRow[] = JSON.parse(localStorage.getItem("historyRows") || "81 -62 -92 37 85");
+    const historyRows: HistoryRow[] = JSON.parse(localStorage.getItem("historyRows") || "[]");
     const [sortingAlgorithm, setSortingAlgorithm] = useState<SortingAlgorithms>("SelectionSort")
 
     const handleSolve = () => {
@@ -39,7 +40,7 @@ const Sorting = () => {
                 }}
             >
                 {Object.keys(SORTING_ALGORITHMS).map(sortingAlgorithm => <option
-                    value={sortingAlgorithm}>{sortingAlgorithm}</option>)}
+                    value={sortingAlgorithm}>{startCase(sortingAlgorithm)}</option>)}
             </Form.Select></Form.Group>
     )
 

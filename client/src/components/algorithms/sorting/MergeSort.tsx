@@ -1,6 +1,5 @@
 import CalculatorPage, {ExternalLink} from "../../CalculatorPage";
 import {Step} from "../../CodeNavigator";
-import displayCodes from "../../../codeDisplays";
 import React from "react";
 import displayArray from "../../../displayArray";
 
@@ -108,7 +107,7 @@ const links: ExternalLink[] = [
         url: "https://www.geeksforgeeks.org/merge-sort/"
     },
     {
-        name: "Video (2:42)",
+        name: "[Video] Merge sort in 3 minutes",
         url: "https://youtu.be/4VqmGXwpLqc"
     }
 ]
