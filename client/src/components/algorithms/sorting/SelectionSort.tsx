@@ -1,23 +1,9 @@
 import CalculatorPage, {ExternalLink} from "../../CalculatorPage";
 import {Step} from "../../CodeNavigator";
 import displayCodes from "../../../codeDisplays";
-import {Button, Col, Container, Form, FormControl, InputGroup} from "react-bootstrap";
-import React, {useState} from "react";
-import {HistoryRow} from "../../../pages/accounts/History";
-import {useLocation} from "react-router-dom";
+import React from "react";
+import displayArray from "../../../displayArray";
 
-const displayArray = (arr: number[], highlightAtIndexes?: number[]) => {
-    return [...arr].map((num, arrIndex) => {
-        let displayedNum: JSX.Element | string;
-        const isLastElement = arrIndex === arr.length - 1
-        if (highlightAtIndexes?.includes(arrIndex)) {
-            displayedNum = isLastElement ? <strong>{num}</strong> : <><strong>{num}</strong>, </>
-        } else {
-            displayedNum = isLastElement ? num.toString() : num.toString() + ", "
-        }
-        return displayedNum
-    })
-}
 
 const _selectionSort = (arr: number[]): any[] => {
     const steps: Step[] = []
