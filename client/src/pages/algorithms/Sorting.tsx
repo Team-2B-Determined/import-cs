@@ -19,9 +19,9 @@ const Sorting = () => {
     const handleSolve = () => {
         setNumbers(numbersInput.split(/[ ,]+/).map(e => Number(e)))
         historyRows.push({
-            calculationFeature: "Selection Sort",
+            calculationFeature: sortingAlgorithm,
             input: numbersInput,
-            pathname: "/selectionsort",
+            pathname: `/${sortingAlgorithm}`,
             state: `${numbersInput}`
         });
 
