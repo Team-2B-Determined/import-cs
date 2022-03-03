@@ -1,5 +1,4 @@
-import CalculationsList, {Item} from "../../components/CalculationsList";
-import {Button, Col, Container, Dropdown, DropdownButton, Form, FormControl, InputGroup} from "react-bootstrap";
+import {Button, Col, Container, Form, FormControl, InputGroup} from "react-bootstrap";
 import React, {ReactNode, useState} from "react";
 import {HistoryRow} from "../accounts/History";
 import {useLocation} from "react-router-dom";
@@ -15,14 +14,14 @@ const Sorting = () => {
     const [numbersInput, setNumbersInput] = useState<string>(location.state === null ? "" : location.state.input)
     const [numbers, setNumbers] = useState<any[]>([])
     const historyRows: HistoryRow[] = JSON.parse(localStorage.getItem("historyRows") || "[]");
-    const [sortingAlgorithm, setSortingAlgorithm] = useState<SortingAlgorithms>("SelectionSort")
+    const [sortingAlgorithm, setSortingAlgorithm] = useState<SortingAlgorithms>(location.state === null ? "SelectionSort" : location.state.calculatorFeature)
 
     const handleSolve = () => {
         setNumbers(numbersInput.split(/[ ,]+/).map(e => Number(e)))
         historyRows.push({
-            calculationFeature: sortingAlgorithm,
+            calculatorFeature: sortingAlgorithm,
             input: numbersInput,
-            pathname: `/${sortingAlgorithm}`,
+            pathname: `/algorithms/sorting`,
             state: `${numbersInput}`
         });
 
