@@ -7,6 +7,9 @@ const KeyBindEditor = () => {
 
     let keyBindDict = JSON.parse(localStorage.getItem("keyBinds") || '').KeyBindDict;
 
+    /**
+     * Holds React states for the custom keybinds
+     */
     const [state, setState] = React.useState({
         algorithms: keyBindDict["algorithms"],
         computations: keyBindDict["computations"],
@@ -18,6 +21,10 @@ const KeyBindEditor = () => {
     const [valid, setValid] = React.useState(
         {arr: [0, 0, 0, 0, 0, 0, 0]}
     )
+
+    /**
+     * Display name and path names for each customizable keybind action
+     */
     const boundDisplay = [
         "Algorithms Page",
         "Computations Page",
@@ -34,6 +41,10 @@ const KeyBindEditor = () => {
         "account",
         "history",
         "home"];
+
+    /**
+     * Restores keybinds to their defaults
+     */
     function restoreDefaults() {
         localStorage.setItem('keyBinds',
             JSON.stringify(
@@ -49,6 +60,10 @@ const KeyBindEditor = () => {
         window.location.reload();
     }
 
+    /**
+     * Handles change events for choosing a keybind's key
+     * @param evt onChange event for choosing the key
+     */
     function handleChangeKey(evt) {
         const value = evt.target.value;
         const action = boundActions[parseInt(evt.target.name)];
@@ -59,6 +74,10 @@ const KeyBindEditor = () => {
         });
     }
 
+    /**
+     * Handles change events for choosing a keybind's modifier
+     * @param evt onChange event for choosing the modifier
+     */
     function handleChangeMod(evt) {
         const value = evt.target.value;
         const action = boundActions[parseInt(evt.target.name)];
@@ -69,14 +88,26 @@ const KeyBindEditor = () => {
         });
     }
 
+    /**
+     * Returns the modifier of a keybind from its string
+     * @param str the full keybind string
+     */
     function extractModifier(str) {
         return str.split("+",1)[0];
     }
 
+    /**
+     * Returns the key of a keybind from its string
+     * @param str the full keybind string
+     */
     function extractKey(str) {
         return str[str.length-1];
     }
 
+    /**
+     * Validates the current binds in the input forms.
+     * Assigns error values to invalid binds.
+     */
     function validateBinds() {
         let validationList = [""];
         let success = true;
@@ -102,6 +133,9 @@ const KeyBindEditor = () => {
         return success;
     }
 
+    /**
+     * Attempts to save the state of the custom keybinds
+     */
     const saveBinds = () => {
         if (validateBinds()) {
             console.log("savingbinds...");
@@ -131,6 +165,10 @@ const KeyBindEditor = () => {
         }
     }
 
+    /**
+     * Returns error message based on error id
+     * @param i error id number
+     */
     function errorCodeMessage(i) {
         switch (i) {
             case 1:

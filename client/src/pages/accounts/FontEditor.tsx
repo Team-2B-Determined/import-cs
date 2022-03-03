@@ -128,6 +128,9 @@ const FontEditor = () => {
         window.location.reload();
     }
 
+    /**
+     * Restores font settings to their defaults
+     */
     function restoreDefaults(){
         localStorage.setItem('fontsPref',
             JSON.stringify(
@@ -137,7 +140,6 @@ const FontEditor = () => {
                 }));
         window.location.reload();
     }
-
 
     return <>
         <div>
