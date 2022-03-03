@@ -23,7 +23,7 @@ export default {
     }`,
     MergeSort:
         `const mergeSort = arr => {
-        if (arr.length === 1) {
+        if (arr.length <= 1) {
             return arr
         }
         const split = Math.floor(arr.length / 2)

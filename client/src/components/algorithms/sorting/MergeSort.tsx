@@ -5,10 +5,10 @@ import displayArray from "../../../displayArray";
 
 
 const _mergeSort = (arr, steps) => {
-    if (arr.length === 1) {
+    if (arr.length <= 1) {
         steps.push({
             lineNumber: "2-4",
-            description: <>An element with a single element is already sorted.<br/>
+            description: <>An element with a single element or less is already sorted.<br/>
                 arr=[{displayArray(arr)}]
             </>
         })
