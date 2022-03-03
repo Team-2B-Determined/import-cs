@@ -33,7 +33,7 @@ const _mergeSort = (arr, steps) => {
             left=[{displayArray(left)}]
         </>
     })
-    left = _mergeSort(left,steps)
+    left = _mergeSort(left, steps)
 
     steps.push({
         lineNumber: "10",
@@ -41,44 +41,49 @@ const _mergeSort = (arr, steps) => {
             right=[{displayArray(right)}]
         </>
     })
-    right = _mergeSort(right,steps)
+    right = _mergeSort(right, steps)
 
     steps.push({
         lineNumber: "12",
         description: "Now that both sides are sorted, let's combine them back to one sorted array"
     })
 
-    const sorted:any[] = []
+    const sorted: any[] = []
     while (left.length > 0 || right.length > 0) {
         if (right.length === 0 || left[0] <= right[0]) {
-            if (right.length ===0) {
+            if (right.length === 0) {
                 steps.push({
                     lineNumber: "14-16",
                     description: <>Add the remaining elements of the left array since the right side is empty<br/>
-                        left=[{displayArray(left,[0])}], sorted=[{displayArray(sorted)}]
+                        left=[{displayArray(left, [0])}], sorted=[{displayArray(sorted)}]
                     </>
                 })
             } else {
                 steps.push({
                     lineNumber: "14-16",
-                    description: <>{left[0]} from left=[{displayArray(left,[0])}] is smaller or equal to {right[0]} from right=[{displayArray(right,[0])}], so we'll add that in to the sorted array<br/>
+                    description: <>{left[0]} from left=[{displayArray(left, [0])}] is smaller or equal
+                        to {right[0]} from right=[{displayArray(right, [0])}], so we'll add that in to the sorted
+                        array<br/>
                         sorted=[{displayArray(sorted)}]
                     </>
                 })
             }
             sorted.push(left.shift())
         } else {
-            if (left.length ===0) {
+            if (left.length === 0) {
                 steps.push({
                     lineNumber: "16-18",
-                    description: <>Add the remaining elements of the right sorted array since the left side is empty<br/>
-                        right=[{displayArray(right,[0])}], sorted=[{displayArray(sorted)}]
+                    description: <>Add the remaining elements of the right sorted array since the left side is
+                        empty<br/>
+                        right=[{displayArray(right, [0])}], sorted=[{displayArray(sorted)}]
                     </>
                 })
             } else {
                 steps.push({
                     lineNumber: "16-18",
-                    description: <>{right[0]} from right=[{displayArray(right,[0])}] is small or equal to {left[0]} from left=[{displayArray(left,[0])}], so we'll add that in to the sorted array<br/>
+                    description: <>{right[0]} from right=[{displayArray(right, [0])}] is small or equal
+                        to {left[0]} from left=[{displayArray(left, [0])}], so we'll add that in to the sorted
+                        array<br/>
                         sorted=[{displayArray(sorted)}]
                     </>
                 })
@@ -91,13 +96,14 @@ const _mergeSort = (arr, steps) => {
         lineNumber: "21",
         description: <>Finished! The array is now sorted!<br/>
             sorted=[{displayArray(sorted)}]
-        </>})
+        </>
+    })
     return sorted
 };
 
 const generateSteps = (arr) => {
     const steps: Step[] = []
-    _mergeSort(arr,steps)
+    _mergeSort(arr, steps)
     return steps
 }
 
@@ -119,7 +125,7 @@ const MergeSort = ({numbers}: { numbers: number[] }) => {
         <CalculatorPage
             calculatorFeature={"MergeSort"}
             steps={generateSteps(numbers)}
-           links={links}
+            links={links}
             image={"https://i.imgur.com/EerzUpo.png"}
         />
     );
