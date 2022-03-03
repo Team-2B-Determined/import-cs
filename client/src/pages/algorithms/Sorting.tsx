@@ -7,13 +7,13 @@ import SelectionSort from "../../components/algorithms/sorting/SelectionSort";
 import MergeSort from "../../components/algorithms/sorting/MergeSort";
 
 
-type SortingAlgorithms = "SelectionSort" | "MergeSort"
+export type SortingAlgorithms = "SelectionSort" | "MergeSort"
 const Sorting = () => {
     const location: any = useLocation();
 
     const [numbersInput, setNumbersInput] = useState<string>(location.state === null ? "" : location.state.input)
     const [numbers, setNumbers] = useState<any[]>([])
-    const historyRows: HistoryRow[] = JSON.parse(localStorage.getItem("historyRows") || "[]");
+    const historyRows: HistoryRow[] = JSON.parse(localStorage.getItem("historyRows") || "81 -62 -92 37 85");
     const [sortingAlgorithm, setSortingAlgorithm] = useState<SortingAlgorithms>("SelectionSort")
 
     const handleSolve = () => {

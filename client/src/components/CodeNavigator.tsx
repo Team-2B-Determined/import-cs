@@ -1,6 +1,8 @@
 import {Button, Card, Col, Container, FormControl, InputGroup, Offcanvas, Row} from "react-bootstrap";
 import React, {useState} from "react";
 import {CodeBlock, irBlack} from "react-code-blocks";
+import codeDisplays from "../codeDisplays";
+import { CalculatorFeature } from "./CalculatorPage";
 
 export interface Step {
     description: string | JSX.Element,
@@ -8,15 +10,10 @@ export interface Step {
 }
 
 
-export interface CodeNavigationGuide {
-    codeDisplay: string,
-    steps: Step[]
-}
-
 let autoPlayer;
 
 
-const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigationGuide }) => {
+const CodeNavigator = ({steps,calculatorFeature}: { steps: Step[], calculatorFeature: CalculatorFeature}) => {
 
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
@@ -30,25 +27,25 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
     }
 
     const setStepToEnd = () => {
-        setStepIndex(codeNavigationGuide.steps.length - 1)
+        setStepIndex(steps.length - 1)
     }
 
     const addStepIndex = (otherOperand: number) => {
         setStepIndex(prevState => {
             const newIndex = prevState + otherOperand
 
-            if (newIndex >= codeNavigationGuide.steps.length - 1) {
+            if (newIndex >= steps.length - 1) {
                 setIsAutoPlaying(false)
                 clearInterval(autoPlayer)
             }
 
-            return newIndex >= codeNavigationGuide.steps.length ? codeNavigationGuide.steps.length - 1
+            return newIndex >= steps.length ? steps.length - 1
                 : newIndex < 0 ? 0
                     : newIndex
         })
     }
 
-    const currentStep = () => codeNavigationGuide.steps[stepIndex]
+    const currentStep = () => steps[stepIndex]
 
 
     const StepsNavigation = () => (<>
@@ -108,7 +105,7 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
                         <Row>
                             <Col style={{height: 600, overflowY: "auto"}}>
                                 <CodeBlock
-                                    text={codeNavigationGuide.codeDisplay}
+                                    text={codeDisplays[calculatorFeature]}
                                     language={"js"}
                                     showLineNumbers={true}
                                     startingLineNumber={true}
@@ -118,7 +115,7 @@ const CodeNavigator = ({codeNavigationGuide}: { codeNavigationGuide: CodeNavigat
                             </Col>
                             <Col style={{height: 600, overflowY: "auto"}}>
                                 {
-                                    codeNavigationGuide.steps.slice(0, stepIndex + 1).map((step, index) => {
+                                    steps.slice(0, stepIndex + 1).map((step, index) => {
                                         return (<div style={{marginBottom: 15}}>
                                             <strong>Step {index + 1}</strong>
                                             <br/>

@@ -3,7 +3,8 @@ import {Badge, Container, Dropdown, Form, FormControl, Nav, Navbar, NavDropdown}
 import React, {useContext, useState} from "react";
 import {DarkModeContext} from "../context/DarkModeProvider";
 import Fuse from "fuse.js";
-import features from "../features.json";
+import _features  from "../features"
+const features:Record<string,any>[] = Object.entries(_features).map(([key, value])=>({name:key,...value}))
 
 const Menu = () => {
   //darkMode toggle stuff

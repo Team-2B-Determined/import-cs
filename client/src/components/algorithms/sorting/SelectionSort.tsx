@@ -76,24 +76,15 @@ const links: ExternalLink[] = [
 ]
 
 
-
-const SelectionSort = ({numbers}:{numbers:number[]}) => {
+const SelectionSort = ({numbers}: { numbers: number[] }) => {
 
     return (
-            <CalculatorPage
-                title={"Selection Sort"}
-                codeNavigationGuide={{
-                    codeDisplay: displayCodes.selectionSort,
-                    steps: _selectionSort(numbers)
-
-                }}
-                description={"The selection sort algorithm sorting an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\n" +
-                    "\t1) The subarray which is already sorted. \n" +
-                    "\te2) Remaining subarray which is unsorted.\n" +
-                    "In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray. "}
-                links={links}
-                image={"https://i.imgur.com/EerzUpo.png"}
-            />
+        <CalculatorPage
+            calculatorFeature={"SelectionSort"}
+            steps={_selectionSort(numbers)}
+            links={links}
+            image={"https://i.imgur.com/EerzUpo.png"}
+        />
     );
 };
 

@@ -1,6 +1,8 @@
+import {SortingAlgorithms} from "./pages/algorithms/Sorting";
+
 export default {
-    selectionSort:
-    `function selectionSort = arr => {
+    SelectionSort:
+        `function selectionSort = arr => {
         for (let i = 0; i < (arr.length - 1); i++) {
             let minInd = i
             for (let j = (i + 1); j < arr.length; j++) {
@@ -19,8 +21,8 @@ export default {
         }
         return arr
     }`,
-    mergeSort:
-    `const mergeSort = arr => {
+    MergeSort:
+        `const mergeSort = arr => {
         if (arr.length === 1) {
             return arr
         }
@@ -42,6 +44,4 @@ export default {
         
         return sorted
     }`
-
-
-};
+} as Record<SortingAlgorithms, string>

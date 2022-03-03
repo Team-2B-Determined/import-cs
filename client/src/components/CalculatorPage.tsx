@@ -1,8 +1,12 @@
 import {Button, Nav, Offcanvas} from "react-bootstrap";
-import {FC, ReactNode, useState} from "react";
-import CodeNavigator, {CodeNavigationGuide} from "./CodeNavigator";
+import {FC, useState} from "react";
+import CodeNavigator, {Step} from "./CodeNavigator";
+import {SortingAlgorithms} from "../pages/algorithms/Sorting";
 
-const startCase = require('lodash.startcase');
+import {startCase} from 'lodash';
+import features from "../features";
+
+export type CalculatorFeature = SortingAlgorithms
 
 export interface ExternalLink {
     name: string,
@@ -10,18 +14,19 @@ export interface ExternalLink {
 }
 
 export interface CalculatorPageProp {
-    title: string,
-    description: string,
-    codeNavigationGuide: CodeNavigationGuide,
+    calculatorFeature: CalculatorFeature,
+    steps: Step[]
     links: ExternalLink[],
     image?: string
 }
 
-const CalculatorPage: FC<CalculatorPageProp> = ({title, description, codeNavigationGuide, links, image}) => {
+
+const CalculatorPage: FC<CalculatorPageProp> = ({calculatorFeature, steps, links, image}) => {
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
 
+    const title = startCase(calculatorFeature)
 
     return (
         <div>
@@ -31,20 +36,20 @@ const CalculatorPage: FC<CalculatorPageProp> = ({title, description, codeNavigat
             </Button>
             <br/><br/>
 
-            <h3>{startCase(title)}</h3>
+            <h3>{title}</h3>
             {image ? <img src={image} width="50" height="50"/> : null}<br/>
 
             <br/>
-            <CodeNavigator codeNavigationGuide={codeNavigationGuide}/>
+            <CodeNavigator steps={steps} calculatorFeature={calculatorFeature}/>
 
             <Offcanvas show={show} onHide={handleClose} placement={'end'}>
                 <Offcanvas.Header>
                     <Offcanvas.Title>
-                        <h3>{startCase(title)}</h3>
+                        <h3>{title}</h3>
                     </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    {description}
+                    {features[title].description}
                     <br/>
                     <br/>
                     <h4>External Links</h4>
