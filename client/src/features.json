@@ -2,14 +2,14 @@
   "name": "Selection Sort",
   "runtime":"n^2",
   "description": "The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\\n\" +\n                    \"\\t1) The subarray which is already sorted. \\n\" +\n                    \"\\te2) Remaining subarray which is unsorted.\\n\" +\n                    \"In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray.",
-  "href": "algorithm/sorting",
+  "href": "algorithms/sorting",
   "tags": ["sort"]
 },
   {
     "name": "Merge Sort",
     "runtime":"n log(n)",
     "description": "Merge sort is a divide and conquer algorithm that was invented by John von Neumann in 1945. It is an efficient, general-purpose, and comparison-based sorting algorithm.",
-    "href": "algorithm/sorting",
+    "href": "algorithms/sorting",
     "tags": ["sort"]
   },
   {
