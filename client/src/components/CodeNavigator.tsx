@@ -1,19 +1,17 @@
 import {Button, Card, Col, Container, FormControl, InputGroup, Offcanvas, Row} from "react-bootstrap";
 import React, {useState} from "react";
 import {CodeBlock, irBlack} from "react-code-blocks";
-import codeDisplays from "../codeDisplays";
-import { CalculatorFeature } from "./CalculatorPage";
 
 export interface Step {
     description: string | JSX.Element,
-    lineNumber: string,
+    lineNumber: string
 }
 
 
 let autoPlayer;
 
 
-const CodeNavigator = ({steps,calculatorFeature}: { steps: Step[], calculatorFeature: CalculatorFeature}) => {
+const CodeNavigator = ({steps,codeDisplay}: { steps: Step[], codeDisplay:string}) => {
 
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
@@ -105,7 +103,7 @@ const CodeNavigator = ({steps,calculatorFeature}: { steps: Step[], calculatorFea
                         <Row>
                             <Col style={{height: 600, overflowY: "auto"}}>
                                 <CodeBlock
-                                    text={codeDisplays[calculatorFeature]}
+                                    text={codeDisplay}
                                     language={"js"}
                                     showLineNumbers={true}
                                     startingLineNumber={true}

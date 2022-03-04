@@ -1,6 +1,5 @@
 import CalculatorPage, {ExternalLink} from "../../CalculatorPage";
 import {Step} from "../../CodeNavigator";
-import displayCodes from "../../../codeDisplays";
 import React from "react";
 import displayArray from "../../../displayArray";
 
@@ -83,6 +82,26 @@ const SelectionSort = ({numbers}: { numbers: number[] }) => {
             calculatorFeature={"SelectionSort"}
             steps={_selectionSort(numbers)}
             links={links}
+            codeDisplay={`function selectionSort = arr => {
+        for (let i = 0; i < (arr.length - 1); i++) {
+            let minInd = i
+            for (let j = (i + 1); j < arr.length; j++) {
+                if (arr[j] < arr[minInd]) {
+                    minInd = j
+                }
+            }
+
+            if (minInd !== i) {
+                const temp = arr[minInd];
+                arr[minInd] = arr[i];
+                arr[i] = temp;
+            } else {
+                console.log("No need to swap!")
+            }
+        }
+        return arr
+    }`}
+            description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\\n\" +\n                    \"\\t1) The subarray which is already sorted. \\n\" +\n                    \"\\te2) Remaining subarray which is unsorted.\\n\" +\n                    \"In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray."}
             image={"https://i.imgur.com/EerzUpo.png"}
         />
     );

@@ -124,6 +124,29 @@ const MergeSort = ({numbers}: { numbers: number[] }) => {
     return (
         <CalculatorPage
             calculatorFeature={"MergeSort"}
+            codeDisplay={`const mergeSort = arr => {
+        if (arr.length <= 1) {
+            return arr
+        }
+        const split = Math.floor(arr.length / 2)
+        let left = arr.slice(0, split)
+        let right = arr.slice(split)
+    
+        left = mergeSort(left)
+        right = mergeSort(right)
+    
+        const sorted = []
+        while (left.length > 0 || right.length > 0) {
+            if (right.length === 0 || left[0] <= right[0]) {
+                sorted.push(left.shift())
+            } else {
+                sorted.push(right.shift())
+            }
+        }
+        
+        return sorted
+    }`}
+            description={"Merge sort is a divide and conquer algorithm that was invented by John von Neumann in 1945. It is an efficient, general-purpose, and comparison-based sorting algorithm."}
             steps={generateSteps(numbers)}
             links={links}
             image={"https://i.imgur.com/EerzUpo.png"}

@@ -4,7 +4,6 @@ import CodeNavigator, {Step} from "./CodeNavigator";
 import {SortingAlgorithms} from "../pages/algorithms/Sorting";
 
 import {startCase} from 'lodash';
-import features from "../features";
 
 export type CalculatorFeature = SortingAlgorithms
 
@@ -15,13 +14,15 @@ export interface ExternalLink {
 
 export interface CalculatorPageProp {
     calculatorFeature: CalculatorFeature,
+    description:string,
+    codeDisplay:string,
     steps: Step[]
     links: ExternalLink[],
     image?: string
 }
 
 
-const CalculatorPage: FC<CalculatorPageProp> = ({calculatorFeature, steps, links, image}) => {
+const CalculatorPage: FC<CalculatorPageProp> = ({calculatorFeature,codeDisplay,description, steps, links, image}) => {
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
@@ -40,7 +41,7 @@ const CalculatorPage: FC<CalculatorPageProp> = ({calculatorFeature, steps, links
             {image ? <img src={image} width="50" height="50"/> : null}<br/>
 
             <br/>
-            <CodeNavigator steps={steps} calculatorFeature={calculatorFeature}/>
+            <CodeNavigator steps={steps} codeDisplay={codeDisplay} />
 
             <Offcanvas show={show} onHide={handleClose} placement={'end'}>
                 <Offcanvas.Header>
@@ -49,7 +50,7 @@ const CalculatorPage: FC<CalculatorPageProp> = ({calculatorFeature, steps, links
                     </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    {features[title].description}
+                    {description}
                     <br/>
                     <br/>
                     <h4>External Links</h4>
