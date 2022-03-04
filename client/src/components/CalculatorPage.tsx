@@ -1,11 +1,9 @@
 import {Button, Nav, Offcanvas} from "react-bootstrap";
 import {FC, useState} from "react";
 import CodeNavigator, {Step} from "./CodeNavigator";
-import {SortingAlgorithms} from "../pages/algorithms/Sorting";
 
 import {startCase} from 'lodash';
 
-export type CalculatorFeature = SortingAlgorithms
 
 export interface ExternalLink {
     name: string,
@@ -13,21 +11,21 @@ export interface ExternalLink {
 }
 
 export interface CalculatorPageProp {
-    calculatorFeature: CalculatorFeature,
-    description:string,
-    codeDisplay:string,
+    name: string,
+    description: string,
+    codeDisplay: string,
     steps: Step[]
     links: ExternalLink[],
     image?: string
 }
 
 
-const CalculatorPage: FC<CalculatorPageProp> = ({calculatorFeature,codeDisplay,description, steps, links, image}) => {
+const CalculatorPage: FC<CalculatorPageProp> = ({name, codeDisplay, description, steps, links, image}) => {
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
 
-    const title = startCase(calculatorFeature)
+    const title = startCase(name)
 
     return (
         <div>
@@ -41,7 +39,7 @@ const CalculatorPage: FC<CalculatorPageProp> = ({calculatorFeature,codeDisplay,d
             {image ? <img src={image} width="50" height="50"/> : null}<br/>
 
             <br/>
-            <CodeNavigator steps={steps} codeDisplay={codeDisplay} />
+            <CodeNavigator steps={steps} codeDisplay={codeDisplay}/>
 
             <Offcanvas show={show} onHide={handleClose} placement={'end'}>
                 <Offcanvas.Header>

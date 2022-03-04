@@ -123,7 +123,7 @@ const MergeSort = ({numbers}: { numbers: number[] }) => {
 
     return (
         <CalculatorPage
-            calculatorFeature={"MergeSort"}
+            name={"MergeSort"}
             codeDisplay={`const mergeSort = arr => {
         if (arr.length <= 1) {
             return arr

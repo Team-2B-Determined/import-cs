@@ -79,7 +79,7 @@ const SelectionSort = ({numbers}: { numbers: number[] }) => {
 
     return (
         <CalculatorPage
-            calculatorFeature={"SelectionSort"}
+            name={"SelectionSort"}
             steps={_selectionSort(numbers)}
             links={links}
             codeDisplay={`function selectionSort = arr => {

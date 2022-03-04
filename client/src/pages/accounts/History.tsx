@@ -2,11 +2,10 @@
 
 
 import {Table} from "react-bootstrap";
-import {Link, useNavigate} from "react-router-dom";
-import {CalculatorFeature} from "../../components/CalculatorPage";
+import {useNavigate} from "react-router-dom";
 
 export interface HistoryRow {
-    calculatorFeature: CalculatorFeature,
+    calculatorFeature: string,
     input: string,
     pathname: string,
     state: any
