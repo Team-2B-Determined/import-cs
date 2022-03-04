@@ -1,5 +1,6 @@
-const express = require("express");
-const app = express();
+let express = require("express");
+let app = express();
+let router = express.Router();
 
 const cors = require("cors");
 const {db} = require('./Database/db')
@@ -29,9 +30,10 @@ app.use(express.json()); // => allows us to access the req.body
 /// ROUTES ///
 //Routes all api HTTP requests to be handled by /routes/api.js
 //We do NOT need to send the express app object as a parameter
-app.all('/api', require('./Routes/api'));
+app.use('/api', require('./Routes/api'));
+
 //Routes all test HTTP requests to /routes/test.js
-app.all('/test', require('./Routes/test'));
+app.use('/test', require('./Routes/test'));
 
 
 

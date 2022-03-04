@@ -8,7 +8,6 @@ const Op = require('sequelize')
 //Creates a new user and saves to database
 signup = (req, res) => {
     User.create({
-        username: req.body.username,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 10)
     })

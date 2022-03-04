@@ -1,4 +1,8 @@
-/// ASSOCIATIONS ///
+// to rebuild database:
+// 1) Drop tables if need be
+// 2) Run this file with the associations commented out to create the tables.
+// 3) Run this file again with the associations to create them.
+
 const {db} = require("../Database/db");
 const User = require('./User')(db);
 const Setting = require('./Setting')(db);
@@ -6,6 +10,7 @@ const KeyboardMaps = require('./KeyboardMaps')(db);
 const HistoryEntry = require('./HistoryEntry')(db);
 const Role = require('./Role')(db);
 
+/// ASSOCIATIONS ///
 //Setting -> User
 User.hasOne(Setting, {
     foreignKey: {
@@ -13,6 +18,7 @@ User.hasOne(Setting, {
     }
 });
 Setting.belongsTo(User);
+
 
 //*KeyboardMap -> Setting
 Setting.hasMany(KeyboardMaps, {
@@ -22,6 +28,7 @@ Setting.hasMany(KeyboardMaps, {
 });
 KeyboardMaps.belongsTo(Setting);
 
+
 //*HistoryEntry -> User
 User.hasMany(HistoryEntry, {
     foreignKey: {
@@ -29,6 +36,7 @@ User.hasMany(HistoryEntry, {
     }
 });
 HistoryEntry.belongsTo(User)
+
 
 //*User -> Role
 Role.hasMany(User)
