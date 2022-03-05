@@ -19,7 +19,6 @@ User.hasOne(Setting, {
 });
 Setting.belongsTo(User);
 
-
 //*KeyboardMap -> Setting
 Setting.hasMany(KeyboardMaps, {
     foreignKey: {
@@ -27,7 +26,6 @@ Setting.hasMany(KeyboardMaps, {
     }
 });
 KeyboardMaps.belongsTo(Setting);
-
 
 //*HistoryEntry -> User
 User.hasMany(HistoryEntry, {
@@ -37,11 +35,9 @@ User.hasMany(HistoryEntry, {
 });
 HistoryEntry.belongsTo(User)
 
-
 //*User -> Role
 Role.hasMany(User)
 User.belongsTo(Role)
-
 
 
 /// SYNCHRONIZATION ///

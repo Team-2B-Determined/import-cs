@@ -5,16 +5,21 @@ module.exports = (db) => {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
-                autoIncrement: true
+                autoIncrement: true,
+                get() { return this.getDataValue('id')}
             },
 
             queue: {
-                type: Sequelize.INTEGER
+                type: Sequelize.INTEGER,
+                get() { return this.getDataValue('queue')},
+                set(value) { this.setDataValue('queue', value)}
             },
 
             feature: {
                 type: Sequelize.STRING,
-                allowNull: false
+                allowNull: false,
+                get() { return this.getDataValue('feature')},
+                set(value) { this.setDataValue('feature', value)}
             }},
 
         //OPTIONS//

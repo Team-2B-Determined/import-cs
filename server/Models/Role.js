@@ -6,12 +6,15 @@ module.exports = (db) => {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
-                autoIncrement: true
+                autoIncrement: true,
+                get() { return this.getDataValue('id')}
             },
 
             roleName: {
                 type: Sequelize.STRING,
-                allowNull: false
+                allowNull: false,
+                get() { return this.getDataValue('roleName')},
+                set(value) { this.setDataValue('roleName', value)}
             }},
 
         //OPTIONS//

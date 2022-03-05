@@ -36,7 +36,7 @@ router.all('/dbset', function(req, res) {
         })
 })
 
-// http://localhost:5000/test/aaaa
+// http://localhost:5000/test/dbget
 // Retrieves the test user from the database and displays it
 router.all('/dbget', function(req, res) {
     // res.send('/test/dbget => success')
