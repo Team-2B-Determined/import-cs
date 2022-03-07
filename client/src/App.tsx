@@ -20,6 +20,7 @@ import hotkeys from "hotkeys-js";
 import Layout from "./layout/Layout";
 import OtherFeatures from "./pages/OtherFeatures";
 import Sorting from "./pages/algorithms/Sorting";
+import SingleElementDataStructures from "./pages/datastructures/SingleElementDataStructures";
 
 
 function App() {
@@ -127,6 +128,7 @@ function App() {
                         <Route path="/computations" element={<Computations/>}/>
                         <Route path="/conversions" element={<Conversions/>}/>
                         <Route path="/datastructures" element={<DataStructures/>}/>
+                        <Route path="/datastructures/single-element" element={<SingleElementDataStructures/>}/>
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/register" element={<Register/>}/>
                         <Route path="/account" element={<Account/>}/>
