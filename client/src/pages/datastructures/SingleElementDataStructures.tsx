@@ -33,6 +33,12 @@ const SingleElementDataStructures = () => {
         location.state === null ? "" : location.state.input)
 
     /**
+     * Action taken for CRUD
+     */
+    const [crudState, setCrudState] = useState<string>(
+        location.state === null ? "" : location.state.input)
+
+    /**
      * Stores the history values locally.
      * So we don't have to call localStorage elsewhere. Probably.
      */
@@ -86,6 +92,7 @@ const SingleElementDataStructures = () => {
      * Create of CRUD
      */
     const create = () => {
+        setCrudState("create");
         //setDataState(dataInput.split(/[ ,]+/).map(e => Number(e)))
         /**
          * disabling this until I figure out how to do history
@@ -104,6 +111,7 @@ const SingleElementDataStructures = () => {
      * Read of CRUD
      */
     const read = () => {
+        setCrudState("read");
         //setDataState(dataInput.split(/[ ,]+/).map(e => Number(e)))
         /**
          * disabling this until I figure out how to do history
@@ -124,7 +132,7 @@ const SingleElementDataStructures = () => {
     const CRUDInterface = () => (
         <InputGroup className="mb-3" hidden={false}>
             <FormControl
-                value={dataInput}
+                value={crudInput}
                 onChange={e => setCrudInput(e.target.value)}
                 placeholder="81"
                 aria-label="81"
@@ -154,7 +162,9 @@ const SingleElementDataStructures = () => {
      */
     const renderCRUD = (componentName: string, props?: any) => {
         const DataStructureRender: any = DATA_STRUCTURE_OPTIONS[componentName]
-        return <DataStructureRender numbers={dataState}/>
+        return <DataStructureRender initialData={dataState}
+                                    action={crudState}
+                                    value={crudInput}/>
     }
 
     return (

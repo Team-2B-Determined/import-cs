@@ -75,12 +75,15 @@ const links: ExternalLink[] = [
 ]
 
 
-const Stack = ({numbers}: { numbers: number[] }) => {
+const Stack = ({initialData, action, value}: {
+    initialData: number[],
+    action: string,
+    value: number }) => {
 
     return (
         <CalculatorPage
             name={"Stack"}
-            steps={_selectionSort(numbers)}
+            steps={_selectionSort(initialData)}
             links={links}
             codeDisplay={`function selectionSort = arr => {
         for (let i = 0; i < (arr.length - 1); i++) {
