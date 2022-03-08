@@ -75,11 +75,11 @@ const links: ExternalLink[] = [
 ]
 
 
-const Stack = ({numbers}: { numbers: number[] }) => {
+const Queue = ({numbers}: { numbers: number[] }) => {
 
     return (
         <CalculatorPage
-            name={"Stack"}
+            name={"Queue"}
             steps={_selectionSort(numbers)}
             links={links}
             codeDisplay={`function selectionSort = arr => {
@@ -107,4 +107,4 @@ const Stack = ({numbers}: { numbers: number[] }) => {
     );
 };
 
-export default Stack;
+export default Queue;
