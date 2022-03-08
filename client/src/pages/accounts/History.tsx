@@ -7,8 +7,7 @@ import {useNavigate} from "react-router-dom";
 export interface HistoryRow {
     calculatorFeature: string,
     input: string,
-    pathname: string,
-    state: any
+    pathname: string
 }
 
 const History = () => {

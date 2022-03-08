@@ -21,8 +21,7 @@ const Sorting = () => {
         historyRows.push({
             calculatorFeature: sortingAlgorithm,
             input: numbersInput,
-            pathname: `/algorithms/sorting`,
-            state: `${numbersInput}`
+            pathname: '/algorithms/sorting'
         });
 
         localStorage.setItem("historyRows", JSON.stringify(historyRows));
