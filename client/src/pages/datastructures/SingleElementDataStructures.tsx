@@ -6,28 +6,61 @@ import SelectionSort from "../../components/algorithms/sorting/SelectionSort";
 import MergeSort from "../../components/algorithms/sorting/MergeSort";
 import {startCase} from 'lodash';
 import Stack from "../../components/datastructures/singleelement/Stack";
+import Queue from "../../components/datastructures/singleelement/Queue";
 
 
-export type SortingAlgorithms = "SelectionSort" | "MergeSort" | "Stack"
+export type DataStructureType = "Stack" | "Queue"
 const SingleElementDataStructures = () => {
     const location: any = useLocation();
 
-    const [numbersInput, setNumbersInput] = useState<string>(location.state === null ? "" : location.state.input)
-    const [numbers, setNumbers] = useState<any[]>([])
-    const historyRows: HistoryRow[] = JSON.parse(localStorage.getItem("historyRows") || "[]");
-    const [sortingAlgorithm, setSortingAlgorithm] = useState<SortingAlgorithms>(location.state === null ? "SelectionSort" : location.state.calculatorFeature)
+    /**
+     * Input field for values,
+     * to instantiate the data structure.
+     */
+    const [dataInput, setDataInput] = useState<string>(
+        location.state === null ? "" : location.state.input)
 
     /**
-     * Updates the numbersInput state. Adds submission to site history.
+     * The actual state of the data structure,
+     * loaded from input, changed onSubmit
      */
-    const handleSolve = () => {
-        setNumbers(numbersInput.split(/[ ,]+/).map(e => Number(e)))
+    const [dataState, setDataState] = useState<any[]>([])
+
+    /**
+     * Input field for CRUD
+     */
+    const [crudInput, setCrudInput] = useState<string>(
+        location.state === null ? "" : location.state.input)
+
+    /**
+     * Stores the history values locally.
+     * So we don't have to call localStorage elsewhere. Probably.
+     */
+    const historyRows: HistoryRow[] = JSON.parse(localStorage.getItem("historyRows") || "[]");
+
+    /**
+     * Stores what data structure
+     * we are currently working with.
+     */
+    const [dataStructure, setDataStructure] = useState<DataStructureType>(
+        location.state === null ? "Stack" : location.state.calculatorFeature)
+
+    /**
+     * Updates the current data state.
+     * Adds submission to site history.
+     */
+    const buildData = () => {
+        setDataState(dataInput.split(/[ ,]+/).map(e => Number(e)))
+        /**
+         * disabling this until I figure out how to do history
+         *
         historyRows.push({
             calculatorFeature: sortingAlgorithm,
-            input: numbersInput,
+            input: dataInput,
             pathname: `/algorithms/sorting`,
-            state: `${numbersInput}`
+            state: `${dataInput}`
         });
+         */
         localStorage.setItem("historyRows", JSON.stringify(historyRows));
     }
 
@@ -36,28 +69,82 @@ const SingleElementDataStructures = () => {
      * Updates the state of current data structure being used
      * @constructor
      */
-    const SortingDropdown = () => (
+    const DataStructDropdown = () => (
         <Form.Group controlId="formBasicSelect">
-            <Form.Label>Select Sorting Algorithm</Form.Label>
+            <Form.Label>Select Data Structure</Form.Label>
             <Form.Select
-                value={sortingAlgorithm}
-                onChange={e => {
-                    setSortingAlgorithm(e.target.value as SortingAlgorithms)
-                }}
-            >
-                {Object.keys(SORTING_ALGORITHMS).map(sortingAlgorithm => <option
-                    value={sortingAlgorithm}>{startCase(sortingAlgorithm)}</option>)}
+                value={dataStructure}
+                onChange={e => {setDataStructure(e.target.value as DataStructureType)}}>
+                {Object.keys(DATA_STRUCTURE_OPTIONS).map(dataStructure =>
+                    <option value={dataStructure}>
+                        {startCase(dataStructure)}
+                    </option>)}
             </Form.Select></Form.Group>
+    )
+
+    /**
+     * Create of CRUD
+     */
+    const create = () => {
+        //setDataState(dataInput.split(/[ ,]+/).map(e => Number(e)))
+        /**
+         * disabling this until I figure out how to do history
+         *
+         historyRows.push({
+            calculatorFeature: sortingAlgorithm,
+            input: dataInput,
+            pathname: `/algorithms/sorting`,
+            state: `${dataInput}`
+        });
+         */
+        localStorage.setItem("historyRows", JSON.stringify(historyRows));
+    }
+
+    /**
+     * Read of CRUD
+     */
+    const read = () => {
+        //setDataState(dataInput.split(/[ ,]+/).map(e => Number(e)))
+        /**
+         * disabling this until I figure out how to do history
+         *
+         historyRows.push({
+            calculatorFeature: sortingAlgorithm,
+            input: dataInput,
+            pathname: `/algorithms/sorting`,
+            state: `${dataInput}`
+        });
+         */
+        localStorage.setItem("historyRows", JSON.stringify(historyRows));
+    }
+
+    /**
+     * UI for CRUD
+     */
+    const CRUDInterface = () => (
+        <InputGroup className="mb-3" hidden={false}>
+            <FormControl
+                value={dataInput}
+                onChange={e => setCrudInput(e.target.value)}
+                placeholder="81"
+                aria-label="81"
+                aria-describedby="basic-addon2"/>
+            <Button variant="outline-success" id="button-addon2" onClick={create}>
+                Push Value
+            </Button>
+            <Button variant="outline-warning" id="button-addon2" onClick={read}>
+                Pop
+            </Button>
+        </InputGroup>
     )
 
     /**
      * Define which types are valid as options??? (I need to read the docs later -Kali)
      */
     // https://reactjs.org/docs/jsx-in-depth.html#choosing-the-type-at-runtime
-    const SORTING_ALGORITHMS: Record<SortingAlgorithms, ReactNode> = {
-        SelectionSort,
-        MergeSort,
-        Stack
+    const DATA_STRUCTURE_OPTIONS: Record<DataStructureType, ReactNode> = {
+        Stack,
+        Queue
     }
 
     /**
@@ -65,34 +152,40 @@ const SingleElementDataStructures = () => {
      * @param componentName
      * @param props
      */
-    const renderSort = (componentName: string, props?: any) => {
-        const SortingAlgorithm: any = SORTING_ALGORITHMS[componentName]
-        return <SortingAlgorithm numbers={numbers}/>
+    const renderCRUD = (componentName: string, props?: any) => {
+        const DataStructureRender: any = DATA_STRUCTURE_OPTIONS[componentName]
+        return <DataStructureRender numbers={dataState}/>
     }
 
     return (
         <Container>
+            <Col xs={3}>
+                <DataStructDropdown/>
+            </Col>
+            <Col>
+                Enter a sequence of numbers separated with spaces " " or commas ","
+            </Col>
             <Col xs={6}>
                 <InputGroup className="mb-3">
                     <FormControl
-                        value={numbersInput}
-                        onChange={e => setNumbersInput(e.target.value)}
+                        value={dataInput}
+                        onChange={e => setDataInput(e.target.value)}
                         placeholder="81 -62 -92 37 85"
                         aria-label="81 -62 -92 37 85"
                         aria-describedby="basic-addon2"
                     />
-                    <Button variant="outline-secondary" id="button-addon2" onClick={handleSolve}>
-                        Solve
+                    <Button variant="outline-secondary" id="button-addon2" onClick={buildData}>
+                        {"Build " + dataStructure}
                     </Button>
                 </InputGroup>
-                Enter a sequence of numbers separated with spaces " " or commas ","
+            </Col>
+            <Col>
+                {"Current state of the stack"}
             </Col>
             <Col xs={3}>
-
-                <SortingDropdown/>
+                <CRUDInterface/>
             </Col>
-
-            {renderSort(sortingAlgorithm)}
+            {renderCRUD(dataStructure)}
         </Container>
     );
 };
