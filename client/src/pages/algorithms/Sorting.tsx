@@ -5,9 +5,10 @@ import {useLocation} from "react-router-dom";
 import SelectionSort from "../../components/algorithms/sorting/SelectionSort";
 import MergeSort from "../../components/algorithms/sorting/MergeSort";
 import {startCase} from 'lodash';
+import QuickSort from "../../components/algorithms/sorting/QuickSort";
 
 
-export type SortingAlgorithms = "SelectionSort" | "MergeSort"
+export type SortingAlgorithms = "SelectionSort" | "MergeSort" | "QuickSort"
 const Sorting = () => {
     const location: any = useLocation();
 
@@ -45,7 +46,8 @@ const Sorting = () => {
     // https://reactjs.org/docs/jsx-in-depth.html#choosing-the-type-at-runtime
     const SORTING_ALGORITHMS: Record<SortingAlgorithms, ReactNode> = {
         SelectionSort,
-        MergeSort
+        MergeSort,
+        QuickSort
     }
 
     const renderSort = (componentName: string, props?: any) => {
