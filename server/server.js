@@ -11,7 +11,6 @@ const path = require("path");
 //process.env.PORT
 //process.env.NODE_ENV // production or undefined
 
-
 /// TEST DB CONNECTION ///
 db.authenticate()
     .then(() => {
@@ -26,14 +25,17 @@ db.authenticate()
 app.use(cors());
 app.use(express.json()); // => allows us to access the req.body
 
-/*
-app.use(express.static(path.join(__dirname, "client/build")));
-app.use(express.static("./client/build")); // for demonstration
- */
+
+//app.use(express.static(path.join(__dirname, "client/build")));
+//app.use(express.static("./client/build")); // for demonstration
+
 
 ///KEEP BELOW CODE UNTIL SUCCESSFUL DEPLOYMENT ON HEROKU///
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../client/build")));
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "../client/build", "index.html"))
+    })
 }
 
 /// ROUTES ///
