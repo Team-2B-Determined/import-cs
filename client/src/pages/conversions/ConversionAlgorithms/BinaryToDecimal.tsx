@@ -13,7 +13,7 @@ const _BinaryToDecimal = (inputValue: string) => {
     let ivArray = inputValue.split("")
     let ivReverse = ivArray.reverse()
     steps.push({
-        lineNumber: "3",
+        lineNumber: "1",
         description: 
             <>Binary to Decimal Conversion. <br/>
             Binary Number is {inputValue} <br/>
@@ -26,27 +26,26 @@ const _BinaryToDecimal = (inputValue: string) => {
         // n = binary value at that power
         let v = (n * (2 ** p))
         steps.push({
-            lineNumber: "5",
+            lineNumber: "5-9",
             description: 
-                <>The value at location {p} is {n}. <br/>
-                This is multiplied with the binary power at the location {p} which is 2^{p} <br/>
-                Location Value is {v} <br/>
-                This is added to the total value: {ov} + {v}
+                <>Binary Number: {inputValue} <br/>
+                The value at location {p} is: {n} <br/>
+                Binary power at location {p} is: 2^{p} <br/>
+                Location Decimal Value is: (Location Value * Binary Power) <br/>
+                Location Decimal Value is: {n} * 2^{p} = {v} <br/>
+                Total value: {ov} + {v} <br/>
+                Current Total Decimal Value: {ov+v}
                 </>
         })
         ov += v
-        steps.push({
-            lineNumber: "6",
-            description: 
-                <>Current Total Decimal Value: {ov}
-                </>
-        })
     }
     steps.push({
-        lineNumber: "10",
-            description:
-                <>Decimal Value: {ov}
-                </>
+        lineNumber: "11",
+        description:
+            <>Conversion Complete! <br/>
+            Intial Binary Value: {inputValue} <br/>
+            Converted Decimal Value: {ov}
+            </>
     })
 
     return steps
