@@ -6,6 +6,8 @@ const User = require("../Models/User")(db);
 const testEmail = "testyMcTestperson";
 const testPW = "1234567890";
 
+
+
 // http://localhost:5000/test/routing
 // Testing that requests route from /server.js to appropriate handlers
 router.all('/routing', function(req, res) {
@@ -55,9 +57,5 @@ router.all('/dbget', function(req, res) {
             res.send("/test/dbget => error querying test user")
         })
 })
-/*
-router.all('*', function(req, res) {
-
-})*/
 
 module.exports = router;
