@@ -7,15 +7,19 @@ import MergeSort from "../../components/algorithms/sorting/MergeSort";
 import {startCase} from 'lodash';
 import QuickSort from "../../components/algorithms/sorting/QuickSort";
 
+// https://stackoverflow.com/a/59420158
+const SORTING_ALGORITHMS = {SelectionSort, MergeSort, QuickSort} as const
+const _sortingAlgorithms = Object.keys(SORTING_ALGORITHMS)
+type SortingAlgorithm = typeof _sortingAlgorithms[number]
 
-export type SortingAlgorithms = "SelectionSort" | "MergeSort" | "QuickSort"
+
 const Sorting = () => {
     const location: any = useLocation();
 
     const [numbersInput, setNumbersInput] = useState<string>(location.state === null ? "" : location.state.input)
     const [numbers, setNumbers] = useState<any[]>([])
     const historyRows: HistoryRow[] = JSON.parse(localStorage.getItem("historyRows") || "[]");
-    const [sortingAlgorithm, setSortingAlgorithm] = useState<SortingAlgorithms>(location.state === null ? "SelectionSort" : location.state.calculatorFeature)
+    const [sortingAlgorithm, setSortingAlgorithm] = useState<SortingAlgorithm>(location.state === null ? "SelectionSort" : location.state.calculatorFeature)
 
     const handleSolve = () => {
         setNumbers(numbersInput.split(/[ ,]+/).map(e => Number(e)))
@@ -35,7 +39,7 @@ const Sorting = () => {
             <Form.Select
                 value={sortingAlgorithm}
                 onChange={e => {
-                    setSortingAlgorithm(e.target.value as SortingAlgorithms)
+                    setSortingAlgorithm(e.target.value as SortingAlgorithm)
                 }}
             >
                 {Object.keys(SORTING_ALGORITHMS).map(sortingAlgorithm => <option
@@ -43,12 +47,6 @@ const Sorting = () => {
             </Form.Select></Form.Group>
     )
 
-    // https://reactjs.org/docs/jsx-in-depth.html#choosing-the-type-at-runtime
-    const SORTING_ALGORITHMS: Record<SortingAlgorithms, ReactNode> = {
-        SelectionSort,
-        MergeSort,
-        QuickSort
-    }
 
     const renderSort = (componentName: string, props?: any) => {
         const SortingAlgorithm: any = SORTING_ALGORITHMS[componentName]
