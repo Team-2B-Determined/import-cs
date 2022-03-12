@@ -1,10 +1,11 @@
 import CalculatorPage, {ExternalLink} from "../../CalculatorPage";
 import {Step} from "../../CodeNavigator";
-import React from "react";
+import React, {useState} from "react";
 import displayArray from "../../../displayArray";
+import {Col, Form} from "react-bootstrap";
 
 
-function _quickSort(arr, steps) {
+function _quickSort(arr, pivotStrategy: PivotStrategy, steps) {
     if (arr.length <= 1) {
         steps.push({
             lineNumber: "2-4",
@@ -15,36 +16,143 @@ function _quickSort(arr, steps) {
         return arr;
     }
 
-    steps.push({
-        lineNumber: "5-10",
-        description: "Generate a pivot. We will "
-    })
-    const pivot = arr[Math.floor(Math.random() * arr.length)];
+    let pivot;
+    switch (pivotStrategy) {
+        case "First Element":
+            pivot = arr[0]
+            steps.push({
+                lineNumber: "6",
+                description: <>Simply assign the pivot to the first element for
+                    the <strong>{pivotStrategy}</strong> pivot strategy
+                    <br/>arr=[{displayArray(arr, [0])}]</>
+            })
+            break;
+        case "Random Element":
+            const randomIndex = Math.floor(Math.random() * arr.length)
+            pivot = arr[randomIndex];
+            steps.push({
+                lineNumber: "6",
+                description: <>Assign the pivot to a random element in the array for
+                    the <strong>{pivotStrategy}</strong> pivot strategy.
+                    Index
+                    {randomIndex} is selected and will be the pivot<br/>{displayArray(arr, [randomIndex])}</>
+            })
+            break;
+        case "Median-of-3":
+            steps.push({
+                lineNumber: "6-9,10-21",
+                description: <>We will be finding the median of the first, middle, and last element to select the pivot
+                    for the <strong>{pivotStrategy}</strong> pivot strategy</>
+            })
 
-    let left: number[] = [];
-    let right: number[] = [];
+            const firstIndex = 0
+            const midIndex = Math.floor(arr.length / 2);
+            const lastIndex = arr.length - 1
+
+            const first = arr[firstIndex]
+            const mid = arr[midIndex]
+            const last = arr[lastIndex]
+            steps.push({
+                lineNumber: "6-8",
+                description: <>Create three variables that target the first, middle, and last element<br/>
+                    arr = [{displayArray(arr, [firstIndex, midIndex, lastIndex])}]<br/>first = {first}<br/>mid
+                    = {mid}<br/>last
+                    = {last}</>
+            })
+
+
+            let medianLineNumbers = ""
+            let medianIndex;
+            if ((first >= mid && first <= last) || (first >= last && first <= mid)) {
+                medianIndex = firstIndex
+                medianLineNumbers = "11-13"
+            } else if ((mid >= first && mid <= last) || (mid >= last && mid <= first)) {
+                medianIndex = midIndex
+                medianLineNumbers = "14-16"
+            } else {
+                medianIndex = lastIndex
+                medianLineNumbers = "17-19"
+            }
+
+            steps.push({
+                lineNumber: medianLineNumbers += ", 21",
+                description: <>Assign the pivot to <strong>{arr[medianIndex]}</strong> as it is the median of the
+                    three<br/>arr = [{displayArray(arr, [medianIndex])}]
+                </>
+            })
+            pivot = arr[medianIndex]
+
+            break;
+    }
+
+
+    steps.push({
+        lineNumber: pivotStrategy !== "Median-of-3" ? "8-9,10" : "23-25",
+        description: "Create 3 arrays: one for less than, equal, and greater than the pivot"
+    })
+    let less: number[] = [];
     let equal: number[] = [];
+    let greater: number[] = [];
 
     for (let val of arr) {
         if (val < pivot) {
-            left.push(val);
-        } else if (val > pivot) {
-            right.push(val);
-        } else {
+            steps.push({
+                lineNumber: pivotStrategy !== "Median-of-3" ? "13-15" : "28-30",
+                description: <>{val} will be added to <strong>less=[{displayArray(less)}]</strong> since it's less than
+                    the pivot, {pivot}
+                </>
+            })
+            less.push(val);
+        } else if (val === pivot) {
+            steps.push({
+                lineNumber: pivotStrategy !== "Median-of-3" ? "15-17" : "30-32",
+                description: <>{val} will be added to <strong>equal=[{displayArray(equal)}]</strong> since it's equal to
+                    the pivot, {pivot}
+                </>
+            })
             equal.push(val);
+        } else {
+            steps.push({
+                lineNumber: pivotStrategy !== "Median-of-3" ? "17-19" : "32-34",
+                description: <>{val} will be added to <strong>greater=[{displayArray(greater)}]</strong> since it's less
+                    than the pivot, {pivot}
+                </>
+            })
+            greater.push(val);
         }
     }
-    return [
-        ..._quickSort(left, steps),
+
+    steps.push({
+        lineNumber: pivotStrategy !== "Median-of-3" ? "22" : "37",
+        description: <>Let's sort the less array first! <br/>less=[{displayArray(less)}]
+        </>
+    })
+    const sortedLess = _quickSort(less, pivotStrategy, steps)
+    steps.push({
+        lineNumber: pivotStrategy !== "Median-of-3" ? "24" : "39",
+        description: <>Let's sort the greater array now! <br/>greater=[{displayArray(greater)}]
+        </>
+    })
+    const sortedGreater = _quickSort(greater, pivotStrategy, steps)
+
+    const sortedArr = [
+        ...sortedLess,
         ...equal,
-        ..._quickSort(right, steps)
+        ...sortedGreater
     ];
+
+    steps.push({
+        lineNumber: pivotStrategy !== "Median-of-3" ?"21-25" : "36-40" ,
+        description: <>Combine both sorted left and right array together to finish! <br/>arr=[{displayArray(sortedArr)}]
+        </>
+    })
+    return sortedArr
 }
 
 
-const generateSteps = (arr) => {
+const generateSteps = (arr, pivotStrategy: PivotStrategy) => {
     const steps: Step[] = []
-    _quickSort(arr, steps)
+    _quickSort(arr, pivotStrategy, steps)
     return steps
 }
 
@@ -60,44 +168,89 @@ const links: ExternalLink[] = [
     }
 ]
 
+const PIVOT_STRATEGIES = ["First Element", "Random Element", "Median-of-3"] as const
+type PivotStrategy = typeof PIVOT_STRATEGIES[number]
 
 const QuickSort = ({numbers}: { numbers: number[] }) => {
+    const [pivotStrategy, setPivotStrategy] = useState<PivotStrategy>("First Element")
+    let pivotDisplay = "";
 
-    return (
-        <CalculatorPage
-            name={"QuickSort"}
-            steps={generateSteps(numbers)}
-            links={links}
-            codeDisplay={`function _quickSort(arr, steps) {
+    switch (pivotStrategy) {
+        case "First Element":
+            pivotDisplay += "const pivot = arr[0]"
+            break;
+        case "Random Element":
+            pivotDisplay += "const pivot = arr[Math.floor(Math.random() * arr.length)]"
+            break;
+        case "Median-of-3":
+            pivotDisplay += `const first = arr[0]
+    const mid = Math.floor(arr.length / 2)
+    const last = arr[arr.length-1]
+
+    let median
+    if ((first >= mid && first <= last) || (first >= last && first <= mid)) {
+        median = 0
+    }
+    else if ((mid >= first && mid <= last) || (mid >= last && mid <= first)) {
+        median = Math.floor(arr.length / 2);
+    }
+    else {
+        median = arr.length - 1
+    }
+
+    pivot = arr[median]`
+            break;
+    }
+
+    return (<>
+            <Col xs={3}>
+                <Form.Group controlId="formBasicSelect">
+                    <Form.Label>Pivot Strategy</Form.Label>
+                    <Form.Select
+                        value={pivotStrategy}
+                        onChange={e => {
+                            setPivotStrategy(e.target.value as PivotStrategy)
+                        }}
+                    >
+                        {PIVOT_STRATEGIES.map(pivotStrategy => <option
+                            value={pivotStrategy}>{pivotStrategy}</option>)}
+                    </Form.Select></Form.Group>
+            </Col>
+            <CalculatorPage
+                name={"QuickSort"}
+                steps={generateSteps(numbers, pivotStrategy)}
+                links={links}
+                codeDisplay={`function _quickSort(arr, steps) {
     if (arr.length <= 1) {
         return arr;
     }
     
-    const pivot = arr[Math.floor(Math.random() * arr.length)];
+    ${pivotDisplay}
 
-    let left= [];
-    let right = [];
-    let equal = [];
+    let less: number[] = [];
+    let equal: number[] = [];
+    let greater: number[] = [];
 
     for (let val of arr) {
         if (val < pivot) {
-            left.push(val);
-        } else if (val > pivot) {
-            right.push(val);
-        } else {
+            less.push(val);
+        } else if (val === pivot) {
             equal.push(val);
+        } else {
+            greater.push(val);
         }
     }
     return [
-        ..._quickSort(left, steps),
+        ..._quickSort(less, pivotStrategy,steps),
         ...equal,
-        ..._quickSort(right, steps)
+        ..._quickSort(greater, pivotStrategy,steps)
     ];
 }
 `}
-            description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\\n\" +\n                    \"\\t1) The subarray which is already sorted. \\n\" +\n                    \"\\te2) Remaining subarray which is unsorted.\\n\" +\n                    \"In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray."}
-            image={"https://i.imgur.com/EerzUpo.png"}
-        />
+                description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\\n\" +\n                    \"\\t1) The subarray which is already sorted. \\n\" +\n                    \"\\te2) Remaining subarray which is unsorted.\\n\" +\n                    \"In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray."}
+                image={"https://i.imgur.com/EerzUpo.png"}
+            />
+        </>
     );
 };
 
