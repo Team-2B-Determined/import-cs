@@ -6,8 +6,6 @@ import displayArray from "../../../displayArray";
 
 const _BinaryToDecimal = (inputValue: string) => {
     const steps: Step[] = []
-    let spotVal = 0
-    let totalVal = 0
 
     let ov = 0
     let ivArray = inputValue.split("")
@@ -73,16 +71,16 @@ const BinaryToDecimal = (inputValue: string) => {
             links={links}
             codeDisplay={
                 `const BinaryToDecimal = (inputValue) => {
-                    let ov = 0
-                    let ivArray = inputValue.split("")
-                    let ivReverse = ivArray.reverse()
-                    for (let p = 0; p < ivReverse.length; p++) {
+                    let decValue = 0
+                    let binArray = inputValue.split("")
+                    let binReverse = binArray.reverse()
+                    for (let p = 0; p < binReverse.length; p++) {
                         // p = power
-                        let n = +ivReverse[p]
+                        let n = +binReverse[p]
                         // n = binary value at that power
-                        ov += (n * (2 ** p))
+                        decValue += (n * (2 ** p))
                     }
-                    return ov.toString()
+                    return decValue.toString()
                 };`
             }
             description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\\n\" +\n                    \"\\t1) The subarray which is already sorted. \\n\" +\n                    \"\\te2) Remaining subarray which is unsorted.\\n\" +\n                    \"In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray."}

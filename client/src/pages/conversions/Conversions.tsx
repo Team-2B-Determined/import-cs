@@ -2,6 +2,7 @@ import React, {Component, useState} from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import ConversionAlgorithms from "./ConversionAlgorithms/ConversionAlgorithms";
 import BinaryToDecimal from "./ConversionAlgorithms/BinaryToDecimal"; 
+import DecimalToBinary from "./ConversionAlgorithms/DecimalToBinary"; 
 
 const Conversions = () => {
     const [inputType, setInputType] = useState<string>("Binary")
@@ -74,7 +75,7 @@ const Conversions = () => {
 
                 <Form.Group controlId="Explanation">
                     <Form.Label>Explanation:</Form.Label>
-                    {BinaryToDecimal(inputValue)}
+                    {DecimalToBinary(inputValue)}
                 </Form.Group>
             </Form>
         </div>
