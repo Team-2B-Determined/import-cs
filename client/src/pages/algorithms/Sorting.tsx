@@ -7,11 +7,9 @@ import MergeSort from "../../components/algorithms/sorting/MergeSort";
 import {startCase} from 'lodash';
 import QuickSort from "../../components/algorithms/sorting/QuickSort";
 
-// https://stackoverflow.com/a/59420158
+// https://stackoverflow.com/a/56126054
 const SORTING_ALGORITHMS = {SelectionSort, MergeSort, QuickSort} as const
-const _sortingAlgorithms = Object.keys(SORTING_ALGORITHMS)
-type SortingAlgorithm = typeof _sortingAlgorithms[number]
-
+type SortingAlgorithm = keyof typeof SORTING_ALGORITHMS
 
 const Sorting = () => {
     const location: any = useLocation();
@@ -20,7 +18,6 @@ const Sorting = () => {
     const [numbers, setNumbers] = useState<any[]>([])
     const historyRows: HistoryRow[] = JSON.parse(localStorage.getItem("historyRows") || "[]");
     const [sortingAlgorithm, setSortingAlgorithm] = useState<SortingAlgorithm>(location.state === null ? "SelectionSort" : location.state.calculatorFeature)
-
     const handleSolve = () => {
         setNumbers(numbersInput.split(/[ ,]+/).map(e => Number(e)))
         historyRows.push({
