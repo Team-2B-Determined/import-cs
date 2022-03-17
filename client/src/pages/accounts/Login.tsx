@@ -47,7 +47,7 @@ export default class Login extends Component<{}, loginState> {
     render() {
         return (
             <div>
-                <pre>{this.state}</pre>
+                <pre>{this.state.email}</pre>
                 <Card style={{ width: '20rem' }}>
                     <Card.Body>
                         <Card.Title>Login</Card.Title>
