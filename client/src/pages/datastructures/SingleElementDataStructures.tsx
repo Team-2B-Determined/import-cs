@@ -7,52 +7,31 @@ import MergeSort from "../../components/algorithms/sorting/MergeSort";
 import {startCase} from 'lodash';
 import Stack from "../../components/datastructures/singleelement/Stack";
 import Queue from "../../components/datastructures/singleelement/Queue";
+import QuickSort from "../../components/algorithms/sorting/QuickSort";
 
+const DATA_STRUCTURE_OPTIONS = {Stack, Queue} as const
+type DataStructureType = keyof typeof DATA_STRUCTURE_OPTIONS
 
-export type DataStructureType = "Stack" | "Queue"
 const SingleElementDataStructures = () => {
     const location: any = useLocation();
 
     /**
-     * Input field for values,
-     * to instantiate the data structure.
+     * dataInput: Input field for initial data values
+     * dataState: Internal state of data values
+     * crudInput: Input field for CRUD
+     * crudState: Action taken for CRUD
+     * dataStructure: Data structure currently selected
+     * historyRows: History values stored locally
      */
-    const [dataInput, setDataInput] = useState<string>(
-        location.state === null ? "" : location.state.input)
-
-    /**
-     * The actual state of the data structure,
-     * loaded from input, changed onSubmit
-     */
+    const [dataInput, setDataInput] = useState<string>(location.state === null ? "" : location.state.input)
     const [dataState, setDataState] = useState<any[]>([])
-
-    /**
-     * Input field for CRUD
-     */
-    const [crudInput, setCrudInput] = useState<string>(
-        location.state === null ? "" : location.state.input)
-
-    /**
-     * Action taken for CRUD
-     */
-    const [crudState, setCrudState] = useState<string>(
-        location.state === null ? "" : location.state.input)
-
-    /**
-     * Stores the history values locally.
-     * So we don't have to call localStorage elsewhere. Probably.
-     */
+    const [crudInput, setCrudInput] = useState<string>(location.state === null ? "" : location.state.input)
+    const [crudState, setCrudState] = useState<string>(location.state === null ? "" : location.state.input)
+    const [dataStructure, setDataStructure] = useState<DataStructureType>(location.state === null ? "Stack" : location.state.calculatorFeature)
     const historyRows: HistoryRow[] = JSON.parse(localStorage.getItem("historyRows") || "[]");
 
     /**
-     * Stores what data structure
-     * we are currently working with.
-     */
-    const [dataStructure, setDataStructure] = useState<DataStructureType>(
-        location.state === null ? "Stack" : location.state.calculatorFeature)
-
-    /**
-     * Updates the current data state.
+     * Updates the internal data state.
      * Adds submission to site history.
      */
     const buildData = () => {
@@ -93,6 +72,9 @@ const SingleElementDataStructures = () => {
      */
     const create = () => {
         setCrudState("create");
+        let data = dataState;
+        data.push(Number(crudInput));
+        setDataState(data);
         //setDataState(dataInput.split(/[ ,]+/).map(e => Number(e)))
         /**
          * disabling this until I figure out how to do history
@@ -147,22 +129,13 @@ const SingleElementDataStructures = () => {
     )
 
     /**
-     * Define which types are valid as options??? (I need to read the docs later -Kali)
-     */
-    // https://reactjs.org/docs/jsx-in-depth.html#choosing-the-type-at-runtime
-    const DATA_STRUCTURE_OPTIONS: Record<DataStructureType, ReactNode> = {
-        Stack,
-        Queue
-    }
-
-    /**
      * Does all the cool step code display, I think? -Kali
      * @param componentName
      * @param props
      */
     const renderCRUD = (componentName: string, props?: any) => {
-        const DataStructureRender: any = DATA_STRUCTURE_OPTIONS[componentName]
-        return <DataStructureRender initialData={dataState}
+        const DataStructureElement: any = DATA_STRUCTURE_OPTIONS[componentName]
+        return <DataStructureElement initialData={dataState}
                                     action={crudState}
                                     value={crudInput}/>
     }
@@ -190,7 +163,10 @@ const SingleElementDataStructures = () => {
                 </InputGroup>
             </Col>
             <Col>
-                {"Current state of the stack"}
+                <div>
+                    {"The " + dataStructure + " currently looks like:"}
+                </div>
+                {dataState.toString()}
             </Col>
             <Col xs={3}>
                 <CRUDInterface/>
