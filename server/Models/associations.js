@@ -36,8 +36,8 @@ User.hasMany(HistoryEntry, {
 HistoryEntry.belongsTo(User)
 
 //*User -> Role
-Role.hasMany(User)
-User.belongsTo(Role)
+Role.belongsToMany(User, {through: 'User_Profiles'})
+User.belongsToMany(Role, {through: 'User_Profiles'})
 
 
 /// SYNCHRONIZATION ///

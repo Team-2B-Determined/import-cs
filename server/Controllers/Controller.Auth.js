@@ -62,6 +62,7 @@ signin = (req, res) => {
                         roles: authorities,
                         accessToken: token
             })
+            //TODO attach role information
                 /*
             user.getRoles()
                 .then(roles => {

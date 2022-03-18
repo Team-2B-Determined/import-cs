@@ -40,7 +40,7 @@ export default class Login extends Component<{}, loginState> {
         event.preventDefault()
         authService.login(this.state.email, this.state.password)
             .then( () => {
-                window.location.href = ('/account')
+
             })
     }
 
