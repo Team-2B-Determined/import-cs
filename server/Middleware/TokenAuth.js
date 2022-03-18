@@ -3,7 +3,7 @@ const {db} = require("../Database/db");
 const User = require("../Models/User")(db);
 
 
-const key = require('../Config/config.auth')
+const secret = require('../Config/config.auth')
 
 
 verifyToken = (req, res, next) => {
@@ -17,7 +17,7 @@ verifyToken = (req, res, next) => {
     }
 
     //Verify token using jwt library
-    jwt.verify(token, key, (err, decoded) => {
+    jwt.verify(token, secret.key, (err, decoded) => {
         if(err) {
             return res.status(401).send({message: "Token is unauthenticated."});
         }

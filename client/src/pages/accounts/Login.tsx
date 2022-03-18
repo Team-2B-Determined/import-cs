@@ -8,8 +8,7 @@ import authService from "../../services/auth.service";
 interface loginState {
     email: string,
     password: string,
-    verified: boolean,
-    message: string
+    verified: boolean
 }
 
 
@@ -24,7 +23,6 @@ export default class Login extends Component<{}, loginState> {
             password: "",
             verified: true,
             // should be false
-            message: ""
         }
     }
 
@@ -40,14 +38,15 @@ export default class Login extends Component<{}, loginState> {
 
     onSubmitLogin(event) {
         event.preventDefault()
-        console.log(event.target.value)
-        //        AuthService.login(this.state.email, this.state.password)
+        authService.login(this.state.email, this.state.password)
+            .then( () => {
+                window.location.href = ('/account')
+            })
     }
 
     render() {
         return (
             <div>
-                <pre>{this.state.email}</pre>
                 <Card style={{ width: '20rem' }}>
                     <Card.Body>
                         <Card.Title>Login</Card.Title>

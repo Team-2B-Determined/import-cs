@@ -2,7 +2,11 @@ const {db} = require("../Database/db");
 const User = require("../Models/User")(db);
 const Role = require("../Models/Role")(db);
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 const Op = require('sequelize')
+
+const secret = require('../Config/config.auth')
+
 
 
 //Creates a new user and saves to database
@@ -47,14 +51,21 @@ signin = (req, res) => {
                     message: "Invalid password."
                 });
             }
-
-            let token = jwt.sign({ id: user.id }, config.secret, {
+            let token = jwt.sign({ id: user.id }, secret.key, {
                 expiresIn: 86400 //24 hours
             });
 
             let authorities = [];
+            res.status(200).send({
+                        id: user.id,
+                        email: user.email,
+                        roles: authorities,
+                        accessToken: token
+            })
+                /*
             user.getRoles()
                 .then(roles => {
+                    console.log("Checkpoint 3")
                     for (let i = 0; i < roles.length; i++) {
                         authorities.push("ROLE_" + roles[i].roleName.toUpperCase());
                     }
@@ -67,9 +78,8 @@ signin = (req, res) => {
                 })
                 .catch(err => {
                     res.status(500).send({ message: err.message });
-                })
-        })
-};
+                })*/
+        })};
 
 const controllerAuth = {
     signup: signup,
