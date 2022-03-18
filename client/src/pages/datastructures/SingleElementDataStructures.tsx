@@ -36,6 +36,7 @@ const SingleElementDataStructures = () => {
      */
     const buildData = () => {
         setDataState(dataInput.split(/[ ,]+/).map(e => Number(e)))
+        setCrudState("build")
         /**
          * disabling this until I figure out how to do history
          *
@@ -72,9 +73,6 @@ const SingleElementDataStructures = () => {
      */
     const create = () => {
         setCrudState("create");
-        let data = dataState;
-        data.push(Number(crudInput));
-        setDataState(data);
         //setDataState(dataInput.split(/[ ,]+/).map(e => Number(e)))
         /**
          * disabling this until I figure out how to do history
@@ -133,7 +131,7 @@ const SingleElementDataStructures = () => {
      * @param componentName
      * @param props
      */
-    const renderCRUD = (componentName: string, props?: any) => {
+    const renderCodeSteps = (componentName: string, props?: any) => {
         const DataStructureElement: any = DATA_STRUCTURE_OPTIONS[componentName]
         return <DataStructureElement initialData={dataState}
                                     action={crudState}
@@ -162,7 +160,7 @@ const SingleElementDataStructures = () => {
                     </Button>
                 </InputGroup>
             </Col>
-            <Col>
+            <Col hidden={true}>
                 <div>
                     {"The " + dataStructure + " currently looks like:"}
                 </div>
@@ -171,7 +169,9 @@ const SingleElementDataStructures = () => {
             <Col xs={3}>
                 <CRUDInterface/>
             </Col>
-            {renderCRUD(dataStructure)}
+            <div>
+                {renderCodeSteps(dataStructure)}
+            </div>
         </Container>
     );
 };
