@@ -54,6 +54,31 @@ const create = (stack: number[], val: number): any[] => {
     return steps
 }
 
+const read = (stack: number[]): any[] => {
+    const steps: Step[] = []
+    stack = [...stack]
+    let stackPointer = stack.length - 1
+
+    steps.push({
+        lineNumber: "10",
+        description: <>The stackPointer {stackPointer} points to the top element of the stack and that value {stack[stackPointer]} is returned.<br/>
+            arr=[{displayArray(stack, [stackPointer])}]
+        </>
+    })
+
+    stackPointer--
+    stack.pop()
+
+    steps.push({
+        lineNumber: "10",
+        description: <>The stackPointer is decremented to {stackPointer} <br/>
+            arr=[{displayArray(stack, [stackPointer])}]
+        </>
+    })
+
+    return steps
+}
+
 const welcomeSteps = (): any[] => {
     const steps: Step[] = []
     steps.push({
@@ -70,6 +95,8 @@ const callMakeSteps = (data: number[], val: number, action: string): any[] => {
             return build(data)
         case "create":
             return create(data,val)
+        case "read":
+            return read(data)
         default:
             return welcomeSteps()
     }
