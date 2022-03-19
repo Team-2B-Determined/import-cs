@@ -19,7 +19,7 @@ export default class Login extends Component<{}, loginState> {
         this.onChangePassword = this.onChangePassword.bind(this)
         this.onSubmitLogin = this.onSubmitLogin.bind(this)
         this.state = {
-            email: "starter_email",
+            email: "",
             password: "",
             verified: true,
             // should be false
@@ -39,9 +39,7 @@ export default class Login extends Component<{}, loginState> {
     onSubmitLogin(event) {
         event.preventDefault()
         authService.login(this.state.email, this.state.password)
-            .then( () => {
-
-            })
+            .then( () => {})
     }
 
     render() {

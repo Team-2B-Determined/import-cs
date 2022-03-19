@@ -11,26 +11,15 @@ const secret = require('../Config/config.auth')
 
 //Creates a new user and saves to database
 signup = (req, res) => {
+    console.log('SIGNUP CONTROLLER FUNCTION')
     User.create({
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 10)
     })
 
-        // Finds all roles attached to the HTTP requests, and assigns them to the user
-        .then(user => {
-            if (req.body.roles) {
-                Role.findAll({
-                    where: {
-                        roleName: { [Op.or]: req.body.roles }
-                    }
-                })
-                    .then()(roles => {
-                        user.setRoles(roles)
-                            .then(() => { res.send({ message: "User was registered successfully!"}); })
-                    })
-            }
-        })
-        .catch(err => { res.status(500).send({ message: err.message}); });
+//TODO Add roles from req.body.roles to User
+        .then(() => {res.send({ message: "User was registered successfully!" })})
+        .catch(err => { res.status(500).send({ message: err.message})})
 };
 
 signin = (req, res) => {

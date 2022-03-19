@@ -1,4 +1,5 @@
 const {db} = require("../Database/db");
+const { Sequelize } = require('sequelize');
 const User = require("../Models/User")(db);
 const Role = require("../Models/Role")(db);
 
@@ -6,7 +7,9 @@ const Role = require("../Models/Role")(db);
 //If so, returns an error message
 checkDuplicateUser = (req, res, next) => {
     User.findOne({
-        where: { email: req.body.email }
+        where: Sequelize.where(
+            Sequelize.fn('lower', Sequelize.col('email')),
+            Sequelize.fn('lower', req.body.email))
     })
         //If the query returns a user, send an error status, otherwise call next()
         .then(user => {
@@ -21,6 +24,7 @@ checkDuplicateUser = (req, res, next) => {
 
 //Checks if any roles in the HTTP request body do not exist.
 checkRole = (req, res, next) => {
+    console.log("CHECKING ROLE")
     if(req.body.role) {
         for (let i = 0; i < req.body.role.length; i++) {
             //If any roles of the request body do not exist, send an error, otherwise call next()

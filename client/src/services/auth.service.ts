@@ -10,7 +10,8 @@ class AuthService {
         return axios
             .post(API_URL + "signin", {
                 email,
-                password
+                password,
+
             })
             .then(response => {
                 if (response.data.accessToken) {
@@ -28,11 +29,15 @@ class AuthService {
         localStorage.removeItem("user");
     }
 
-    register(email, password) {
+    register(email, password, roles) {
         return axios.post(API_URL + "signup", {
             email,
-            password
+            password,
+            roles
         })
+            .then(() => {
+                window.location.href = ('/account')
+            })
     }
 }
 

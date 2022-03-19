@@ -6,8 +6,8 @@ const middleware = require('../Middleware/VerifySignup')
 
 
 router.post('/signup', middleware.checkDuplicateUser, middleware.checkRole, controller.signup);
-
 router.post('/signin', controller.signin);
+
 
 
 
