@@ -1,13 +1,15 @@
 //Kali
 import {Component} from "react";
-import {Button, Card, Form} from "react-bootstrap";
+import {Button, Card, Nav} from "react-bootstrap";
+import Form from 'react-validation/build/form';
+import Input from 'react-validation/build/input';
 import authService from "../../services/auth.service";
+import validationService from "../../services/validator.service"
 
 interface registerState {
     email: string,
     password: string,
-    passwordConfirm: string,
-    verified: boolean
+    password2: string
 }
 
 export default class Register extends Component<{}, registerState> {
@@ -20,15 +22,14 @@ export default class Register extends Component<{}, registerState> {
         this.state = {
             email: "",
             password: "",
-            passwordConfirm: "",
-            verified: true,
-            // should be false
+            password2: ""
         }
     }
 
     onChangeEmail(event) {
         event.preventDefault()
         this.setState({ email: event.target.value })
+
     }
 
     onChangePassword(event) {
@@ -38,47 +39,82 @@ export default class Register extends Component<{}, registerState> {
 
     onChangePasswordConfirm(event) {
         event.preventDefault()
-        this.setState({ passwordConfirm: event.target.value })
+        this.setState({ password2: event.target.value })
     }
 
     onSubmitRegister(event) {
         event.preventDefault()
-        if (this.state.password == this.state.passwordConfirm) {
+        if (this.state.password == this.state.password2) {
             let roles = []
             authService.register(this.state.email, this.state.password, roles)
                 .then( () => {})
+        }
+        else {
+            this.setState({password: ''})
+            this.setState({password2: ''})
         }
     }
 
     render() {
         return (
-            <div>
-                <Card style={{width: '20rem'}}>
-                    <Card.Body>
-                        <Card.Title>Register</Card.Title>
-                        <div>
-                            <Form onSubmit={this.onSubmitRegister}>
-                                <Form.Group className="mb-3" controlId="formBasicEmail" onChange={this.onChangeEmail}>
-                                    <Form.Label>Register with Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email"/>
-                                </Form.Group>
+            <Card style={{width: '20rem'}}>
+                <Card.Body>
+                    <Card.Title>Registration</Card.Title>
 
-                                <Form.Group className="mb-3" controlId="formBasicPassword" onChange={this.onChangePassword}>
-                                    <Form.Label>Create Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password"/>
-                                </Form.Group>
-                                <Form.Group className="mb-3" controlId="formBasicPassword" onChange={this.onChangePasswordConfirm}>
-                                    <Form.Label>Confirm Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password"/>
-                                </Form.Group>
-                                <Button variant="primary" type="submit">
-                                    Register
-                                </Button>
-                            </Form>
+                    <Form onSubmit={this.onSubmitRegister}>
+                        <div>
+                            <label>
+                                <br/>
+                                Email Address
+                                <Input
+                                    type='email'
+                                    name='email'
+                                    onChange={this.onChangeEmail}
+                                    validations={[validationService.required, validationService.email]}/>
+                            </label>
                         </div>
-                    </Card.Body>
-                </Card>
-            </div>
+
+                        <div>
+                            <label>
+                                <br/>
+                                Password
+                                <Input
+                                    type='password'
+                                    name='password'
+                                    onChange={this.onChangePassword}
+                                    validations={[validationService.required, validationService.password]}/>
+                            </label>
+                        </div>
+
+                        <div>
+                            <label>
+                                <br/>
+                                Confirm Password*
+                                <Input
+                                    type='password'
+                                    name='password confirm'
+                                    onChange={this.onChangePasswordConfirm}
+                                    validations={[validationService.required, validationService.password]}/>
+                            </label>
+                        </div>
+
+                        <div>
+                            <br/>
+                            <Button variant="primary" type="submit">
+                                Login
+                            </Button>
+                        </div>
+
+                        <div>
+                            <br/>
+                            Already have an account?
+                            <Nav.Link href="./login">Login Here</Nav.Link>
+                        </div>
+                    </Form>
+
+                </Card.Body>
+            </Card>
+
         )
     }
 }

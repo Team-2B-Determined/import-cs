@@ -2,13 +2,15 @@
 // login forms from:
 // https://react-bootstrap.github.io/components/forms/
 import {Component} from "react";
-import {Button, Card, Form, Nav} from "react-bootstrap";
+import {Button, Card, Nav} from "react-bootstrap";
+import Form from 'react-validation/build/form';
+import Input from 'react-validation/build/input';
 import authService from "../../services/auth.service";
+import validationService from "../../services/validator.service"
 
 interface loginState {
     email: string,
-    password: string,
-    verified: boolean
+    password: string
 }
 
 
@@ -20,9 +22,7 @@ export default class Login extends Component<{}, loginState> {
         this.onSubmitLogin = this.onSubmitLogin.bind(this)
         this.state = {
             email: "",
-            password: "",
-            verified: true,
-            // should be false
+            password: ""
         }
     }
 
@@ -44,45 +44,51 @@ export default class Login extends Component<{}, loginState> {
 
     render() {
         return (
-            <div>
-                <Card style={{ width: '20rem' }}>
-                    <Card.Body>
-                        <Card.Title>Login</Card.Title>
-                        <div>
+            <Card style={{ width: '20rem' }}>
+                <Card.Body>
+                    <Card.Title>Login</Card.Title>
 
-                            <Form onSubmit={this.onSubmitLogin}>
-                                <Form.Group className="login-email" controlId="formBasicEmail" onChange={this.onChangeEmail}>
-                                    <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" />
-                                    <Form.Text className="text-muted">
-                                        We'll never share your email with anyone else.
-                                    </Form.Text>
-                                </Form.Group>
+                        <Form onSubmit={this.onSubmitLogin}>
+                            <div>
+                                <label>
+                                    <br/>
+                                    Email Address
+                                    <Input
+                                        type='email'
+                                        name='email'
+                                        onChange={this.onChangeEmail}
+                                        validations={[validationService.required, validationService.email]}/>
+                                </label>
+                            </div>
 
-                                <Form.Group className="mb-3" controlId="formBasicPassword" onChange={this.onChangePassword}>
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password" />
-                                </Form.Group>
-                                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                    <Form.Check type="checkbox" label="Remember this login" />
-                                </Form.Group>
+                            <div>
+                                <label>
+                                    <br/>
+                                    Password
+                                    <Input
+                                        type='password'
+                                        name='password'
+                                        onChange={this.onChangePassword}
+                                        validations={[validationService.required, validationService.password]}/>
+                                </label>
+                            </div>
 
-                                <Button
-                                    variant="primary"
-                                    type="submit"
-                                    disabled = {!this.state.verified}>
-                                    Login
-                                </Button>
-                            </Form>
-
-                            <Card.Text> Don't have an account?
+                            <div>
+                                <br/>
+                                Don't have an account?
                                 <Nav.Link href="./register">Register Here</Nav.Link>
-                            </Card.Text>
+                            </div>
 
-                        </div>
-                    </Card.Body>
-                </Card>
-            </div>
+                            <Button variant="primary" type="submit">
+                                Login
+                            </Button>
+                        </Form>
+
+
+
+
+                </Card.Body>
+            </Card>
         )
     }
 }
