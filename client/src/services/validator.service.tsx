@@ -1,22 +1,23 @@
-class validator {
+import validator from 'validator'
+
+class validation {
+    required(value) {
+        if (!value.toString().trim().length) {
+            return <div>require</div>
+        }
+    }
 
     email(value) {
-        if (value.include`@` && value.length > 5 && value.length < 50) {
-            return "valid"
-        }
-        else {
-            return "Invalid email"
+        if(!validator.isEmail(value)) {
+            return <div>{value} is not a valid email.</div>
         }
     }
 
     password(value) {
-        if (value.length > 8 && value.length < 50) {
-            return "valid"
-        }
-        else {
-            return "Password must be between 8 and 50 characters"
+        if (value.length < 6 || value.length > 40) {
+            return <div>The password must be between 6 and 40 characters.</div>
         }
     }
 }
 
-export default new validator()
+export default new validation()
