@@ -5,17 +5,11 @@ const settingController = require('../Controllers/Controller.Settings')
 
 
 /// SETTING ROUTES ///
+//Retrieves settings for user, returns error response if no settings
+router.get('/retrieve', settingController.retrieveSetting)
 
-//Creates a new setting
-router.post('/', settingController.createSetting)
-
-//Retrieves setting based on id
-router.get('/:id', settingController.retrieveSetting)
-
-//Updates setting
-router.put('/:id', settingController.updateSetting)
-
-//Delete setting
-router.delete('/:id', settingController.deleteSetting)
+//Update settings for user, creates new settings/keyboard maps if needed
+router.post('/retrieve', settingController.updateSetting)
 
 module.exports = router;
+

@@ -3,56 +3,26 @@ const Setting = require('../Models/Setting')(db)
 
 //Implement CRUD for settings
 const controllerSettings = {
-    createSetting: createSetting,
     retrieveSetting: retrieveSetting,
     updateSetting: updateSetting,
-    deleteSetting: deleteSetting
 }
-
-    function createSetting(req, res) {
-        let newSetting = new Setting(req.body);
-        newSetting.save()
-            .then((data) => {
-                res.send(data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
-
     function retrieveSetting(req, res) {
-        Setting.findByPk(req.params.id)
-            .then((data) => {
-                res.send(data);
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+        //Checks if user has settings.
+            //True: Retrieve all settings. Check if user has Keyboard Maps
+                //True: Retrieve them
+                //False: leave fields empty
+            //False: return empty fields (rather than error response)
     }
 
     function updateSetting(req, res) {
-        let updatedSetting = {
-            font: req.body.font,
-            fontSize: req.body.fontSize,
-            darkMode: req.body.darkMode
-        }
-        Setting.update(updatedSetting, { where: { id: req.params.id }})
-            .then((data) => {
-                res.send(data);
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
+        //Checks if user has settings.
+            //True: Update them.
+            //False: Create settings entry with the info in req.body
+        //Check if user has keyboard map
+            //True: update them
+            //False: Create keyboard map entry with info in req.body
 
-    function deleteSetting(req, res) {
-        Setting.destroy({ where: { id: req.params.id}})
-            .then((data) => {
-                res.send(data);
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+
     }
 
     module.exports = controllerSettings;
