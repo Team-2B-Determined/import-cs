@@ -2,12 +2,9 @@ import {Button, Col, Container, Form, FormControl, InputGroup} from "react-boots
 import React, {ReactNode, useState} from "react";
 import {HistoryRow} from "../accounts/History";
 import {useLocation} from "react-router-dom";
-import SelectionSort from "../../components/algorithms/sorting/SelectionSort";
-import MergeSort from "../../components/algorithms/sorting/MergeSort";
 import {startCase} from 'lodash';
 import Stack from "../../components/datastructures/singleelement/Stack";
 import Queue from "../../components/datastructures/singleelement/Queue";
-import QuickSort from "../../components/algorithms/sorting/QuickSort";
 
 const DATA_STRUCTURE_OPTIONS = {Stack, Queue} as const
 type DataStructureType = keyof typeof DATA_STRUCTURE_OPTIONS
@@ -24,9 +21,9 @@ const SingleElementDataStructures = () => {
      * historyRows: History values stored locally
      */
     const [dataInput, setDataInput] = useState<string>(location.state === null ? "" : location.state.input)
-    const [dataState, setDataState] = useState<any[]>([])
-    const [crudInput, setCrudInput] = useState<string>(location.state === null ? "" : location.state.input)
-    const [crudState, setCrudState] = useState<string>(location.state === null ? "" : location.state.input)
+    const [dataState, setDataState] = useState<any[]>(location.state === null ? "" : location.state.input)
+    const [crudInput, setCrudInput] = useState<string>("")
+    const [crudState, setCrudState] = useState<string>(location.state === null ? "" : "build")
     const [dataStructure, setDataStructure] = useState<DataStructureType>(location.state === null ? "Stack" : location.state.calculatorFeature)
     const historyRows: HistoryRow[] = JSON.parse(localStorage.getItem("historyRows") || "[]");
 
@@ -37,16 +34,11 @@ const SingleElementDataStructures = () => {
     const buildData = () => {
         setDataState(dataInput.split(/[ ,]+/).map(e => Number(e)))
         setCrudState("build")
-        /**
-         * disabling this until I figure out how to do history
-         *
         historyRows.push({
-            calculatorFeature: sortingAlgorithm,
+            calculatorFeature: dataStructure,
             input: dataInput,
-            pathname: `/algorithms/sorting`,
-            state: `${dataInput}`
+            pathname: window.location.pathname
         });
-         */
         localStorage.setItem("historyRows", JSON.stringify(historyRows));
     }
 
@@ -73,18 +65,6 @@ const SingleElementDataStructures = () => {
      */
     const create = () => {
         setCrudState("create");
-        //setDataState(dataInput.split(/[ ,]+/).map(e => Number(e)))
-        /**
-         * disabling this until I figure out how to do history
-         *
-         historyRows.push({
-            calculatorFeature: sortingAlgorithm,
-            input: dataInput,
-            pathname: `/algorithms/sorting`,
-            state: `${dataInput}`
-        });
-         */
-        localStorage.setItem("historyRows", JSON.stringify(historyRows));
     }
 
     /**
@@ -92,18 +72,6 @@ const SingleElementDataStructures = () => {
      */
     const read = () => {
         setCrudState("read");
-        //setDataState(dataInput.split(/[ ,]+/).map(e => Number(e)))
-        /**
-         * disabling this until I figure out how to do history
-         *
-         historyRows.push({
-            calculatorFeature: sortingAlgorithm,
-            input: dataInput,
-            pathname: `/algorithms/sorting`,
-            state: `${dataInput}`
-        });
-         */
-        localStorage.setItem("historyRows", JSON.stringify(historyRows));
     }
 
     /**
