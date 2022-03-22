@@ -106,11 +106,11 @@ const callMakeSteps = (data: number[], val: number, action: string): any[] => {
 const links: ExternalLink[] = [
     {
         name: "GeeksForGeeks",
-        url: "https://www.geeksforgeeks.org/selection-sort/"
+        url: "https://www.geeksforgeeks.org/stack-data-structure/"
     },
     {
-        name: "Video (2:42)",
-        url: "https://www.youtube.com/watch?v=g-PGLbMth_g"
+        name: "Programiz",
+        url: "https://www.programiz.com/dsa/stack"
     }
 ]
 
@@ -138,8 +138,8 @@ const Stack = ({initialData, action, value}: {
     }
 }`
         }
-            description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\\n\" +\n                    \"\\t1) The subarray which is already sorted. \\n\" +\n                    \"\\te2) Remaining subarray which is unsorted.\\n\" +\n                    \"In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray."}
-            image={"https://i.imgur.com/EerzUpo.png"}
+            description={"Stacks are a data structure that follow the Last-In First-Out (LIFO) policy. The most recent item pushed to the stack is the item that is popped. A stack pointer is used in most computers to store return addresses for processes."}
+            image={"https://cdn-icons-png.flaticon.com/512/808/808598.png"}
         />
     );
 };
