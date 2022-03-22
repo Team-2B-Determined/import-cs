@@ -21,7 +21,7 @@ const SingleElementDataStructures = () => {
      * historyRows: History values stored locally
      */
     const [dataInput, setDataInput] = useState<string>(location.state === null ? "" : location.state.input)
-    const [dataState, setDataState] = useState<any[]>(location.state === null ? "" : location.state.input)
+    const [dataState, setDataState] = useState<any[]>(location.state === null ? "" : location.state.input.split(/[ ,]+/).map(e => Number(e)))
     const [crudInput, setCrudInput] = useState<string>("")
     const [crudState, setCrudState] = useState<string>(location.state === null ? "" : "build")
     const [dataStructure, setDataStructure] = useState<DataStructureType>(location.state === null ? "Stack" : location.state.calculatorFeature)
