@@ -9,7 +9,7 @@ const settingController = require('../Controllers/Controller.Settings')
 router.get('/retrieve', settingController.retrieveSetting)
 
 //Update settings for user, creates new settings/keyboard maps if needed
-router.post('/retrieve', settingController.updateSetting)
+router.post('/update', settingController.updateSetting)
 
 module.exports = router;
 
