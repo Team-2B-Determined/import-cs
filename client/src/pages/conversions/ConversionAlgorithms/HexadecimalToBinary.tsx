@@ -13,7 +13,7 @@ const _DecimalToBinary = (inputValue: string) => {
             <>Decimal to Binary Conversion. <br/>
             Decimal Number is {inputValue} <br/>
             Decimal Number is repeatedly divided by two until it equals zero <br/>
-            Binary value equals the remainder, from least to greatest significant value
+            Binary value equals the remainder, from least to greatest significant value <br/>
             </>
     })
     
