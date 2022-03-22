@@ -3,8 +3,8 @@
 // https://react-bootstrap.github.io/components/forms/
 import {Component} from "react";
 import {Button, Card, Nav} from "react-bootstrap";
-import Form from 'react-validation/build/form.js';
-import Input from 'react-validation/build/input.js';
+import Form from 'react-validation/build/form';
+import Input from 'react-validation/build/input';
 import authService from "../../services/auth.service";
 import validationService from "../../services/validator.service"
 
