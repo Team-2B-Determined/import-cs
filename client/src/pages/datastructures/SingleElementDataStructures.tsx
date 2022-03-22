@@ -85,10 +85,10 @@ const SingleElementDataStructures = () => {
                 placeholder="81"
                 aria-label="81"
                 aria-describedby="basic-addon2"/>
-            <Button variant="outline-success" id="button-addon2" onClick={create}>
+            <Button variant="success" id="button-addon2" onClick={create}>
                 Push Value
             </Button>
-            <Button variant="outline-warning" id="button-addon2" onClick={read}>
+            <Button variant="warning" id="button-addon2" onClick={read}>
                 Pop
             </Button>
         </InputGroup>
@@ -123,16 +123,10 @@ const SingleElementDataStructures = () => {
                         aria-label="81 -62 -92 37 85"
                         aria-describedby="basic-addon2"
                     />
-                    <Button variant="outline-secondary" id="button-addon2" onClick={buildData}>
+                    <Button variant="primary" id="button-addon2" onClick={buildData}>
                         {"Build " + dataStructure}
                     </Button>
                 </InputGroup>
-            </Col>
-            <Col hidden={true}>
-                <div>
-                    {"The " + dataStructure + " currently looks like:"}
-                </div>
-                {dataState.toString()}
             </Col>
             <Col xs={3}>
                 <CRUDInterface/>
