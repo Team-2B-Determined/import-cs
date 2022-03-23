@@ -1,16 +1,9 @@
-import { Form, FormControl, FormLabel, Button,Offcanvas} from "react-bootstrap";
-import React, {Component, useState} from "react";
+import React from  'react';
+import {Dropdown, Row, Col ,DropdownButton, Form, FormControl, FormLabel,} from "react-bootstrap";
 
 const BinaryAddition = () => {
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    const [show1, setShow1] = useState(false);
-    const handleClose1 = () => setShow1(false);
-    const handleShow1 = () => setShow1(true);
-
     return <div>
+        return <div>
 
         <Form>
             <Form.Group className= "mb-3"
@@ -19,7 +12,43 @@ const BinaryAddition = () => {
                 <FormControl type = "input" placeholder = "1001 0011 0101 0010" />
             </Form.Group>
 
-            <Form.Select aria-label ="Default select example">
+            <DropdownButton
+                variant="outline-secondary"
+                title="Select"
+                id="segmented-button-dropdown-5"
+            >
+
+                <Dropdown.Item href="#"> + (Addition)</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item href="#"> - (Subtraction)</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item href="#"> * (Multiplication)</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item href="#"> / (Division)</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item href="#">More...</Dropdown.Item>
+
+            </DropdownButton>
+
+
+            <Form.Group className= "mb-3"
+                        controlId= "exampleForm.ControlInput1">
+                <FormLabel> Input 4 </FormLabel>
+                <FormControl type = "input" placeholder = "1111 0011 0111 1010" />
+            </Form.Group>
+
+            <Form.Group className= "mb-3"
+                        controlId= "exampleForm.ControlInput1">
+                <FormLabel> Output </FormLabel>
+                <FormControl type = "output" placeholder = "answer" />
+            </Form.Group>
+            <Form.Group className= "mb-3"
+                        controlId= "exampleForm.ControlInput1">
+                <FormLabel> Input 1 </FormLabel>
+                <FormControl type = "input" placeholder = "1001 0011 0101 0010" />
+            </Form.Group>
+
+            <Form.Select aria-label="Default select example">
                 <option value="+">+</option>
                 <option value="-"> - </option>
                 <option value="×">×</option>
@@ -34,75 +63,24 @@ const BinaryAddition = () => {
             </Form.Group>
 
 
-        <Button variant="primary" type="submit" >
-            Calculate
-        </Button>
-            <Button variant="outline-primary" type="submit" >
-                Clear
-            </Button>
-
 
             <Form.Group className= "mb-3"
                         controlId= "exampleForm.ControlInput1">
                 <FormLabel> Binary Value </FormLabel>
-                <FormControl type = "output" placeholder = "answer ?" />
+                <FormControl type = "output" placeholder = "answer" />
             </Form.Group>
-
-
-            <Button variant="primary" onClick={handleShow}>
-                Show Detail
-            </Button>
-            <Offcanvas show={show} onHide={handleClose} placement={'end'}>
-                <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Full Explanation</Offcanvas.Title>
-                </Offcanvas.Header>
-                <Offcanvas.Body>
-                    Binary Value:
-                    <br/>
-                    <br/>
-                    Answer:
-                    <br/>
-                    <br/>
-                        10101010
-                    +
-                        11001100
-                    <br/>
-                    = 0101110110
-                </Offcanvas.Body>
-            </Offcanvas>
-
 
             <Form.Group className= "mb-3"
                         controlId= "exampleForm.ControlInput1">
                 <FormLabel> Decimal Value </FormLabel>
-                <FormControl type = "output" placeholder = "answer ?" />
+                <FormControl type = "output" placeholder = "answer" />
             </Form.Group>
 
 
-            <Button variant="primary" onClick ={handleShow1}>
-                Show Detail
-            </Button>
-            <Offcanvas show ={show1} onHide={handleClose1} placement ={'end'}>
-                <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Full Explanation</Offcanvas.Title>
-                </Offcanvas.Header>
-
-                <Offcanvas.Body>
-                    Decimal Value:
-                    <br/>
-                    <br/>
-                    Example:
-                    <br/>
-                    <br/>
-                    170 + 204
-                    <br/>
-                    = 374 (Answer)
-                </Offcanvas.Body>
-            </Offcanvas>
-            <br/><br/>
 
         </Form>
 
+    </div>;
     </div>;
 };
 
