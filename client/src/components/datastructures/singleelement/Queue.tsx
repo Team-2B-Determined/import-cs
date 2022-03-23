@@ -129,11 +129,11 @@ const callMakeSteps = (data: number[], val: number, action: string): any[] => {
 const links: ExternalLink[] = [
     {
         name: "GeeksForGeeks",
-        url: "https://www.geeksforgeeks.org/stack-data-structure/"
+        url: "https://www.geeksforgeeks.org/queue-data-structure/"
     },
     {
         name: "Programiz",
-        url: "https://www.programiz.com/dsa/stack"
+        url: "https://www.programiz.com/dsa/queue"
     }
 ]
 
