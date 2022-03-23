@@ -2,107 +2,169 @@ import CalculatorPage, {ExternalLink} from "../../CalculatorPage";
 import {Step} from "../../CodeNavigator";
 import React from "react";
 import displayArray from "../../../displayArray";
+import {forEach} from "react-bootstrap/ElementChildren";
 
-
-const _selectionSort = (arr: number[]): any[] => {
+const build = (arr: number[]): any[] => {
     const steps: Step[] = []
     arr = [...arr]
+    let queue = [0]
+    let qPointer = -1
 
-    for (let i = 0; i < (arr.length - 1); i++) {
+    steps.push({
+        lineNumber: "3",
+        description: <>An empty queue is instantiated. <br/>
+        </>
+    })
+
+    steps.push({
+        lineNumber: "4",
+        description: <>The stackPointer points to the last element of the stack. The queue is empty, so the queuePointer is {qPointer}<br/>
+        </>
+    })
+
+    for (let i = 0; i < arr.length; i++) {
+
+        qPointer++
+
         steps.push({
-            lineNumber: "3",
-            description: <>minInd is initialized to {i} as the element at that index, {arr[i]}, is the
-                smallest value we know as of this iteration <br/>
-                arr=[{displayArray(arr, [i])}]
+            lineNumber: "7",
+            description: <>The queuePointer is incremented to {qPointer}.
             </>
         })
-        let minInd = i
 
-        for (let j = (i + 1); j < arr.length; j++) {
+        queue[qPointer] = arr[i]
 
-            if (arr[j] < arr[minInd]) {
-                steps.push({
-                    lineNumber: "5-7",
-                    description: <>The current element, {arr[j]}, is less than {arr[minInd]}, so we set minInd
-                        to {j} now <br/>
-                        arr=[{displayArray(arr, [j])}]
-                    </>
-                })
-                minInd = j
-            }
-        }
-
-        if (minInd !== i) {
-            steps.push({
-                lineNumber: "11-13",
-                description: <>Swap the elements between indexes {i} and {minInd} since a smaller element was
-                    found<br/>
-                    arr=[{displayArray(arr, [i, minInd])}]
-                </>
-            })
-            const temp = arr[minInd];
-            arr[minInd] = arr[i];
-            arr[i] = temp;
-        } else {
-            steps.push({
-                lineNumber: "14-16",
-                description: <>A smaller element than {arr[i]} was not found<br/>
-                    arr=[{displayArray(arr, [i])}]
-                </>
-            })
-            console.log("No need to swap!")
-        }
+        steps.push({
+            lineNumber: "8",
+            description: <>The new value {queue[qPointer]} is added to the end of the stack. <br/>
+                arr=[{displayArray(queue, [qPointer])}]
+            </>
+        })
     }
+    return steps
+}
+
+const create = (queue: number[], val: number): any[] => {
+    const steps: Step[] = []
+    queue = [...queue]
+    let qPointer = queue.length - 1
+
     steps.push({
-        lineNumber: "18",
-        description: <>Finished! The array is now sorted!<br/>
-            arr=[{displayArray(arr)}]
+        lineNumber: "6",
+        description: <>The queuePointer {qPointer} points to the last element of the stack {queue[qPointer]} <br/>
+            arr=[{displayArray(queue, [qPointer])}]
+        </>
+    })
+
+    qPointer++
+
+    steps.push({
+        lineNumber: "7",
+        description: <>The queuePointer is incremented to {qPointer}.
+        </>
+    })
+
+    queue[qPointer] = val
+
+    steps.push({
+        lineNumber: "8",
+        description: <>The new value {queue[qPointer]} is added to the end of the stack. <br/>
+            arr=[{displayArray(queue, [qPointer])}]
+        </>
+    })
+
+    return steps
+}
+
+const read = (queue: number[]): any[] => {
+    const steps: Step[] = []
+    queue = [...queue]
+    let qPointer = queue.length - 1
+
+    qPointer--
+
+    steps.push({
+        lineNumber: "11",
+        description: <>The queuePointer is decremented to reflect that an item will be removed.<br/>
+            arr=[{displayArray(queue, [qPointer])}]
+        </>
+    })
+
+    queue.shift()
+
+    steps.push({
+        lineNumber: "12",
+        description: <>*.shift() both removes and returns the item at the front of the queue {queue[0]}.<br/>
+            arr=[{displayArray(queue)}]
+        </>
+    })
+
+    return steps
+}
+
+const welcomeSteps = (): any[] => {
+    const steps: Step[] = []
+    steps.push({
+        lineNumber: "1-12",
+        description: <>Enter some values to build the data structure! <br/>
         </>
     })
     return steps
+}
+
+const callMakeSteps = (data: number[], val: number, action: string): any[] => {
+    switch(action) {
+        case "build":
+            return build(data)
+        case "create":
+            return create(data,val)
+        case "read":
+            return read(data)
+        default:
+            return welcomeSteps()
+    }
 }
 
 
 const links: ExternalLink[] = [
     {
         name: "GeeksForGeeks",
-        url: "https://www.geeksforgeeks.org/selection-sort/"
+        url: "https://www.geeksforgeeks.org/stack-data-structure/"
     },
     {
-        name: "Video (2:42)",
-        url: "https://www.youtube.com/watch?v=g-PGLbMth_g"
+        name: "Programiz",
+        url: "https://www.programiz.com/dsa/stack"
     }
 ]
 
 
-const Queue = ({numbers}: { numbers: number[] }) => {
+const Queue = ({initialData, action, value}: {
+    initialData: number[],
+    action: string,
+    value: number }) => {
 
     return (
         <CalculatorPage
             name={"Queue"}
-            steps={_selectionSort(numbers)}
+            steps={callMakeSteps(initialData, value, action)}
             links={links}
-            codeDisplay={`function selectionSort = arr => {
-        for (let i = 0; i < (arr.length - 1); i++) {
-            let minInd = i
-            for (let j = (i + 1); j < arr.length; j++) {
-                if (arr[j] < arr[minInd]) {
-                    minInd = j
-                }
+            codeDisplay={`class Queue {
+    constructor() {
+        this.items = []
+        this.queuePointer = -1
+    }
+    push(value) {
+        this.queuePointer++
+        this.items[this.queuePointer] = value
+    }
+    pop() {
+        this.queuePointer--
+        return this.items.shift()
+    }
+}`
             }
-
-            if (minInd !== i) {
-                const temp = arr[minInd];
-                arr[minInd] = arr[i];
-                arr[i] = temp;
-            } else {
-                console.log("No need to swap!")
-            }
-        }
-        return arr
-    }`}
-            description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\\n\" +\n                    \"\\t1) The subarray which is already sorted. \\n\" +\n                    \"\\te2) Remaining subarray which is unsorted.\\n\" +\n                    \"In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray."}
-            image={"https://i.imgur.com/EerzUpo.png"}
+            description={"Queues are a data structure that follow the First-In First-Out (FIFO) policy. Items are returned in the order they were added. Queues are used to in operating systems to schedule processes."}
+            image={"https://cdn-icons-png.flaticon.com/512/3953/3953545.png"}
         />
     );
 };
