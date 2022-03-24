@@ -1,5 +1,5 @@
 import {Button, Card, Col, Container, FormControl, InputGroup, Offcanvas, Row} from "react-bootstrap";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {CodeBlock, irBlack} from "react-code-blocks";
 
 export interface Step {
@@ -20,6 +20,10 @@ const CodeNavigator = ({steps,codeDisplay}: { steps: Step[], codeDisplay:string}
     const [stepIndex, setStepIndex] = useState(0)
     const [autoPlayDelay, setAutoPlayDelay] = useState(2)
     const [isAutoPlaying, setIsAutoPlaying] = useState(false)
+
+    useEffect(()=>{setStepToStart()},[steps])
+
+
     const setStepToStart = () => {
         setStepIndex(0)
     }
@@ -43,7 +47,13 @@ const CodeNavigator = ({steps,codeDisplay}: { steps: Step[], codeDisplay:string}
         })
     }
 
-    const currentStep = () => steps[stepIndex]
+    const currentStep = () =>  {
+        if (stepIndex >= steps.length) {
+            setStepToStart()
+            return steps[0]
+        }
+        return steps[stepIndex]
+    }
 
 
     const StepsNavigation = () => (<>
