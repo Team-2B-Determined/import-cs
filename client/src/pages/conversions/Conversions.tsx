@@ -32,8 +32,13 @@ const Conversions = () => {
     }
     const onSubmitClick = (e) => {
         e.preventDefault()
-        setShowConversion(true)
-        setComponentAlgorithm(`${inputType}To${outputType}` as ConversionAlgorithm)
+        if (`${inputType}To${outputType}` in CONVERSION_ALGORITHMS) {
+            setShowConversion(true)
+            setComponentAlgorithm(`${inputType}To${outputType}` as ConversionAlgorithm)
+        } else {
+            setOutputValue("Error: invalid input and output type combo")
+        }
+
     }
     const showOutput = () => {
         if (!showConversion)
