@@ -1,13 +1,17 @@
-import React, {Component, useState} from "react";
+import React, {useState} from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import ConversionAlgorithms from "./ConversionAlgorithms/ConversionAlgorithms";
-import BinaryToDecimal from "./ConversionAlgorithms/BinaryToDecimal"; 
-import DecimalToBinary from "./ConversionAlgorithms/DecimalToBinary"; 
+import BinaryToDecimal from "./ConversionAlgorithms/BinaryToDecimal";
+import DecimalToBinary from "./ConversionAlgorithms/DecimalToBinary";
+
+const CONVERSION_ALGORITHMS = {DecimalToBinary, BinaryToDecimal} as const
+type ConversionAlgorithm = keyof typeof CONVERSION_ALGORITHMS
 
 const Conversions = () => {
     const [inputType, setInputType] = useState<string>("Binary")
     const [outputType, setOutputType] = useState<string>("Decimal")
     const [inputValue, setInputValue] = useState<string>("1011")
+    const [componentAlgorithm, setComponentAlgorithm] = useState<ConversionAlgorithm>("BinaryToDecimal")
     const [outputValue, setOutputValue] = useState<string>("")
     const [showConversion, setShowConversion] = useState<boolean>(false)
 
@@ -29,13 +33,21 @@ const Conversions = () => {
     const onSubmitClick = (e) => {
         e.preventDefault()
         setShowConversion(true)
+        setComponentAlgorithm(`${inputType}To${outputType}` as ConversionAlgorithm)
     }
     const showOutput = () => {
         if (!showConversion)
             return null
         else
-            return <ConversionAlgorithms inputType={inputType} outputType={outputType} inputValue={inputValue} setOutputValue={setOutputValue}/>
-    }  
+            return <ConversionAlgorithms inputType={inputType} outputType={outputType} inputValue={inputValue}
+                                         setOutputValue={setOutputValue}/>
+    }
+
+    const renderConversion = () => {
+        const ConversionAlgorithm: any = CONVERSION_ALGORITHMS[componentAlgorithm]
+        return ConversionAlgorithm(inputValue)
+
+    }
 
     return (
         <div>{showOutput()}
@@ -66,7 +78,8 @@ const Conversions = () => {
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridOutputBox">
                         <Form.Label>Output Value:</Form.Label>
-                        <Form.Control type="string" value={outputValue} placeholder="Readonly converted output value here..." readOnly/>
+                        <Form.Control type="string" value={outputValue}
+                                      placeholder="Readonly converted output value here..." readOnly/>
                     </Form.Group>
                 </Row>
                 <Button variant="primary" type="submit" onClick={onSubmitClick}>
@@ -75,7 +88,7 @@ const Conversions = () => {
 
                 <Form.Group controlId="Explanation">
                     <Form.Label>Explanation:</Form.Label>
-                    {DecimalToBinary(inputValue)}
+                    {renderConversion()}
                 </Form.Group>
             </Form>
         </div>
