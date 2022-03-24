@@ -15,10 +15,10 @@ module.exports = (db) => {
                 set(value) { this.setDataValue('font', value)}
             },
 
-            fontSize: {
-                type: Sequelize.INTEGER,
-                get() { return this.getDataValue('fontSize')},
-                set(value) { this.setDataValue('fontSize', value)}
+            keyboardMap: {
+                type: Sequelize.STRING,
+                get() { return this.getDataValue('keyboardMap')},
+                set(value) { this.setDataValue('keyboardMap', value)}
             },
 
             darkMode: {
