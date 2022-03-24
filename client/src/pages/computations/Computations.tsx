@@ -1,13 +1,13 @@
-import { Button, Col, Container, Form, FormControl, InputGroup } from "react-bootstrap";
+import { Button, Col, Container, Form, FormControl, InputGroup , Offcanvas} from "react-bootstrap";
 import React, {useState } from "react";
 import { HistoryRow } from "../accounts/History";
 import { useLocation } from "react-router-dom";
 import {add, sub, mul, div} from "../../components/computations/calc";
+import Badge from 'react-bootstrap/Badge'
 
 
-
-type computationType = '+' | '-' | '*' | '/'  ;
-const computationLookUp = { "+": 'BinaryAddition', "-": 'BinarySubtraction', "*": 'BinaryMultiplication', "/": 'BinaryDivision' }
+type computationType = '+' | '-' | '*' | '÷'  ;
+const computationLookUp = { "+": 'BinaryAddition', "-": 'BinarySubtraction', "×": 'BinaryMultiplication', "÷": 'BinaryDivision' }
 
 const isBinary = (inputValue) => {
 let binList = ['0','1']
@@ -30,6 +30,10 @@ const Computations = () => {
     const [computation, setComputation] = useState<computationType>("+");
     const [result, setResult] = useState<string>();
 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
 
     const handleSolve = () => {
         if (!isBinary(numbersInput1) || (!isBinary(numbersInput2))){
@@ -47,7 +51,7 @@ const Computations = () => {
             case "*":
                 setResult(mul(numbersInput1,numbersInput2))
                 break
-            case "/":
+            case "÷":
                 setResult(div(numbersInput1,numbersInput2))
                 break
         }
@@ -73,21 +77,24 @@ const Computations = () => {
 
                 <option value={'+'}>+</option>
                 <option value={'-'}>-</option>
-                <option value={'*'}>*</option>
-                <option value={'/'}>/</option>
+                <option value={'×'}>*</option>
+                <option value={'÷'}>/</option>
 
             </Form.Select>
         </Form.Group>
     );
 
     return (
+
         <Container>
+            <h1>Welcome to Computation Page <Badge> New</Badge> </h1>
+            <h4>Binary Computations-Add, Subtract, Multiply, or Divide <Badge> New </Badge> </h4>
             <Col xs={6}>
                 <InputGroup className="mb-3">
                     <FormControl
                         value={numbersInput1}
                         onChange={(e) => setNumbersInput1(e.target.value)}
-                        placeholder="1011 0110 0110 "
+                        placeholder="1st Binary Input Number"
                         //aria-label="81"
                         aria-describedby="basic-addon2"
                     />
@@ -95,14 +102,16 @@ const Computations = () => {
                     <FormControl
                         value={numbersInput2}
                         onChange={(e) => setNumbersInput2(e.target.value)}
-                        placeholder="0011 1000"
+                        placeholder="2nd Binary Input Number"
                         //aria-label="81"
                         aria-describedby="basic-addon2"
                     />
-                    <Button variant="outline-primary" id="button-addon2" onClick={handleSolve}>
+
+                    <Button variant="primary" id="button-addon2" onClick={handleSolve}>
                         Solve
                     </Button>
-                    <Button variant="outline-secondary" id="button-addon2" onClick={()=>{setNumbersInput1(""); setNumbersInput2("");setResult("")}}>
+
+                    <Button variant="outline-primary" id="button-addon2" onClick={()=>{setNumbersInput1(""); setNumbersInput2("");setResult("")}}>
                         Clear
                     </Button>
                 </InputGroup>
@@ -111,8 +120,30 @@ const Computations = () => {
                    value={result}
                    />
             </Col>
+            <Button variant="primary" onClick={handleShow}>
+                Show Detail
+            </Button>
+            <Offcanvas show ={show} onHide={handleClose} placement ={'end'}>
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title>Full Explanation</Offcanvas.Title>
+                </Offcanvas.Header>
 
+                <Offcanvas.Body>
+                    Binary Value:
+                    <br/>
+                    <br/>
+                    Example:
+                    <br/>
+                    <br/>
+                    1111 + 1
+                    <br/>
+                    = 1100 (Answer)
+                </Offcanvas.Body>
+            </Offcanvas>
+            <br/><br/>
         </Container>
+
+
     );
 };
 
