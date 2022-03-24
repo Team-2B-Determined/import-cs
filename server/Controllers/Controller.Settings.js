@@ -4,7 +4,8 @@ const Setting = require('../Models/Setting')(db)
 //Implement CRUD for settings
 const controllerSettings = {
     retrieveSetting: retrieveSetting,
-    updateSetting: updateSetting,
+    updateFont: updateFont,
+    updateKeyboard: updateKeyboard
 }
     function retrieveSetting(req, res) {
         //Checks if user has settings.
@@ -14,7 +15,7 @@ const controllerSettings = {
             //False: return empty fields (rather than error response)
     }
 
-    function updateSetting(req, res) {
+    function updateFont(req, res) {
         //Checks if user has settings.
             //True: Update them.
             //False: Create settings entry with the info in req.body
@@ -22,6 +23,10 @@ const controllerSettings = {
             //True: update them
             //False: Create keyboard map entry with info in req.body
 
+
+    }
+
+    function updateKeyboard(req, res) {
 
     }
 

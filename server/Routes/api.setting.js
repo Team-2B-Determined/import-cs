@@ -8,8 +8,11 @@ const settingController = require('../Controllers/Controller.Settings')
 //Retrieves settings for user, returns error response if no settings
 router.get('/retrieve', settingController.retrieveSetting)
 
-//Update settings for user, creates new settings/keyboard maps if needed
-router.post('/update', settingController.updateSetting)
+//Update the font in the settings
+router.post('/update/font', settingController.updateFont)
+
+//Update the keyboard in the settings
+router.post('/update/keyboard', settingController.updateKeyboard)
 
 module.exports = router;
 
