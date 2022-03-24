@@ -1,4 +1,5 @@
-const {db} = require('../Database/db')
+const {db} = require("../Database/db");
+const User = require("../Models/User")(db);
 const Setting = require('../Models/Setting')(db)
 
 //Implement CRUD for settings
@@ -8,11 +9,39 @@ const controllerSettings = {
     updateKeyboard: updateKeyboard
 }
     function retrieveSetting(req, res) {
-        //Checks if user has settings.
-            //True: Retrieve all settings. Check if user has Keyboard Maps
-                //True: Retrieve them
-                //False: leave fields empty
-            //False: return empty fields (rather than error response)
+        User.findOne({
+            where: {email: req.body.email}
+        })
+            .then(user => {
+                if (user === null) {
+                    return res.status(404).send({
+                        message: "User not found"
+                    })
+                }
+                Setting.findOne({
+                    where: {user: user}
+                })
+                    .then ( (setting) => {
+                        if (setting === null) {
+                            return res.status(200).send({
+                                darkMode: false,
+                                font: JSON.stringify(null),
+                                keyboardMap: JSON.stringify(null)
+                            })
+                        }
+                        res.status(200).send({
+                            darkMode: setting.darkMode,
+                            font: setting.font,
+                            keyboardMap: setting.keyboardMap
+                        })
+                    })
+                    .catch(err => {
+                        res.status(500).send({message: err.message})
+                    })
+            })
+            .catch(err => {
+                res.status(500).send({message: err.message})
+            })
     }
 
     function updateFont(req, res) {
