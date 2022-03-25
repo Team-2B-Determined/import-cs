@@ -19,9 +19,9 @@ const controllerSettings = {
                     })
                 }
                 Setting.findOne({
-                    where: {user: user}
+                    where: {userId: user.id}
                 })
-                    .then ( (setting) => {
+                    .then (setting => {
                         if (setting === null) {
                             return res.status(200).send({
                                 darkMode: false,
@@ -45,14 +45,35 @@ const controllerSettings = {
     }
 
     function updateFont(req, res) {
-        //Checks if user has settings.
-            //True: Update them.
-            //False: Create settings entry with the info in req.body
-        //Check if user has keyboard map
-            //True: update them
-            //False: Create keyboard map entry with info in req.body
-
-
+        User.findOne({
+            where: {email: req.body.email}
+        })
+            .then(user => {
+                //No user, return message
+                if (user === null) {
+                    return res.status(404).send({
+                        message: "User not found"
+                    })
+                }
+                Setting.findOne({where: {userId: user.id}})
+                    .then(setting => {
+                        //User has no custom settings, create new settings, update font
+                        if(setting === null) {
+                            Setting.create({
+                                font: req.body.font,
+                                userId: user.id
+                            })
+                                .then(() => {res.send({ message: "Settings retrieved successfully" })})
+                                .catch(err => {res.status(500).send({message: err.message})})
+                        }
+                        //User already has settings, retrieve and update font
+                        else {
+                            setting.font = req.body.font
+                        }
+                    })
+                    .catch(err => {res.status(500).send({message: err.message})})
+            })
+            .catch(err => {res.status(500).send({message: err.message})})
     }
 
     function updateKeyboard(req, res) {
