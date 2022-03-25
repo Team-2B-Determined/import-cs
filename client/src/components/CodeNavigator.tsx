@@ -1,6 +1,8 @@
 import {Button, Card, Col, FormControl, InputGroup, Row} from "react-bootstrap";
-import React, {useEffect, useState} from "react";
+import React, {ReactNode, useEffect, useState} from "react";
 import {CodeBlock, irBlack} from "react-code-blocks";
+import {BsForward, BsSkipBackward, BsSkipEnd, BsSkipForward, BsSkipStart} from "react-icons/bs";
+import { IconContext } from "react-icons";
 
 export interface Step {
     description: string | JSX.Element,
@@ -49,33 +51,19 @@ const CodeNavigator = ({steps,codeDisplay}: { steps: Step[], codeDisplay:string}
         return steps[stepIndex]
     }
 
-
-    const StepsNavigation = () => (<>
-        Manual navigation
-        <div>
-            <Button variant="outline-primary" size="sm" onClick={setStepToStart}>
-                <img src="https://static.thenounproject.com/png/1297552-200.png" width="25" height="25"/><br/>
-            </Button>
-            <Button variant="outline-primary" size="sm" onClick={() => addStepIndex(-5)}>
-                <img src="https://www.vhv.rs/dpng/d/437-4375289_rewind-arrow-svg-png-icon-free-download-rewind.png"
-                     width="25" height="25"/><br/>
-            </Button>
-            <Button variant="outline-primary" size="sm" onClick={() => addStepIndex(-1)}>
-                <img
-                    src="https://e7.pngegg.com/pngimages/85/844/png-clipart-computer-icons-arrow-icon-design-encapsulated-postscript-left-arrow-angle-internet.png"
-                    width="25" height="25"/><br/>
-            </Button>
-            <Button variant="outline-primary" size="sm" onClick={() => addStepIndex(1)}>
-                <img src="https://static.thenounproject.com/png/74838-200.png" width="25" height="25"/><br/>
-            </Button>
-            <Button variant="outline-primary" size="sm" onClick={() => addStepIndex(5)}>
-                <img src="https://cdn0.iconfinder.com/data/icons/playback-1/24/fast-forward-512.png" width="25"
-                     height="25"/><br/>
-            </Button>
-            <Button variant="outline-primary" size="sm" onClick={setStepToEnd}>
-                <img src="https://static.thenounproject.com/png/1297558-200.png" width="25" height="25"/><br/>
-            </Button></div>
-    </>)
+    const StepsNavigation = () => {
+        const navigations:[ReactNode,React.MouseEventHandler<HTMLButtonElement>][] = [[<BsSkipStart />,setStepToStart],[<BsSkipBackward/>,() => addStepIndex(-5)],[<BsForward style={{transform:"rotateY(180deg)"}}/>,() => addStepIndex(-1)],[<BsForward/>,() => addStepIndex(1)],[<BsSkipForward/>,() => addStepIndex(5)],[<BsSkipEnd/>,setStepToEnd]]
+        return <>
+            Manual navigation
+            <div>
+                <IconContext.Provider value={{size: "32"}}>
+                    {navigations.map(([Icon,onClickHandler])=>(
+                        <Button variant="outline" size="sm" onClick={onClickHandler}>{Icon}</Button>
+                        ))}
+                </IconContext.Provider>
+            </div>
+        </>
+    }
 
 
     return (
