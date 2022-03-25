@@ -160,11 +160,11 @@ const generateSteps = (arr, pivotStrategy: PivotStrategy) => {
 const links: ExternalLink[] = [
     {
         name: "GeeksForGeeks",
-        url: "https://www.geeksforgeeks.org/selection-sort/"
+        url: "https://www.geeksforgeeks.org/quick-sort/"
     },
     {
-        name: "Video (2:42)",
-        url: "https://www.youtube.com/watch?v=g-PGLbMth_g"
+        name: "[Video] Quick sort in 4 minutes",
+        url: "https://youtu.be/Hoixgm4-P4M"
     }
 ]
 
@@ -247,7 +247,7 @@ const QuickSort = ({numbers}: { numbers: number[] }) => {
     ];
 }
 `}
-                description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\\n\" +\n                    \"\\t1) The subarray which is already sorted. \\n\" +\n                    \"\\te2) Remaining subarray which is unsorted.\\n\" +\n                    \"In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray."}
+                description={"Quicksort is an in-place, divide-and-conquer algorithm. It works by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. For this reason, it is sometimes called partition-exchange sort. The sub-arrays are then sorted recursively. This can be done in-place, requiring small additional amounts of memory to perform the sorting."}
                 image={"https://i.imgur.com/EerzUpo.png"}
             />
         </>
