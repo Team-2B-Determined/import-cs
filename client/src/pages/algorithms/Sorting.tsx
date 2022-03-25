@@ -6,6 +6,7 @@ import SelectionSort from "../../components/algorithms/sorting/SelectionSort";
 import MergeSort from "../../components/algorithms/sorting/MergeSort";
 import {startCase} from 'lodash';
 import QuickSort from "../../components/algorithms/sorting/QuickSort";
+import {BsSortNumericDown} from "react-icons/bs";
 
 // https://stackoverflow.com/a/56126054
 const SORTING_ALGORITHMS = {SelectionSort, MergeSort, QuickSort} as const
@@ -52,7 +53,7 @@ const Sorting = () => {
 
     return (
         <Container>
-            <h3>{startCase(sortingAlgorithm)}</h3>
+            <h3>{startCase(sortingAlgorithm)} <BsSortNumericDown size={24} /></h3>
             <Col xs={6}>
                 Enter a sequence of numbers separated with spaces " " or commas ","
                 <InputGroup className="mb-3">
