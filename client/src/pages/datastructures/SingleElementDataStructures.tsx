@@ -108,6 +108,7 @@ const SingleElementDataStructures = () => {
 
     return (
         <Container>
+            <h3>{startCase(dataStructure)}</h3>
             <Col xs={3}>
                 <DataStructDropdown/>
             </Col>

@@ -52,7 +52,9 @@ const Sorting = () => {
 
     return (
         <Container>
+            <h3>{startCase(sortingAlgorithm)}</h3>
             <Col xs={6}>
+                Enter a sequence of numbers separated with spaces " " or commas ","
                 <InputGroup className="mb-3">
                     <FormControl
                         value={numbersInput}
@@ -65,10 +67,8 @@ const Sorting = () => {
                         Solve
                     </Button>
                 </InputGroup>
-                Enter a sequence of numbers separated with spaces " " or commas ","
             </Col>
             <Col xs={3}>
-
                 <SortingDropdown/>
             </Col>
 

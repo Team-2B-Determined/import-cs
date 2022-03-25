@@ -86,8 +86,6 @@ const CodeNavigator = ({steps,codeDisplay}: { steps: Step[], codeDisplay:string}
 
     return (
         <div>
-            <Container>
-                <StepsNavigation/>
                 Auto Play (every x seconds)
                 <Col xs={3}>
                     <InputGroup className="mb-3">
@@ -107,6 +105,8 @@ const CodeNavigator = ({steps,codeDisplay}: { steps: Step[], codeDisplay:string}
                         </Button>
                     </InputGroup>
                 </Col>
+                <StepsNavigation/>
+
                 <br/>
                 <Card>
                     <Card.Body>
@@ -139,9 +139,6 @@ const CodeNavigator = ({steps,codeDisplay}: { steps: Step[], codeDisplay:string}
 
                     </Card.Body>
                 </Card>
-
-            </Container>
-
 
             <Offcanvas show={show} onHide={handleClose} placement={'end'}>
                 <Offcanvas.Header>

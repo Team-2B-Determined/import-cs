@@ -29,16 +29,11 @@ const CalculatorPage: FC<CalculatorPageProp> = ({name, codeDisplay, description,
 
     return (
         <div>
-            {}
             <Button variant="primary" onClick={handleShow}>
-                Show details
+                Learn more
             </Button>
             <br/><br/>
 
-            <h3>{title}</h3>
-            {image ? <img src={image} width="50" height="50"/> : null}<br/>
-
-            <br/>
             <CodeNavigator steps={steps} codeDisplay={codeDisplay}/>
 
             <Offcanvas show={show} onHide={handleClose} placement={'end'}>
