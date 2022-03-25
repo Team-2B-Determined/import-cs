@@ -17,9 +17,7 @@ const CodeNavigator = ({steps,codeDisplay}: { steps: Step[], codeDisplay:string}
     const [stepIndex, setStepIndex] = useState(0)
     const [autoPlayDelay, setAutoPlayDelay] = useState(2)
     const [isAutoPlaying, setIsAutoPlaying] = useState(false)
-
-    useEffect(()=>{setStepToStart()},[steps])
-
+    
     const setStepToStart = () => {
         setStepIndex(0)
     }
