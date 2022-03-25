@@ -1,4 +1,4 @@
-import {Button, Card, Col, Container, FormControl, InputGroup, Offcanvas, Row} from "react-bootstrap";
+import {Button, Card, Col, FormControl, InputGroup, Row} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import {CodeBlock, irBlack} from "react-code-blocks";
 
@@ -12,17 +12,11 @@ let autoPlayer;
 
 
 const CodeNavigator = ({steps,codeDisplay}: { steps: Step[], codeDisplay:string}) => {
-
-    const [show, setShow] = useState(false);
-    const handleShow = () => setShow(true);
-    const handleClose = () => setShow(false);
-
     const [stepIndex, setStepIndex] = useState(0)
     const [autoPlayDelay, setAutoPlayDelay] = useState(2)
     const [isAutoPlaying, setIsAutoPlaying] = useState(false)
 
     useEffect(()=>{setStepToStart()},[steps])
-
 
     const setStepToStart = () => {
         setStepIndex(0)
@@ -139,14 +133,6 @@ const CodeNavigator = ({steps,codeDisplay}: { steps: Step[], codeDisplay:string}
 
                     </Card.Body>
                 </Card>
-
-            <Offcanvas show={show} onHide={handleClose} placement={'end'}>
-                <Offcanvas.Header>
-                    <Offcanvas.Title>
-                        <h3>Selection Sort</h3>
-                    </Offcanvas.Title>
-                </Offcanvas.Header>
-            </Offcanvas>
 
         </div>
     );
