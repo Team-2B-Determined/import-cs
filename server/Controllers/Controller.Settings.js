@@ -1,6 +1,4 @@
-const {db} = require("../Database/db");
-const User = require("../Models/User")(db);
-const Setting = require('../Models/Setting')(db)
+const {db} = require("../Models/db");
 
 //Implement CRUD for settings
 const controllerSettings = {
@@ -9,7 +7,7 @@ const controllerSettings = {
     updateKeyboard: updateKeyboard
 }
     function retrieveSetting(req, res) {
-        User.findOne({
+        db.users.findOne({
             where: {email: req.body.email}
         })
             .then(user => {
@@ -18,7 +16,7 @@ const controllerSettings = {
                         message: "User not found"
                     })
                 }
-                Setting.findOne({
+                db.settings.findOne({
                     where: {userId: user.id}
                 })
                     .then (setting => {
@@ -45,7 +43,35 @@ const controllerSettings = {
     }
 
     function updateFont(req, res) {
-        User.findOne({
+        db.users.findOne({
+            where: {email: req.body.email}
+        })
+            .then(user => {
+                //No user, return message
+                if (user === null) {
+                    return res.status(404).send({
+                        message: "User not found"
+                })}
+
+                db.settings.findOrCreate({
+                    where: {UserId: user.id},
+                    include: [{model: db.users}]
+                })
+                    .then(([setting, created]) => {
+                        setting.update(({font: req.body.font}))
+                            .then(res.status(200).send({ message: "KeyboardMap updated" }))
+                            .catch(err => {res.status(500).send({message: err.message})})
+                    })
+
+            })
+            .catch(err => {res.status(500).send({message: err.message})})
+    }
+
+
+
+
+    function updateKeyboard(req, res) {
+        db.users.findOne({
             where: {email: req.body.email}
         })
             .then(user => {
@@ -55,29 +81,17 @@ const controllerSettings = {
                         message: "User not found"
                     })
                 }
-                Setting.findOne({where: {userId: user.id}})
-                    .then(setting => {
-                        //User has no custom settings, create new settings, update font
-                        if(setting === null) {
-                            Setting.create({
-                                font: req.body.font,
-                                userId: user.id
-                            })
-                                .then(() => {res.send({ message: "Settings retrieved successfully" })})
-                                .catch(err => {res.status(500).send({message: err.message})})
-                        }
-                        //User already has settings, retrieve and update font
-                        else {
-                            setting.font = req.body.font
-                        }
+                db.settings.findOrCreate({
+                    where: {UserId: user.id},
+                    include: [{model: db.users}]
+                })
+                    .then(([setting, created]) => {
+                        setting.update(({keyboardMap: req.body.keyboardMap}))
+                            .then(res.status(200).send({ message: "KeyboardMap updated" }))
+                            .catch(err => {res.status(500).send({message: err.message})})
                     })
-                    .catch(err => {res.status(500).send({message: err.message})})
             })
             .catch(err => {res.status(500).send({message: err.message})})
-    }
-
-    function updateKeyboard(req, res) {
-
     }
 
     module.exports = controllerSettings;

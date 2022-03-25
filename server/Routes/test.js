@@ -1,7 +1,7 @@
 const app = require('express')
 const router = app.Router()
-const {db} = require("../Database/db");
-const User = require("../Models/User")(db);
+const {db} = require("../Models/db");
+const User = require("../Models/User")(db.sequelize);
 
 const testEmail = "testyMcTestperson";
 const testPW = "1234567890";
@@ -17,7 +17,7 @@ router.all('/routing', function(req, res) {
 // http://localhost:5000/test/dbset
 // Creates a test user in the database if none
 router.all('/dbset', function(req, res) {
-    User.findOne({where: {email: testEmail}})
+    db.users.findOne({where: {email: testEmail}})
         .then(user => {
             if (!user) {
                 User.create({
@@ -43,7 +43,7 @@ router.all('/dbset', function(req, res) {
 router.all('/dbget', function(req, res) {
     // res.send('/test/dbget => success')
 
-    User.findOne({where: {email: testEmail}})
+    db.users.findOne({where: {email: testEmail}})
         .then(user => {
             if (!user) {
                 res.send("Must create the test user first! Try http://localhost:5000/test/dbset")

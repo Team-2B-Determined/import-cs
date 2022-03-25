@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
 
-module.exports = (db) => {
-    return db.define('Role', {
+module.exports = (sequelize) => {
+    const Role = sequelize.define('Role', {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
@@ -19,7 +19,8 @@ module.exports = (db) => {
 
         //OPTIONS//
         {
-            db: db,
             timestamps: true    //Establishes 'createdAt' & 'updatedAt' column
         });
+
+    return Role
 };

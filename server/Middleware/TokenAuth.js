@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
-const {db} = require("../Database/db");
-const User = require("../Models/User")(db);
+const {db} = require("../Models/db");
 
 
 const secret = require('../Config/config.auth')
@@ -29,7 +28,7 @@ verifyToken = (req, res, next) => {
 //Retrieves the user's list of roles, and checks if one of them is the 'admin' role
 //Need to implement user.getRoles() to retrieve a list of their roles.
 isAdmin = (req, res, next) => {
-    User.findByPk(req.body.id)
+    db.users.findByPk(req.body.id)
         .then(user => {
             user.getRoles()
                 .then(roles => {

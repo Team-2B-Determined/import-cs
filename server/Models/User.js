@@ -1,8 +1,7 @@
 const Sequelize = require('sequelize');
 
-
-module.exports = (db) => {
-    return db.define('User', {
+module.exports = (sequelize) => {
+    return User =  sequelize.define('User', {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
@@ -23,10 +22,8 @@ module.exports = (db) => {
                 get() { return this.getDataValue('password')},
                 set(value) { this.setDataValue('password', value)}
             }},
-
         //OPTIONS//
         {
-            db: db,
             timestamps: true    //Establishes 'createdAt' & 'updatedAt' column
         });
 };

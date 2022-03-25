@@ -1,9 +1,7 @@
 let express = require("express");
 let app = express();
-let router = express.Router();
 
 const cors = require("cors");
-const {db} = require('./Database/db')
 const PORT = process.env.PORT || 5000;
 
 
@@ -12,13 +10,7 @@ const path = require("path");
 //process.env.NODE_ENV // production or undefined
 
 /// TEST DB CONNECTION ///
-db.authenticate()
-    .then(() => {
-      console.log('Database connection has been established successfully.');
-    })
-    .catch(err => {
-      console.error('Unable to connect to the database:', err);
-    });
+
 
 
 /// MIDDLEWARE ///

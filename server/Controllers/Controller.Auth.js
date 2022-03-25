@@ -1,6 +1,4 @@
-const {db} = require("../Database/db");
-const User = require("../Models/User")(db);
-const Role = require("../Models/Role")(db);
+const {db} = require("../Models/db");
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const Op = require('sequelize')
@@ -12,7 +10,7 @@ const secret = require('../Config/config.auth')
 //Creates a new user and saves to database
 signup = (req, res) => {
     console.log('SIGNUP CONTROLLER FUNCTION')
-    User.create({
+    db.users.create({
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 10)
     })
@@ -23,7 +21,7 @@ signup = (req, res) => {
 };
 
 signin = (req, res) => {
-    User.findOne({
+    db.users.findOne({
         where: {email: req.body.email} })
 
         //Checks the validity of login info, and returns the user information + jwt token

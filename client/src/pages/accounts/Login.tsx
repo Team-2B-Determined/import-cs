@@ -6,6 +6,7 @@ import {Button, Card, Nav} from "react-bootstrap";
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import authService from "../../services/auth.service";
+import settingsService from "../../services/settings.service";
 import validationService from "../../services/validator.service"
 
 interface loginState {
@@ -38,8 +39,13 @@ export default class Login extends Component<{}, loginState> {
 
     onSubmitLogin(event) {
         event.preventDefault()
+        settingsService.updateFont("testy@McTestperson", "test font")
+        /*
         authService.login(this.state.email, this.state.password)
-            .then( () => {})
+            .then( () => {
+                //Apply settings
+            })*/
+
     }
 
     render() {

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
-module.exports = (db) => {
-    return db.define('HistoryEntry', {
+module.exports = (sequelize) => {
+    return sequelize.define('HistoryEntry', {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
@@ -21,10 +21,8 @@ module.exports = (db) => {
                 get() { return this.getDataValue('feature')},
                 set(value) { this.setDataValue('feature', value)}
             }},
-
         //OPTIONS//
         {
-            db: db,
             timestamps: true
         });
 }

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
-module.exports = (db) => {
-    return db.define('Setting', {
+module.exports = (sequelize) => {
+    return sequelize.define('Setting', {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
@@ -26,10 +26,8 @@ module.exports = (db) => {
                 get() { return this.getDataValue('darkMode')},
                 set(value) { this.setDataValue('darkMode', value)}
             }},
-
-        //OPTIONS
+        //OPTIONS/
         {
-            db: db,
             timestamps: false
         });
 };
