@@ -10,7 +10,7 @@ import FontEditor from "./FontEditor";
 
 
 const Account = () => {
-  const [checked, setChecked] = useState(JSON.parse(localStorage.getItem('darkMode') || ''));
+  const {isDarkMode} = useContext(DarkModeContext)
   const {setDarkMode} = useContext(DarkModeContext)
 
   const DarkLightMode = () => {
@@ -21,11 +21,9 @@ const Account = () => {
       <label className="switch">
         <input className="checkbox"
                type="checkbox"
-               defaultChecked={checked}
+               defaultChecked={isDarkMode}
                onChange={(event) => {
-                 setChecked(event.currentTarget.checked)
                  setDarkMode(event.currentTarget.checked)
-                 localStorage.setItem('darkMode',JSON.stringify(!JSON.parse(localStorage.getItem('darkMode') || '')))
                }}/>
         <span className="slider"></span>
       </label>

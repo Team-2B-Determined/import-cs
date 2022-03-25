@@ -7,8 +7,9 @@ import _features  from "../features"
 const features:Record<string,any>[] = Object.entries(_features).map(([key, value])=>({name:key,...value}))
 
 const Menu = () => {
+  const {isDarkMode} = useContext(DarkModeContext)
+
   //darkMode toggle stuff
-  const [checked, setChecked] = useState(false);
   const {setDarkMode} = useContext(DarkModeContext)
   const [query, setQuery] = useState('');
 
@@ -23,11 +24,9 @@ const Menu = () => {
       <label className="switch">
         <input className="checkbox"
                type="checkbox"
-               defaultChecked={JSON.parse(localStorage.getItem('darkMode') || '')}
+               defaultChecked={isDarkMode}
                onChange={(event) => {
-                 setChecked(event.currentTarget.checked)
                  setDarkMode(event.currentTarget.checked)
-                 localStorage.setItem('darkMode', JSON.stringify(!JSON.parse(localStorage.getItem('darkMode') || '')))
                }}/>
         <span className="slider"></span>
       </label>

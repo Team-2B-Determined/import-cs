@@ -24,20 +24,7 @@ import SingleElementDataStructures from "./pages/datastructures/SingleElementDat
 
 
 function App() {
-    const darkLight = document.getElementById('dark-mode')
     const fontStyle = document.getElementById('styleElement');
-
-    /**
-     * Sets default light theme if local storage is empty.
-     */
-    if (localStorage.getItem('darkMode') == null) {
-        localStorage.setItem('darkMode', JSON.stringify(false));
-    }
-
-    /**
-     * Sets theme of the site from local storage.
-     */
-    darkLight?.setAttribute("href", JSON.parse(localStorage.getItem('darkMode') || '') ? 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/darkly/bootstrap.min.css' : 'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/flatly/bootstrap.min.css')
 
     /**
      * Sets default font preferences if local storage is empty.
