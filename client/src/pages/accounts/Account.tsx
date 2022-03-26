@@ -6,12 +6,27 @@ import "./Account.css"
 import {DarkModeContext} from "../../context/DarkModeProvider";
 import KeyBindEditor from "./KeyBindEditor";
 import FontEditor from "./FontEditor";
+import authService from "../../services/auth.service";
 
 
 
 const Account = () => {
   const {isDarkMode} = useContext(DarkModeContext)
   const {setDarkMode} = useContext(DarkModeContext)
+
+  const getWelcome = () => {
+
+    if(authService.authorize()) {
+
+      // @ts-ignore
+      let user = JSON.parse(localStorage.getItem("user"))
+      let userName = user.email.split('@')[0]
+      return "Welcome " + userName + "!"
+    }
+    else {
+      return "Welcome! Please feel free to adjust your settings here. If you wish your settings to persist across browsers and devices, please log in or register an account!"
+    }
+  }
 
   const DarkLightMode = () => {
     return <>
@@ -31,7 +46,7 @@ const Account = () => {
   }
 
   return (<>
-    Hello, User! You registered on June 1, 2020
+    {getWelcome()}
     <hr/>
     <DarkLightMode/>
     <hr/>
