@@ -1,5 +1,6 @@
 import React from "react";
 
+import authService from "./services/auth.service";
 import Home from "./pages/Home";
 import Algorithms from "./pages/algorithms/Algorithms";
 import Computations from "./pages/computations/Computations";
@@ -13,7 +14,7 @@ import SelectionSort from "./components/algorithms/sorting/SelectionSort";
 import BinarySearchTree from "./pages/datastructures/BinarySearchTree";
 
 import {Container} from "react-bootstrap";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes,Navigate} from "react-router-dom";
 import hotkeys from "hotkeys-js";
 // import useNavigate from "react-router-dom";
 // Layout
@@ -104,6 +105,11 @@ function App() {
         }
     });
 
+    const LoggedInWrapper = (children) => {
+        console.log(children)
+        console.log(<Login/>)
+        return authService.authorize() ? <Navigate to='/account'  /> : children.children
+        }
     return (
         <>
             <Layout>
@@ -116,12 +122,12 @@ function App() {
                         <Route path="/conversions" element={<Conversions/>}/>
                         <Route path="/datastructures" element={<DataStructures/>}/>
                         <Route path="/datastructures/single-element" element={<SingleElementDataStructures/>}/>
-                        <Route path="/login" element={<Login/>}/>
-                        <Route path="/register" element={<Register/>}/>
                         <Route path="/account" element={<Account/>}/>
                         <Route path="/history" element={<History/>}/>
                         <Route path="/binarysearchtree" element={<BinarySearchTree/>}/>
                         <Route path="/otherFeatures" element={<OtherFeatures/>}/>
+                        <Route path="/login" element={<LoggedInWrapper><Login/></LoggedInWrapper>}/>
+                        <Route path="/register" element={<LoggedInWrapper><Register/></LoggedInWrapper>}/>
                     </Routes>
                 </Container>
             </Layout>

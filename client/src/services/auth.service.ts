@@ -39,6 +39,19 @@ class AuthService {
                 window.location.href = ('/account')
             })
     }
+
+    authorize() {
+        let user = localStorage.getItem('user')
+        if(user === null) {
+            return false
+        }
+        // @ts-ignore
+        let _user = JSON.parse(user)
+        if(_user.accessToken === null) {
+            return false
+        }
+        return true
+    }
 }
 
 export default new AuthService()
