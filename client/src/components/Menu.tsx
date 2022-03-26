@@ -4,6 +4,8 @@ import React, {useContext, useState} from "react";
 import {DarkModeContext} from "../context/DarkModeProvider";
 import Fuse from "fuse.js";
 import _features  from "../features"
+import authService from "../services/auth.service";
+
 const features:Record<string,any>[] = Object.entries(_features).map(([key, value])=>({name:key,...value}))
 
 const Menu = () => {
@@ -53,8 +55,6 @@ const Menu = () => {
       </NavDropdown>
     </Nav>
   )
-
-
   return (
     <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark" style={{marginBottom: 20}}>
       <Container>
@@ -93,8 +93,11 @@ const Menu = () => {
             <NavDropdown title="Account" id="collasible-nav-dropdown">
               <NavDropdown.Item href="/account">Account</NavDropdown.Item>
               <NavDropdown.Item href="/history">History</NavDropdown.Item>
-              <Dropdown.Divider/>
-              <NavDropdown.Item href="/login">Login</NavDropdown.Item>
+
+              <div>
+                {authService.authorize() ? <></> : <NavDropdown.Item href="/login">Login</NavDropdown.Item>}
+              </div>
+
             </NavDropdown>
           </Nav>
 
