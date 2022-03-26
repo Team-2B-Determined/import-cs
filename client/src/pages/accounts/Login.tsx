@@ -39,12 +39,10 @@ export default class Login extends Component<{}, loginState> {
 
     onSubmitLogin(event) {
         event.preventDefault()
-        settingsService.updateFont("testy@McTestperson", "test font")
-        /*
         authService.login(this.state.email, this.state.password)
             .then( () => {
                 //Apply settings
-            })*/
+            })
 
     }
 
@@ -89,10 +87,6 @@ export default class Login extends Component<{}, loginState> {
                                 Login
                             </Button>
                         </Form>
-
-
-
-
                 </Card.Body>
             </Card>
         )

@@ -22,7 +22,6 @@ app.use(express.json()); // => allows us to access the req.body
 //app.use(express.static("./client/build")); // for demonstration
 
 
-///KEEP BELOW CODE UNTIL SUCCESSFUL DEPLOYMENT ON HEROKU///
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../client/build")));
     app.get("*", (req, res) => {
