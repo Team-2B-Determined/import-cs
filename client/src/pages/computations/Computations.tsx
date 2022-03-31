@@ -6,7 +6,8 @@ import {add, sub, mul, div} from "../../components/computations/calc";
 import Badge from 'react-bootstrap/Badge'
 
 
-type computationType = '+' | '-' | '*' | '÷'  ;
+
+type computationType = '+' | '-' | '×' | '÷'  ;
 const computationLookUp = { "+": 'BinaryAddition', "-": 'BinarySubtraction', "×": 'BinaryMultiplication', "÷": 'BinaryDivision' }
 
 const isBinary = (inputValue) => {
@@ -24,7 +25,7 @@ const Computations = () => {
     const location: any = useLocation();
     console.log(location.state);
     const [numbersInput1, setNumbersInput1] = useState<string>(location.state === null ? "" : location.state.input.split(",")[0]);
-    const [numbersInput2, setNumbersInput2] = useState<string>(location.state === null ? "" : location.state.input.split(",")[1]);
+    let [numbersInput2, setNumbersInput2] = useState<string>(location.state === null ? "" : location.state.input.split(",")[1]);
 
     const historyRows: HistoryRow[] = JSON.parse(localStorage.getItem("historyRows") || "[]");
     const [computation, setComputation] = useState<computationType>("+");
@@ -34,10 +35,33 @@ const Computations = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const getDetailTittle = () => {
+        if (computation === '+')
+            return "Binary Addition Explanation"
+        if (computation === '-')
+            return "Binary Subtraction Explanation"
+        if (computation === '×')
+            return "Binary Multiplication Explanation"
+        if (computation === '÷')
+            return "Binary Division Explanation"
+
+    }
+
+    const getDetailTittleDescription = () => {
+        if (computation === '+')
+            return "Binary Addition Explanation"
+        if (computation === '-')
+            return "Binary Subtraction Explanation"
+        if (computation === '×')
+            return "Binary Multiplication Explanation"
+        if (computation === '÷')
+            return "Binary Division Explanation"
+    }
+
 
     const handleSolve = () => {
         if (!isBinary(numbersInput1) || (!isBinary(numbersInput2))){
-            alert("ERROR: Invalid Input Value")
+            alert("ERROR: Invalid Binary Input Value")
             return
         }
 
@@ -48,12 +72,17 @@ const Computations = () => {
             case "-":
                 setResult(sub(numbersInput1,numbersInput2))
                 break
-            case "*":
+            case "×":
                 setResult(mul(numbersInput1,numbersInput2))
                 break
             case "÷":
-                setResult(div(numbersInput1,numbersInput2))
-                break
+                if (parseInt(numbersInput2)===0) {
+                    alert("ERROR: Cannot Divide By 0")
+                    break
+                }
+                    setResult(div(numbersInput1, numbersInput2))
+                    break
+
         }
 
         historyRows.push({
@@ -77,25 +106,26 @@ const Computations = () => {
 
                 <option value={'+'}>+</option>
                 <option value={'-'}>-</option>
-                <option value={'×'}>*</option>
-                <option value={'÷'}>/</option>
+                <option value={'×'}>×</option>
+                <option value={'÷'}>÷</option>
 
             </Form.Select>
         </Form.Group>
     );
 
+
     return (
 
         <Container>
-            <h1>Welcome to Computation Page <Badge> New</Badge> </h1>
-            <h4>Binary Computations-Add, Subtract, Multiply, or Divide <Badge> New </Badge> </h4>
-            <Col xs={6}>
+            <h1>Welcome to Computation Page <Badge pill bg = "primary"> New</Badge> </h1>
+            <h4>Binary Computations-Add, Subtract, Multiply, or Divide <Badge pill bg = "success"> New </Badge> </h4>
+
+            <Col xs={10}>
                 <InputGroup className="mb-3">
                     <FormControl
                         value={numbersInput1}
                         onChange={(e) => setNumbersInput1(e.target.value)}
                         placeholder="1st Binary Input Number"
-                        //aria-label="81"
                         aria-describedby="basic-addon2"
                     />
                     <ComputationsDropdown />
@@ -103,14 +133,12 @@ const Computations = () => {
                         value={numbersInput2}
                         onChange={(e) => setNumbersInput2(e.target.value)}
                         placeholder="2nd Binary Input Number"
-                        //aria-label="81"
+
                         aria-describedby="basic-addon2"
                     />
-
                     <Button variant="primary" id="button-addon2" onClick={handleSolve}>
                         Solve
                     </Button>
-
                     <Button variant="outline-primary" id="button-addon2" onClick={()=>{setNumbersInput1(""); setNumbersInput2("");setResult("")}}>
                         Clear
                     </Button>
@@ -125,19 +153,20 @@ const Computations = () => {
             </Button>
             <Offcanvas show ={show} onHide={handleClose} placement ={'end'}>
                 <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Full Explanation</Offcanvas.Title>
+
+                    <Offcanvas.Title>{getDetailTittle()}</Offcanvas.Title>
                 </Offcanvas.Header>
 
                 <Offcanvas.Body>
-                    Binary Value:
+                    {getDetailTittleDescription()}
                     <br/>
                     <br/>
                     Example:
                     <br/>
                     <br/>
-                    1111 + 1
+                    {numbersInput1} {computation} {numbersInput2}
                     <br/>
-                    = 1100 (Answer)
+                    = {result} (Answer)
                 </Offcanvas.Body>
             </Offcanvas>
             <br/><br/>

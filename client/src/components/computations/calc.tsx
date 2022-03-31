@@ -153,41 +153,6 @@ function div_arr(a : number[], b : number[]) : number[]
     return c;
 }
 
-export function binToDec(a : string) : string
-{
-    let sign : number = 1;
-    let dec : number[] = [0];
-
-    for (let c of a)
-        if (c == '-')
-            sign = -1;
-        else
-        {
-            for (let i=0; i<dec.length; i++)
-                dec[i] *= 2;
-            if (c == '1') dec[0]++;
-
-            let n = dec.length;
-
-            for (let i=0; i<n; i++)
-            {
-                // @ts-ignore
-                let carry = Math.trunc(dec[i]/10);
-                if (i<n-1)
-                    dec[i+1] += carry;
-                else if (carry > 0)
-                    dec.push(carry)
-
-                dec[i] %= 10;
-            }
-        }
-
-    if (sign == -1)
-        dec.push(sign);
-
-    return arrToStr(dec);
-}
-
 export function add(a : string, b : string) : string
 {
     let a_arr : number [] = strToArr(a);
@@ -265,7 +230,6 @@ else if (op == "*")
 else if (op == "/")
     c = div(a, b);
 
-let c_decimal = binToDec(c);
 
 console.log(c);
-console.log(c_decimal);
+
