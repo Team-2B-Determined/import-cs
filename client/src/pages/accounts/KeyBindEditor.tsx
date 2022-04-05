@@ -2,6 +2,8 @@
 
 import {Button, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
 import React from "react";
+import AuthService from "../../services/auth.service";
+import SettingsService from "../../services/settings.service";
 
 const KeyBindEditor = () => {
 
@@ -57,6 +59,7 @@ const KeyBindEditor = () => {
                         account: "alt+8",
                         history: "alt+9",
                         home: "alt+0"}}));
+        saveBindsToAccount()
         window.location.reload();
     }
 
@@ -159,11 +162,21 @@ const KeyBindEditor = () => {
                         }
                     }));
             console.log(formatString);
-            //IF user logged in
-            //updateKeyboard( localStorage.user.email, newKeybinds.stringified )
+            saveBindsToAccount()
             window.location.reload();
         } else {
             //alert("invalid binds:" + valid.arr.toString());
+        }
+    }
+
+    /**
+     * Saves current settings to the user's account if they are logged in
+     */
+    function saveBindsToAccount() {
+        //IF user logged in
+        if (AuthService.authorize()) {
+            //updateKeyboard( localStorage.user.email, newKeybinds.stringified )
+            SettingsService.updateKeyboard(JSON.parse(localStorage.getItem("user") || '').email, localStorage.getItem('keyBinds'));
         }
     }
 
