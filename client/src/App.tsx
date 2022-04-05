@@ -22,6 +22,7 @@ import Layout from "./layout/Layout";
 import OtherFeatures from "./pages/OtherFeatures";
 import Sorting from "./pages/algorithms/Sorting";
 import SingleElementDataStructures from "./pages/datastructures/SingleElementDataStructures";
+import ListDataStructure from "./pages/datastructures/ListDataStructure";
 
 
 function App() {
@@ -122,6 +123,7 @@ function App() {
                         <Route path="/conversions" element={<Conversions/>}/>
                         <Route path="/datastructures" element={<DataStructures/>}/>
                         <Route path="/datastructures/single-element" element={<SingleElementDataStructures/>}/>
+                        <Route path="/datastructures/lists" element={<ListDataStructure/>}/>
                         <Route path="/account" element={<Account/>}/>
                         <Route path="/history" element={<History/>}/>
                         <Route path="/binarysearchtree" element={<BinarySearchTree/>}/>

@@ -159,6 +159,8 @@ const KeyBindEditor = () => {
                         }
                     }));
             console.log(formatString);
+            //IF user logged in
+            //updateKeyboard( localStorage.user.email, newKeybinds.stringified )
             window.location.reload();
         } else {
             //alert("invalid binds:" + valid.arr.toString());
