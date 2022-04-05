@@ -52,6 +52,15 @@ class AuthService {
         }
         return true
     }
+
+    get_email() {
+        if(!this.authorize()){
+            return null
+        }
+        // @ts-ignore
+        let user = JSON.parse(localStorage.getItem('user'))
+        return user.email
+    }
 }
 
 export default new AuthService()
