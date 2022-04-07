@@ -109,7 +109,7 @@ function App() {
     const LoggedInWrapper = (children) => {
         console.log(children)
         console.log(<Login/>)
-        return authService.authorize() ? <Navigate to='/account'  /> : children.children
+        return authService.isLoggedIn() ? <Navigate to='/account'  /> : children.children
         }
     return (
         <>

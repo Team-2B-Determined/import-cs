@@ -1,14 +1,16 @@
 import axios from "axios"
+import authService from "./auth.service";
 
 
-const API_URL = "http://localhost:5000/api/history/"
+const API_URL = "/api/history/"
 
 class HistoryService {
 
-    //INPUT: user's email (string)
+    //INPUT: None
     //OUTPUT: JSON file with a field for the following:
-        //History[]
-    retrieve(email) {
+        //HistoryRow[]
+    retrieve() {
+        let email = authService.get_email()
         return axios
             .post(API_URL + "retrieve", {
                 email
@@ -19,13 +21,19 @@ class HistoryService {
             })
     }
 
-    //INPUT:
+    //INPUT: None
+        //Feature : String
+        //Input : String
+        //Link : String
     //OUTPUT:
-    updateFont(email, history) {
+    pushHistory(feature, input, link) {
+        let email = authService.get_email()
         return axios
             .post(API_URL + 'update', {
                 email,
-                history
+                feature,
+                input,
+                link
             })
             .then(response => {
                 return true

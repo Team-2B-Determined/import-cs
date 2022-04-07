@@ -174,7 +174,7 @@ const KeyBindEditor = () => {
      */
     function saveBindsToAccount() {
         //IF user logged in
-        if (AuthService.authorize()) {
+        if (AuthService.isLoggedIn()) {
             //updateKeyboard( localStorage.user.email, newKeybinds.stringified )
             SettingsService.updateKeyboard(JSON.parse(localStorage.getItem("user") || '').email, localStorage.getItem('keyBinds'));
         }

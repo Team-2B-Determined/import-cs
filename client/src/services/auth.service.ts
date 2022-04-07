@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/auth/"
+const API_URL = "api/auth/"
 class AuthService {
 
     //Sends a POST request to the api path: /api/auth/signin
@@ -40,7 +40,7 @@ class AuthService {
             })
     }
 
-    authorize() {
+    isLoggedIn() {
         let user = localStorage.getItem('user')
         if(user === null) {
             return false
@@ -54,7 +54,7 @@ class AuthService {
     }
 
     get_email() {
-        if(!this.authorize()){
+        if(!this.isLoggedIn()){
             return null
         }
         // @ts-ignore

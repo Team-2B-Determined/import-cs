@@ -16,7 +16,7 @@ const Account = () => {
 
   const getWelcome = () => {
 
-    if(authService.authorize()) {
+    if(authService.isLoggedIn()) {
 
       // @ts-ignore
       let user = JSON.parse(localStorage.getItem("user"))

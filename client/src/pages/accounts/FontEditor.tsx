@@ -150,7 +150,7 @@ const FontEditor = () => {
      */
     function saveFontsToAccount() {
         //IF user logged in
-        if (AuthService.authorize()) {
+        if (AuthService.isLoggedIn()) {
             //updateKeyboard( localStorage.user.email, newKeybinds.stringified )
             SettingsService.updateFont(JSON.parse(localStorage.getItem("user") || '').email, localStorage.getItem('fontsPref'));
         }

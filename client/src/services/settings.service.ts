@@ -1,14 +1,16 @@
 import axios from "axios"
+import authService from "./auth.service";
 
 
-const API_URL = "http://localhost:5000/api/setting/"
+const API_URL = "/api/setting/"
 
 class SettingsService {
     //INPUT: user's email (string)
     //OUTPUT: JSON file with a field for the following:
         //Font
         //Keyboard Map
-    retrieve(email) {
+    retrieve() {
+        let email = authService.get_email()
         return axios
             .post(API_URL + "retrieve", {
                 email
@@ -21,7 +23,8 @@ class SettingsService {
 
     //INPUT: user email, font (both strings)
     //OUTPUT: boolean for success
-    updateFont(email, font) {
+    updateFont(font) {
+        let email = authService.get_email()
         return axios
             .post(API_URL + 'update/font', {
                 email,
@@ -37,7 +40,8 @@ class SettingsService {
     }
     //INPUT: user email, keyboard (both strings)
     //OUTPUT: boolean for success
-    updateKeyboard(email, keyboard) {
+    updateKeyboard(keyboard) {
+        let email = authService.get_email()
         return axios
             .post(API_URL + 'update/keyboard', {
                 email,

@@ -95,7 +95,7 @@ const Menu = () => {
               <NavDropdown.Item href="/history">History</NavDropdown.Item>
 
               <div>
-                {authService.authorize() ? <></> : <NavDropdown.Item href="/login">Login</NavDropdown.Item>}
+                {authService.isLoggedIn() ? null : <NavDropdown.Item href="/login">Login</NavDropdown.Item>}
               </div>
 
             </NavDropdown>
