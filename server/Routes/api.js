@@ -6,6 +6,7 @@ const router = app.Router()
 //Reminder to verify functional difference between .all and .use
 router.use('/auth', require('./api.auth'));
 router.use('/setting', require("./api.setting"));
+router.use('/history', require("./api.history"));
 
 
 module.exports = router;
