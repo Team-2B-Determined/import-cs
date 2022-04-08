@@ -42,6 +42,10 @@ db.history = require('./HistoryEntry')(sequelize)
 db.users.hasOne(db.settings);
 db.settings.belongsTo(db.users);
 
+//*History -> User
+db.users.hasMany(db.history);
+db.history.belongsTo(db.users);
+
 
 db.sequelize.sync()
     .then(() => {console.log("Synchronization completed.")})

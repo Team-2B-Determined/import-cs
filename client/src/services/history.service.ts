@@ -9,6 +9,8 @@ class HistoryService {
     //INPUT: None
     //OUTPUT: JSON file with a field for the following:
         //HistoryRow[]
+    //REQ: email
+    //RES: data {history: HistoryEntry[]}
     retrieve() {
         let email = authService.get_email()
         return axios

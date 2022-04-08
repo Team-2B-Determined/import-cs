@@ -9,17 +9,22 @@ module.exports = (sequelize) => {
                 get() { return this.getDataValue('id')}
             },
 
-            queue: {
-                type: Sequelize.INTEGER,
-                get() { return this.getDataValue('queue')},
-                set(value) { this.setDataValue('queue', value)}
-            },
-
             feature: {
                 type: Sequelize.STRING,
-                allowNull: false,
                 get() { return this.getDataValue('feature')},
                 set(value) { this.setDataValue('feature', value)}
+            },
+
+            input: {
+                type: Sequelize.STRING,
+                get() { return this.getDataValue('input')},
+                set(value) { this.setDataValue('input', value)},
+            },
+
+            link: {
+                type: Sequelize.STRING,
+                get() { return this.getDataValue('link')},
+                set(value) { this.setDataValue('link', value)}
             }},
         //OPTIONS//
         {
