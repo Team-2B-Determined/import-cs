@@ -16,7 +16,7 @@ function retrieve(req, res) {
                 })
             }
             db.history.findAll({
-                where: {userId: user.id}
+                where: {UserId: user.id}
             })
                 .then (history => {
                     if (history === null) {

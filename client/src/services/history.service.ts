@@ -45,6 +45,6 @@ class HistoryService {
                 return false
             })
     }
-
-
 }
+
+export default new HistoryService()

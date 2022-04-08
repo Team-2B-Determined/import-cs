@@ -17,7 +17,7 @@ const controllerSettings = {
                     })
                 }
                 db.settings.findOne({
-                    where: {userId: user.id}
+                    where: {UserId: user.id}
                 })
                     .then (setting => {
                         if (setting === null) {
