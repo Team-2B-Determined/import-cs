@@ -28,14 +28,14 @@ class HistoryService {
         //Input : String
         //Link : String
     //OUTPUT:
-    pushHistory(feature, input, link) {
+    pushHistory(feature, input, historyLink) {
         let email = authService.get_email()
         return axios
             .post(API_URL + 'update', {
                 email,
                 feature,
                 input,
-                link
+                historyLink
             })
             .then(response => {
                 return true
