@@ -56,7 +56,7 @@ const CodeNavigator = ({steps,codeDisplay}: { steps: Step[], codeDisplay:string}
             <div>
                 <IconContext.Provider value={{size: "32"}}>
                     {navigations.map(([Icon,onClickHandler])=>(
-                        <Button variant="outline" size="sm" onClick={onClickHandler}>{Icon}</Button>
+                        <Button variant="outline" size="sm" onClick={onClickHandler} data-testid={onClickHandler.name}>{Icon}</Button>
                         ))}
                 </IconContext.Provider>
             </div>

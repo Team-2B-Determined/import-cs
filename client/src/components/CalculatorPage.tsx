@@ -28,7 +28,7 @@ const CalculatorPage: FC<CalculatorPageProp> = ({name, codeDisplay, description,
     const title = startCase(name)
 
     return (
-        <div>
+        <div data-testid="calculator-page-root">
             <Button variant="primary" onClick={handleShow}>
                 Learn more
             </Button>
