@@ -152,7 +152,7 @@ const FontEditor = () => {
         //IF user logged in
         if (AuthService.isLoggedIn()) {
             //updateKeyboard( localStorage.user.email, newKeybinds.stringified )
-            SettingsService.updateFont(JSON.parse(localStorage.getItem("user") || '').email, localStorage.getItem('fontsPref'));
+            SettingsService.updateFont(localStorage.getItem('fontsPref'));
         }
     }
 
