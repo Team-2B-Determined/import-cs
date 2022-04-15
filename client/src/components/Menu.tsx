@@ -93,9 +93,14 @@ const Menu = () => {
             <NavDropdown title="Account" id="collasible-nav-dropdown">
               <NavDropdown.Item href="/account">Account</NavDropdown.Item>
               <NavDropdown.Item href="/history">History</NavDropdown.Item>
-
+              <NavDropdown.Divider />
               <div>
-                {authService.isLoggedIn() ? null : <NavDropdown.Item href="/login">Login</NavDropdown.Item>}
+                {authService.isLoggedIn() ?
+                    <NavDropdown.Item
+                        onClick={authService.logout}
+                        href = "/">
+                      Logout</NavDropdown.Item> :
+                    <NavDropdown.Item href="/login">Login</NavDropdown.Item>}
               </div>
 
             </NavDropdown>
