@@ -11,7 +11,8 @@ import validationService from "../../services/validator.service"
 
 interface loginState {
     email: string,
-    password: string
+    password: string,
+    message: string
 }
 
 
@@ -23,7 +24,8 @@ export default class Login extends Component<{}, loginState> {
         this.onSubmitLogin = this.onSubmitLogin.bind(this)
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            message: ""
         }
     }
 
@@ -40,10 +42,14 @@ export default class Login extends Component<{}, loginState> {
     onSubmitLogin(event) {
         event.preventDefault()
         authService.login(this.state.email, this.state.password)
-            .then( () => {
-                //Apply settings
+            .then( res => {
+                if (authService.isLoggedIn()) {
+                    //Apply settings
+                }
+                else {
+                    this.setState({message: "Invalid email/password combo"})
+                }
             })
-
     }
 
     render() {
@@ -83,9 +89,15 @@ export default class Login extends Component<{}, loginState> {
                                 <Nav.Link href="./register">Register Here</Nav.Link>
                             </div>
 
-                            <Button variant="primary" type="submit">
-                                Login
-                            </Button>
+                            <div>
+                                <Button variant="primary" type="submit">
+                                    Login
+                                </Button>
+                            </div>
+
+                            <div>
+                                {"\t" + this.state.message}
+                            </div>
                         </Form>
                 </Card.Body>
             </Card>

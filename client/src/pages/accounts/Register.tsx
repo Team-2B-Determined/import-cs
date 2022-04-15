@@ -9,7 +9,8 @@ import validationService from "../../services/validator.service"
 interface registerState {
     email: string,
     password: string,
-    password2: string
+    password2: string,
+    message: string
 }
 
 export default class Register extends Component<{}, registerState> {
@@ -22,7 +23,8 @@ export default class Register extends Component<{}, registerState> {
         this.state = {
             email: "",
             password: "",
-            password2: ""
+            password2: "",
+            message: ""
         }
     }
 
@@ -47,7 +49,17 @@ export default class Register extends Component<{}, registerState> {
         if (this.state.password == this.state.password2) {
             let roles = []
             authService.register(this.state.email, this.state.password, roles)
-                .then( () => {})
+                .then( () => {
+                    authService.login(this.state.email, this.state.password)
+                        .then( () => {
+                            if (authService.isLoggedIn()) {
+                                //Apply settings
+                            }
+                            else {
+                                this.setState({message: "Email already in use"})
+                            }
+                        })
+                })
         }
         else {
             this.setState({password: ''})
@@ -101,8 +113,12 @@ export default class Register extends Component<{}, registerState> {
                         <div>
                             <br/>
                             <Button variant="primary" type="submit">
-                                Login
+                                Register
                             </Button>
+                        </div>
+
+                        <div>
+                            {"\t" + this.state.message}
                         </div>
 
                         <div>

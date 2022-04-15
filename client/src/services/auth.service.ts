@@ -37,7 +37,6 @@ class AuthService {
             roles
         })
             .then(() => {
-                window.location.href = ('/account')
             })
     }
 
