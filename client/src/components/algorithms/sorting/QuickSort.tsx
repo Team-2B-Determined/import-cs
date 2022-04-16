@@ -168,7 +168,7 @@ const links: ExternalLink[] = [
     }
 ]
 
-const PIVOT_STRATEGIES = ["First Element", "Random Element", "Median-of-3"] as const
+export const PIVOT_STRATEGIES = ["First Element", "Random Element", "Median-of-3"] as const
 type PivotStrategy = typeof PIVOT_STRATEGIES[number]
 
 const QuickSort = ({numbers}: { numbers: number[] }) => {
@@ -212,8 +212,9 @@ const QuickSort = ({numbers}: { numbers: number[] }) => {
                             setPivotStrategy(e.target.value as PivotStrategy)
                         }}
                     >
-                        {PIVOT_STRATEGIES.map(pivotStrategy => <option
-                            value={pivotStrategy}>{pivotStrategy}</option>)}
+                        {PIVOT_STRATEGIES.map(pivotStrategy => <option data-testid={`option-${pivotStrategy}`} value={pivotStrategy}>
+                            {pivotStrategy}
+                        </option>)}
                     </Form.Select></Form.Group>
             </Col>
             <CalculatorPage
