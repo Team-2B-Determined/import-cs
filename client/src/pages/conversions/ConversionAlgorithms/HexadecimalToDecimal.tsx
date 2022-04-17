@@ -8,7 +8,7 @@ const _HexadecimalToDecimal = (inputValue: string) => {
     const steps: Step[] = []
     
     steps.push({
-        lineNumber: "1",
+        lineNumber: "1-5",
         description: 
             <>Hexadecimal to Decimal Conversion. <br/>
             Hexadecimal Number is {inputValue} <br/>
@@ -27,7 +27,7 @@ const _HexadecimalToDecimal = (inputValue: string) => {
         // n = hex value at that power
         let v = (n * (16 ** p))
         steps.push({
-            lineNumber: "6-11",
+            lineNumber: "6-10",
             description:
                 <>Hexadecimal Number: {inputValue} <br/>
                 The value at location {p} is: {n} <br/>
@@ -45,7 +45,7 @@ const _HexadecimalToDecimal = (inputValue: string) => {
         lineNumber: "12",
         description:
             <>Conversion Complete! <br/>
-            Intial Hexadecimal Value: {inputValue} <br/>
+            Initial Hexadecimal Value: {inputValue} <br/>
             Converted Decimal Value: {ov}
             </>
     })

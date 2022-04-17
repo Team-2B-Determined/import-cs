@@ -39,7 +39,7 @@ const _DecimalToHexadecimal = (inputValue: string) => {
         lineNumber: "8-12",
         description:
             <>Convert remainder to Hexadecimal value and Add to string <br/>
-            Current Hexadecimal String: {r}{ov} <br/>
+            Current Hexadecimal String: {ov} <br/>
             </>
         })
         iv = Math.floor(iv/16)
@@ -49,7 +49,7 @@ const _DecimalToHexadecimal = (inputValue: string) => {
         lineNumber: "14",
         description:
             <>Conversion Complete! <br/>
-            Intial Decimal Value: {inputValue} <br/>
+            Initial Decimal Value: {inputValue} <br/>
             Converted Hexadecimal Value: {ov}
             </>
     })

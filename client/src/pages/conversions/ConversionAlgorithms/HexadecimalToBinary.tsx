@@ -4,43 +4,46 @@ import React from "react";
 import displayArray from "../../../displayArray";
 
 
-const _DecimalToBinary = (inputValue: string) => {
+const _HexadecimalToBinary = (inputValue: string) => {
     const steps: Step[] = []
-    
+
     steps.push({
-        lineNumber: "1",
-        description: 
-            <>Decimal to Binary Conversion. <br/>
-            Decimal Number is {inputValue} <br/>
-            Decimal Number is repeatedly divided by two until it equals zero <br/>
-            Binary value equals the remainder, from least to greatest significant value <br/>
+        lineNumber: "1-5",
+        description:
+            <>Hexadecimal To Binary Conversion. <br/>
+            Hexadecimal Number is {inputValue} <br/>
+            From least to greatest significant value (Right to Left) the Hexadecimal number, digit by digit, is converted to Binary<br/>
+            Bin=Hex: [0000=0, 0001=1, 0010=2, 0011=3, 0100=4, 0101=5, 0110=6, 0111=7, 1000=8, 1001=9, 1010=A, 1011=B, 1100=C, 1101=D, 1110=E, 1111=F]
             </>
     })
-    
-    let ov = ""
-    let iv = +inputValue
-    while (iv > 0) {
-        let r = (iv % 2)
-        // r is the remainder
+
+    let hexValue = inputValue.toString().toUpperCase()
+    let binValue = ""
+    let binList = ['0000', '0001', '0010', '0011', '0100', '0101', '0110', '0111', '1000', '1001', '1010', '1011', '1100', '1101', '1110', '1111']
+    let hexList = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+    for (let i = hexValue.length; i > 0; i--){
+        let x = hexList.indexOf(hexValue[i-1])
         steps.push({
-        lineNumber: "4-8",
-        description:
-            <>Current Decimal Value is: {iv} <br/>
-            Divide by two: {iv}/2 = {Math.floor(iv/2)} rem: {r} <br/>
-            Previous Binary String: {ov} <br/>
-            Current Binary String: {r}{ov} <br/>
-            </>
+            lineNumber: "6-9",
+            description:
+                <>Current Hexadecimal Digit: {hexValue[i - 1]} <br/>
+                    Match Bin with Hex <br/>
+                    Bin=Hex: [0000=0, 0001=1, 0010=2, 0011=3, 0100=4, 0101=5, 0110=6, 0111=7, 1000=8, 1001=9, 1010=A,
+                    1011=B, 1100=C, 1101=D, 1110=E, 1111=F] <br/>
+                    Binary group is: {binList[x]} <br/>
+                    Current total Binary Value = {binValue} <br/>
+                    Add to total Binary Value: {binList[x]} + {binValue} = {binList[x].toString() + binValue.toString()}
+                </>
         })
-        ov = r.toString() + ov
-        iv = Math.floor(iv/2)
+        binValue = binList[x] + binValue
     }
 
     steps.push({
         lineNumber: "10",
         description:
             <>Conversion Complete! <br/>
-            Intial Decimal Value: {inputValue} <br/>
-            Converted Binary Value: {ov}
+            Initial Hexadecimal Value: {inputValue} <br/>
+            Converted Binary Value: {binValue}
             </>
     })
 
@@ -60,21 +63,22 @@ const links: ExternalLink[] = [
 ]
 
 
-const DecimalToBinary = (inputValue: string) => {
+const HexadecimalToBinary = (inputValue: string) => {
 
     return (
         <CalculatorPage
-            name={"DecimalToBinary"}
-            steps={_DecimalToBinary(inputValue)}
+            name={"HexadecimalToBinary"}
+            steps={_HexadecimalToBinary(inputValue)}
             links={links}
             codeDisplay={
-                `const DecimalToBinary = (inputValue) => {
+                `const HexadecimalToBinary = (inputValue) => {
+                    let hexValue = inputValue.toString()
                     let binValue = ""
-                    let decValue = +inputValue
-                    while (decValue > 0) {
-                        let remainder = (decValue % 2)
-                        binValue = remainder.toString() + binValue
-                        decValue = Math.floor(decValue / 2)
+                    let binList = ['0000', '0001', '0010', '0011', '0100', '0101', '0110', '0111', '1000', '1001', '1010', '1011', '1100', '1101', '1110', '1111']
+                    let hexList = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+                    for (let i = hexValue.length; i > 0; i--){
+                        let x = hexList.indexOf(hexValue[i-1])
+                        binValue = binList[x] + binValue
                     }
                     return binValue.toString()
                 };`
@@ -85,4 +89,4 @@ const DecimalToBinary = (inputValue: string) => {
     );
 };
 
-export default DecimalToBinary;
+export default HexadecimalToBinary;

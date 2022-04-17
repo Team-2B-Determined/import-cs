@@ -4,46 +4,58 @@ import React from "react";
 import displayArray from "../../../displayArray";
 
 
-const _DecimalToBinary = (inputValue: string) => {
+const _BinaryToHexadecimal = (inputValue: string) => {
     const steps: Step[] = []
     
     steps.push({
-        lineNumber: "1",
+        lineNumber: "1-5",
         description: 
-            <>Decimal to Binary Conversion. <br/>
-            Decimal Number is {inputValue} <br/>
-            Decimal Number is repeatedly divided by two until it equals zero <br/>
-            Binary value equals the remainder, from least to greatest significant value <br/>
+            <>Binary to Hexadecimal Conversion. <br/>
+            Binary Number is {inputValue} <br/>
+            From least to greatest significant value (Right to Left) the Binary number is broken into groups of 4 digits <br/>
+            Each group of 4 Binary digits equals a Hexadecimal value <br/>
+            Bin=Hex: [0000=0, 0001=1, 0010=2, 0011=3, 0100=4, 0101=5, 0110=6, 0111=7, 1000=8, 1001=9, 1010=A, 1011=B, 1100=C, 1101=D, 1110=E, 1111=F]
             </>
     })
-    
-    let ov = ""
-    let iv = +inputValue
-    while (iv > 0) {
-        let r = (iv % 2)
-        // r is the remainder
-        steps.push({
-        lineNumber: "4-8",
-        description:
-            <>Current Decimal Value is: {iv} <br/>
-            Divide by two: {iv}/2 = {Math.floor(iv/2)} rem: {r} <br/>
-            Previous Binary String: {ov} <br/>
-            Current Binary String: {r}{ov} <br/>
-            </>
-        })
-        ov = r.toString() + ov
-        iv = Math.floor(iv/2)
-    }
 
+    let binValue = inputValue.toString()
+    let hexValue = ""
+    let binList = ['0000', '0001', '0010', '0011', '0100', '0101', '0110', '0111', '1000', '1001', '1010', '1011', '1100', '1101', '1110', '1111']
+    let hexList = [   '0',    '1',    '2',    '3',    '4',    '5',    '6',    '7',    '8',    '9',    'A',    'B',    'C',    'D',    'E',    'F']
+    for (let i = 0; i < binValue.length % 4; i++){
+        binValue = '0' + binValue
+    }
     steps.push({
-        lineNumber: "10",
+        lineNumber: "6-8",
+        description:
+            <>Add filler 0s to the Binary Number to make it divisible by 4 <br/>
+            Binary Number is now {binValue}
+            </>
+    })
+    for (let i = binValue.length; i > 0; i = i-4){
+        let binGroup = binValue.substring(i-4, i)
+        let x = binList.indexOf(binGroup)
+        steps.push({
+            lineNumber: "9-13",
+            description:
+                <>Current Group of 4 Binary Digits is: {binGroup} <br/>
+                Match Bin with Hex <br/>
+                Bin=Hex: [0000=0, 0001=1, 0010=2, 0011=3, 0100=4, 0101=5, 0110=6, 0111=7, 1000=8, 1001=9, 1010=A, 1011=B, 1100=C, 1101=D, 1110=E, 1111=F] <br/>
+                Hexadecimal Digit is: {hexList[x]} <br/>
+                Current Hexadecimal Value = {hexValue} <br/>
+                Add to total Hexadecimal Value: {hexList[x]} + {hexValue} = {hexList[x] + hexValue}
+                </>
+        })
+        hexValue = hexList[x] + hexValue
+    }
+    steps.push({
+        lineNumber: "14",
         description:
             <>Conversion Complete! <br/>
-            Intial Decimal Value: {inputValue} <br/>
-            Converted Binary Value: {ov}
+                Initial Decimal Value: {inputValue} <br/>
+                Converted Binary Value: {hexValue}
             </>
     })
-
     return steps
 }
 
@@ -60,23 +72,28 @@ const links: ExternalLink[] = [
 ]
 
 
-const DecimalToBinary = (inputValue: string) => {
+const BinaryToHexadecimal = (inputValue: string) => {
 
     return (
         <CalculatorPage
-            name={"DecimalToBinary"}
-            steps={_DecimalToBinary(inputValue)}
+            name={"BinaryToHexadecimal"}
+            steps={_BinaryToHexadecimal(inputValue)}
             links={links}
             codeDisplay={
-                `const DecimalToBinary = (inputValue) => {
-                    let binValue = ""
-                    let decValue = +inputValue
-                    while (decValue > 0) {
-                        let remainder = (decValue % 2)
-                        binValue = remainder.toString() + binValue
-                        decValue = Math.floor(decValue / 2)
+                `const BinaryToHexadecimal = (inputValue) => {
+                    let binValue = inputValue.toString()
+                    let hexValue = ""
+                    let binList = ['0000', '0001', '0010', '0011', '0100', '0101', '0110', '0111', '1000', '1001', '1010', '1011', '1100', '1101', '1110', '1111']
+                    let hexList = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+                    for (let i = 0; i < binValue.length % 4; i++){
+                        binValue = '0' + binValue
                     }
-                    return binValue.toString()
+                    for (let i = binValue.length; i > 0; i = i-4){
+                        let binGroup = binValue.substring(i-4, i)
+                        let x = binList.indexOf(binGroup)
+                        hexValue = hexList[x] + hexValue
+                    }
+                    return hexValue.toString()
                 };`
             }
             description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\\n\" +\n                    \"\\t1) The subarray which is already sorted. \\n\" +\n                    \"\\te2) Remaining subarray which is unsorted.\\n\" +\n                    \"In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray."}
@@ -85,4 +102,4 @@ const DecimalToBinary = (inputValue: string) => {
     );
 };
 
-export default DecimalToBinary;
+export default BinaryToHexadecimal;

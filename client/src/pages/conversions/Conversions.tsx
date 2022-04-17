@@ -3,8 +3,12 @@ import {Button, Col, Form, Row} from "react-bootstrap";
 import ConversionAlgorithms from "./ConversionAlgorithms/ConversionAlgorithms";
 import BinaryToDecimal from "./ConversionAlgorithms/BinaryToDecimal";
 import DecimalToBinary from "./ConversionAlgorithms/DecimalToBinary";
+import DecimalToHexadecimal from "./ConversionAlgorithms/DecimalToHexadecimal";
+import HexadecimalToDecimal from "./ConversionAlgorithms/HexadecimalToDecimal";
+import BinaryToHexadecimal from "./ConversionAlgorithms/BinaryToHexadecimal";
+import HexadecimalToBinary from "./ConversionAlgorithms/HexadecimalToBinary";
 
-const CONVERSION_ALGORITHMS = {DecimalToBinary, BinaryToDecimal} as const
+const CONVERSION_ALGORITHMS = {DecimalToBinary, BinaryToDecimal, DecimalToHexadecimal, HexadecimalToDecimal, BinaryToHexadecimal, HexadecimalToBinary} as const
 type ConversionAlgorithm = keyof typeof CONVERSION_ALGORITHMS
 
 const Conversions = () => {
@@ -51,7 +55,6 @@ const Conversions = () => {
     const renderConversion = () => {
         const ConversionAlgorithm: any = CONVERSION_ALGORITHMS[componentAlgorithm]
         return ConversionAlgorithm(inputValue)
-
     }
 
     return (
