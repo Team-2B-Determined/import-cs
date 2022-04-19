@@ -5,7 +5,7 @@ export interface Parameters {
     setOutputValue: Function
 }
 
-const ConversionAlgorithms = ({inputType, outputType, inputValue, setOutputValue}: Parameters) => {
+const ConversionAlgorithms = ({inputType, outputType, inputValue, setOutputValue}: any) => {
     let output = ""
     if (inputType == "Binary") {
         if (!isBinary(inputValue)) {
@@ -126,7 +126,7 @@ const isDecimal = (inputValue) => {
     }
     return true;
 };
-const isHexadecimal = (inputValue) => {
+export const isHexadecimal = (inputValue) => {
     let hexList = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']
     let iv = inputValue.toUpperCase()
     let ivArray = iv.split("")

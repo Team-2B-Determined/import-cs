@@ -2,9 +2,15 @@ import CalculatorPage, {ExternalLink} from "../../../components/CalculatorPage";
 import {Step} from "../../../components/CodeNavigator";
 import React from "react";
 import displayArray from "../../../displayArray";
+import {isHexadecimal} from "./ConversionAlgorithms";
 
 
 const _HexadecimalToBinary = (inputValue: string) => {
+    let hexValue = inputValue.toString().toUpperCase()
+    if (!isHexadecimal(hexValue)) {
+        return [{lineNumber:"-1",description:"input wasn't hexadecimal"}]
+    }
+
     const steps: Step[] = []
 
     steps.push({
@@ -17,8 +23,9 @@ const _HexadecimalToBinary = (inputValue: string) => {
             </>
     })
 
-    let hexValue = inputValue.toString().toUpperCase()
-    let binValue = ""
+
+
+        let binValue = ""
     let binList = ['0000', '0001', '0010', '0011', '0100', '0101', '0110', '0111', '1000', '1001', '1010', '1011', '1100', '1101', '1110', '1111']
     let hexList = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
     for (let i = hexValue.length; i > 0; i--){
