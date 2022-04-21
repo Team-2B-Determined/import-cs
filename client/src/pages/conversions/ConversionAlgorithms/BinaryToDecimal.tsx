@@ -2,9 +2,14 @@ import CalculatorPage, {ExternalLink} from "../../../components/CalculatorPage";
 import {Step} from "../../../components/CodeNavigator";
 import React from "react";
 import displayArray from "../../../displayArray";
+import {isBinary} from "./ConversionAlgorithms";
 
 
 const _BinaryToDecimal = (inputValue: string) => {
+    let binValue = inputValue.toString()
+    if (!isBinary(binValue)) {
+        return [{lineNumber:"-1",description:"Error: input wasn't binary"}]
+    }
     const steps: Step[] = []
 
     let ov = 0

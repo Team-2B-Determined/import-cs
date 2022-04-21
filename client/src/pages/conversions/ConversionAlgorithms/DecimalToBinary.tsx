@@ -2,9 +2,14 @@ import CalculatorPage, {ExternalLink} from "../../../components/CalculatorPage";
 import {Step} from "../../../components/CodeNavigator";
 import React from "react";
 import displayArray from "../../../displayArray";
+import {isDecimal} from "./ConversionAlgorithms";
 
 
 const _DecimalToBinary = (inputValue: string) => {
+    let decValue = inputValue.toString().toUpperCase()
+    if (!isDecimal(decValue)) {
+        return [{lineNumber:"-1",description:"Error: input wasn't decimal"}]
+    }
     const steps: Step[] = []
     
     steps.push({

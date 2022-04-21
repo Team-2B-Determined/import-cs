@@ -106,7 +106,7 @@ const HexadecimalToDecimal = (inputValue) => {
     return ov.toString()
 };
 
-const isBinary = (inputValue) => {
+export const isBinary = (inputValue) => {
     let binList = ['0','1']
     let ivArray = inputValue.split("")
     for(let i = 0; i < ivArray.length; i++){
@@ -116,7 +116,7 @@ const isBinary = (inputValue) => {
     }
     return true;
 };
-const isDecimal = (inputValue) => {
+export const isDecimal = (inputValue) => {
     let decList = ['0','1','2','3','4','5','6','7','8','9']
     let ivArray = inputValue.split("")
     for(let i = 0; i < ivArray.length; i++){

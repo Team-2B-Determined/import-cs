@@ -2,9 +2,15 @@ import CalculatorPage, {ExternalLink} from "../../../components/CalculatorPage";
 import {Step} from "../../../components/CodeNavigator";
 import React from "react";
 import displayArray from "../../../displayArray";
+import {isHexadecimal} from "./ConversionAlgorithms";
 
 
 const _HexadecimalToDecimal = (inputValue: string) => {
+    let hexValue = inputValue.toString().toUpperCase()
+    if (!isHexadecimal(hexValue)) {
+        return [{lineNumber:"-1",description:"Error: input wasn't hexadecimal"}]
+    }
+
     const steps: Step[] = []
     
     steps.push({
