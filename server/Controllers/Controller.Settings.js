@@ -86,7 +86,7 @@ const controllerSettings = {
                     include: [{model: db.users}]
                 })
                     .then(([setting, created]) => {
-                        setting.update(({keyboardMap: req.body.keyboardMap}))
+                        setting.update(({keyboardMap: req.body.keyboard}))
                             .then(res.status(200).send({ message: "KeyboardMap updated" }))
                             .catch(err => {res.status(500).send({message: err.message})})
                     })
