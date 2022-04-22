@@ -5,6 +5,7 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import authService from "../../services/auth.service";
 import validationService from "../../services/validator.service"
+import settingsService from "../../services/settings.service";
 
 interface registerState {
     email: string,
@@ -53,7 +54,7 @@ export default class Register extends Component<{}, registerState> {
                     authService.login(this.state.email, this.state.password)
                         .then( () => {
                             if (authService.isLoggedIn()) {
-                                //Apply settings
+                                //
                             }
                             else {
                                 this.setState({message: "Email already in use"})

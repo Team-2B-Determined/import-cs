@@ -16,7 +16,6 @@ class AuthService {
             .then(response => {
                 if (response.data.accessToken) {
                     localStorage.setItem("user", JSON.stringify(response.data))
-                    window.location.href = ('/account')
                 }
                 return response.data
             })
@@ -27,6 +26,7 @@ class AuthService {
 
     logout() {
         localStorage.removeItem("user");
+        localStorage.removeItem("fontsPref");
         return true
     }
 
@@ -37,6 +37,7 @@ class AuthService {
             roles
         })
             .then(() => {
+
             })
     }
 

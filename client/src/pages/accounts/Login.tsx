@@ -44,7 +44,17 @@ export default class Login extends Component<{}, loginState> {
         authService.login(this.state.email, this.state.password)
             .then( res => {
                 if (authService.isLoggedIn()) {
-                    //Apply settings
+                    settingsService.retrieve()
+                        .then( setting => {
+                            console.log(setting) //DELETE
+                            localStorage.setItem('keyBinds', setting.keyboardMap)
+                            localStorage.setItem('fontsPref', setting.font)
+                            localStorage.setItem('darkMode', setting.darkMode)
+                            window.location.href = ('/account')
+
+                        })
+
+
                 }
                 else {
                     this.setState({message: "Invalid email/password combo"})

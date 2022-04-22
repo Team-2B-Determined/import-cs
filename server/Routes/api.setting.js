@@ -6,7 +6,7 @@ const settingController = require('../Controllers/Controller.Settings')
 
 /// SETTING ROUTES ///
 //Retrieves settings for user, returns error response if no settings
-router.get('/retrieve', settingController.retrieveSetting)
+router.post('/retrieve', settingController.retrieveSetting)
 
 //Update the font in the settings
 router.post('/update/font', settingController.updateFont)
