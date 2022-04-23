@@ -1,4 +1,4 @@
-import {Button, Col, Container, Form, FormControl, InputGroup} from "react-bootstrap";
+import {Button, Col, Container, Form, FormControl, InputGroup, Row} from "react-bootstrap";
 import React, {ReactNode, useState} from "react";
 import {HistoryRow} from "../accounts/History";
 import {useLocation} from "react-router-dom";
@@ -8,21 +8,25 @@ import LinearSearch from "../../components/algorithms/searching/LinearSearch";
 import BinarySearch from "../../components/algorithms/searching/BinarySearch";
 
 // https://stackoverflow.com/a/56126054
-const SEARCHING_ALGORITHMS = {LinearSearch,BinarySearch} as const
+const SEARCHING_ALGORITHMS = {LinearSearch, BinarySearch} as const
 type SearchingAlgorithm = keyof typeof SEARCHING_ALGORITHMS
 
 const Searching = () => {
     const location: any = useLocation();
 
-    const [numbersInput, setNumbersInput] = useState<string>(location.state === null ? "" : location.state.input)
-    const [numbers, setNumbers] = useState<any[]>([])
+    const [arrInput, setArrInput] = useState<string>(location.state === null ? "" : location.state.input)
+    const [findInput, setFindInput] = useState<any>(1)
+    const [arr, setArr] = useState<any[]>([])
+    const [find, setFind] = useState<any>(1)
+
     const historyRows: HistoryRow[] = JSON.parse(localStorage.getItem("historyRows") || "[]");
     const [searchingAlgorithm, setSearchingAlgorithm] = useState<SearchingAlgorithm>(location.state === null ? "LinearSearch" : location.state.calculatorFeature)
-    const handleSolve = () => {
-        setNumbers(numbersInput.split(/[ ,]+/).map(e => Number(e)))
+    const handleSearch = () => {
+        setArr(arrInput.split(/[ ,]+/))
+        setFind(findInput)
         historyRows.push({
             calculatorFeature: searchingAlgorithm,
-            input: numbersInput,
+            input: arrInput,
             pathname: '/algorithms/searching'
         });
 
@@ -45,36 +49,50 @@ const Searching = () => {
     )
 
 
-    const renderSort = (componentName: string, props?: any) => {
+    const renderSearch = (componentName: string, props?: any) => {
         const SearchingAlgorithm: any = SEARCHING_ALGORITHMS[componentName]
-        return <SearchingAlgorithm numbers={numbers}/>
+        return <SearchingAlgorithm arr={arr} find={find}/>
     }
 
     return (
         <Container>
-            <h3>{startCase(searchingAlgorithm)} <BsSortNumericDown size={24} /></h3>
-            <Col xs={6}>
-                Enter a sequence of numbers separated with spaces " " or commas ","
-                <InputGroup className="mb-3">
-                    <FormControl
-                        value={numbersInput}
-                        onChange={e => setNumbersInput(e.target.value)}
-                        placeholder="81 -62 -92 37 85"
-                        aria-label="81 -62 -92 37 85"
-                        aria-describedby="basic-addon2"
-                    />
-                    <Button variant="outline-secondary" id="button-addon2" onClick={handleSolve}>
-                        Solve
-                    </Button>
-                </InputGroup>
-            </Col>
-            <Col xs={3}>
-                <SearchingDropdown/>
-            </Col>
+            <h3>{startCase(searchingAlgorithm)} <BsSortNumericDown size={24}/></h3>
+            <Row>
+                <Col xs={6}>
+                    Enter a sequence of numbers separated with spaces " " or commas ","
+                    <InputGroup className="mb-3">
+                        <FormControl
+                            value={arrInput}
+                            onChange={e => setArrInput(e.target.value)}
+                            placeholder="81 -62 -92 37 85"
+                            aria-label="81 -62 -92 37 85"
+                            aria-describedby="basic-addon2"
+                        />
+                    </InputGroup>
+                </Col>
+                <Col xs={2}>
+                    Find Element
+                    <InputGroup className="mb-3">
+                        <FormControl
+                            value={findInput}
+                            onChange={e => setFindInput(e.target.value)}
+                            placeholder="81 -62 -92 37 85"
+                            aria-label="81 -62 -92 37 85"
+                            aria-describedby="basic-addon2"
+                        />
+                        <Button variant="outline-secondary" id="button-addon2" onClick={handleSearch}>
+                            Search
+                        </Button>
+                    </InputGroup>
+                </Col>
+            </Row>
+                <Col xs={3}>
+                    <SearchingDropdown/>
+                </Col>
 
-            {renderSort(searchingAlgorithm)}
+                {renderSearch(searchingAlgorithm)}
         </Container>
-    );
+);
 };
 
 export default Searching;

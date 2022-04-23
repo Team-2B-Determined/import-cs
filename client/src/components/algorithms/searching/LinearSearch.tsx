@@ -4,58 +4,29 @@ import React from "react";
 import displayArray from "../../../displayArray";
 
 
-const _selectionSort = (arr: number[]): any[] => {
-    const steps: Step[] = []
-    arr = [...arr]
+const _linearSearch = (arr: any[],find:any): Step[] => {
+    const steps:Step[] = [{lineNumber:"2",description:"Let's begin the linear search by going through each element!"}]
 
-    for (let i = 0; i < (arr.length - 1); i++) {
-        steps.push({
-            lineNumber: "3",
-            description: <>minInd is initialized to {i} as the element at that index, {arr[i]}, is the
-                smallest value we know as of this iteration <br/>
-                arr=[{displayArray(arr, [i])}]
-            </>
-        })
-        let minInd = i
-
-        for (let j = (i + 1); j < arr.length; j++) {
-
-            if (arr[j] < arr[minInd]) {
-                steps.push({
-                    lineNumber: "5-7",
-                    description: <>The current element, {arr[j]}, is less than {arr[minInd]}, so we set minInd
-                        to {j} now <br/>
-                        arr=[{displayArray(arr, [j])}]
-                    </>
-                })
-                minInd = j
-            }
-        }
-
-        if (minInd !== i) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === find) {
             steps.push({
-                lineNumber: "11-13",
-                description: <>Swap the elements between indexes {i} and {minInd} since a smaller element was
-                    found<br/>
-                    arr=[{displayArray(arr, [i, minInd])}]
-                </>
-            })
-            const temp = arr[minInd];
-            arr[minInd] = arr[i];
-            arr[i] = temp;
-        } else {
-            steps.push({
-                lineNumber: "14-16",
-                description: <>A smaller element than {arr[i]} was not found<br/>
+                lineNumber: "3-5",
+                description: <>Element found at index {i}! we can now return it and finish the search.
                     arr=[{displayArray(arr, [i])}]
                 </>
             })
-            console.log("No need to swap!")
+            return steps
         }
+        steps.push({
+            lineNumber: "3",
+            description: <>At i = {i}, the element {arr[i]} does not match the element, {find}, we're searching for. Let's go to the next iteration<br/>
+                arr=[{displayArray(arr, [i])}]
+            </>
+        })
     }
     steps.push({
-        lineNumber: "18",
-        description: <>Finished! The array is now sorted!<br/>
+        lineNumber: "7",
+        description: <>The element {find} is not found in the array. In this case, we return -1 by convention to indicate failure<br/>
             arr=[{displayArray(arr)}]
         </>
     })
@@ -63,7 +34,7 @@ const _selectionSort = (arr: number[]): any[] => {
 }
 
 
-const links: ExternalLink[] = [
+    const links: ExternalLink[] = [
     {
         name: "GeeksForGeeks",
         url: "https://www.geeksforgeeks.org/selection-sort/"
@@ -75,36 +46,25 @@ const links: ExternalLink[] = [
 ]
 
 
-const SelectionSort = ({numbers}: { numbers: number[] }) => {
+const LinearSearch = ({arr,find}: { arr: any[],find:any }) => {
 
     return (
         <CalculatorPage
-            name={"SelectionSort"}
-            steps={_selectionSort(numbers)}
+            name={"LinearSearch"}
+            steps={_linearSearch(arr,find)}
             links={links}
-            codeDisplay={`function selectionSort = arr => {
-        for (let i = 0; i < (arr.length - 1); i++) {
-            let minInd = i
-            for (let j = (i + 1); j < arr.length; j++) {
-                if (arr[j] < arr[minInd]) {
-                    minInd = j
+            codeDisplay={`function linearSearch = (arr,find) => {
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i] === find) {
+                        return i
+                    }
                 }
-            }
-
-            if (minInd !== i) {
-                const temp = arr[minInd];
-                arr[minInd] = arr[i];
-                arr[i] = temp;
-            } else {
-                console.log("No need to swap!")
-            }
-        }
-        return arr
-    }`}
+                return -1
+            }`}
             description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\\n\" +\n                    \"\\t1) The subarray which is already sorted. \\n\" +\n                    \"\\te2) Remaining subarray which is unsorted.\\n\" +\n                    \"In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray."}
             image={"https://i.imgur.com/EerzUpo.png"}
         />
     );
 };
 
-export default SelectionSort;
+export default LinearSearch;
