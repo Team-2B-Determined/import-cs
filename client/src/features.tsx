@@ -1,17 +1,15 @@
 export default {
-  "Selection Sort":{
-  "runtime": "n^2",
-  "description": "The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\\n\" +\n                    \"\\t1) The subarray which is already sorted. \\n\" +\n                    \"\\te2) Remaining subarray which is unsorted.\\n\" +\n                    \"In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray.",
+  "Sorting":{
+  "description": "Various techniques in rearranging a collection of items in order",
   "href": "algorithms/sorting",
   "tags": [
-    "sort"
+    "sort","selection", "merge", "quick"
   ]
 },
-"Merge Sort": {
-    "runtime":"n log(n)",
-    "description": "Merge sort is a divide and conquer algorithm that was invented by John von Neumann in 1945. It is an efficient, general-purpose, and comparison-based sorting algorithm.",
+"Searching": {
+    "description": "Various techniques in finding an element in a collection",
     "href": "algorithms/sorting",
-    "tags": ["sort"]
+    "tags": ["search", "binary", "linear"]
   },
 "Home": {
   "description": "Home page with links to various part of the importCS website.",
@@ -39,6 +37,7 @@ export default {
     "tags": [
       "datastructures",
       "stack",
+      "queue",
       "binary search tree",
       "linked-list"
     ]
@@ -48,7 +47,8 @@ export default {
     "href": "/algorithms",
     "tags": [
       "algorithms",
-      "sorting"
+      "sorting",
+        "searching"
     ]
   },
   "Computations": {
@@ -57,7 +57,10 @@ export default {
     "tags": [
       "computations",
       "twos-complement",
-      "addition"
+      "addition",
+      "subtraction",
+      "multiplication",
+      "division"
     ]
   },
   "Conversions": {
@@ -82,14 +85,6 @@ export default {
     "href": "/login",
     "tags": [
       "login"
-    ]
-  },
-  "Binary Search": {
-    "runtime": "log n",
-    "href": "#",
-    "description": "A search algorithm that finds the position of a target value within a sorted array. Binary search compares the target value to the middle element of the array. If they are not equal, the half in which the target cannot lie is eliminated and the search continues on the remaining half, again taking the middle element to compare to the target value, and repeating this until the target value is found. If the search ends with the remaining half being empty, the target is not in the array. ",
-    "tags": [
-      "search"
     ]
   }
 } as Record<string, Record<string,any>>
