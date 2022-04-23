@@ -1,11 +1,13 @@
 import {Accordion, Nav} from "react-bootstrap";
+import {ReactNode} from "react";
+import { IconContext } from "react-icons";
 
 
 export interface Item {
   name: string,
   href: string,
   body: string,
-  image?: string
+  image?: string | ReactNode
 }
 
 export interface CalculationsListProps {
@@ -26,7 +28,12 @@ const CalculationsList = ({title, items}: CalculationsListProps) => {
         {items.map((item, i) => (
           <Accordion.Item eventKey={i.toString()}>
             <Accordion.Header>
-              {item.image ? <img src={item.image} width="50" height="50"/> : null} {item.name}
+              {item.image && typeof item.image === "string" ? <img src={item.image} width="50" height="50"/> :
+                  <IconContext.Provider value={{size: "32"}}>
+                      {item.image}
+                  </IconContext.Provider>
+              }
+                {item.name}
             </Accordion.Header>
             <Accordion.Body>
               <Nav.Link href={item.href}>View Here</Nav.Link>
