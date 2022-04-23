@@ -37,11 +37,11 @@ const _linearSearch = (arr: any[],find:any): Step[] => {
     const links: ExternalLink[] = [
     {
         name: "GeeksForGeeks",
-        url: "https://www.geeksforgeeks.org/selection-sort/"
+        url: "https://www.geeksforgeeks.org/linear-search/"
     },
     {
-        name: "Video (2:42)",
-        url: "https://www.youtube.com/watch?v=g-PGLbMth_g"
+        name: "Video (2:52)",
+        url: "https://youtu.be/4GPdGsB3OSc"
     }
 ]
 
@@ -61,7 +61,7 @@ const LinearSearch = ({arr,find}: { arr: any[],find:any }) => {
                 }
                 return -1
             }`}
-            description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\\n\" +\n                    \"\\t1) The subarray which is already sorted. \\n\" +\n                    \"\\te2) Remaining subarray which is unsorted.\\n\" +\n                    \"In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray."}
+            description={"Finds an element in the list by sequentially checking each element until the iterating element matches the desired element. The position, or index, is then returned."}
             image={"https://i.imgur.com/EerzUpo.png"}
         />
     );
