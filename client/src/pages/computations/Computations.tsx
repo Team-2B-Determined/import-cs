@@ -4,10 +4,10 @@ import { HistoryRow } from "../accounts/History";
 import { useLocation } from "react-router-dom";
 import {add, sub, mul, div} from "../../components/computations/calc";
 import Badge from 'react-bootstrap/Badge'
+import Explanation from "./binary/Explanation";
 
 
-
-type computationType = '+' | '-' | '×' | '÷'  ;
+type computationType = '+' | '-' | '×' | '÷' ;
 const computationLookUp = { "+": 'BinaryAddition', "-": 'BinarySubtraction', "×": 'BinaryMultiplication', "÷": 'BinaryDivision' }
 
 const isBinary = (inputValue) => {
@@ -158,6 +158,9 @@ const Computations = () => {
         </Form.Group>
     );
 
+    const renderExplanation = () => {
+        return Explanation(numbersInput1, numbersInput2, computation, result ? result: "");
+    }
 
     return (
 
@@ -196,6 +199,10 @@ const Computations = () => {
             <Button variant="primary" onClick={handleShow}>
                 Show Detail
             </Button>
+            <Form.Group controlId="Explanation">
+                <Form.Label>Explanation:</Form.Label>
+                {renderExplanation()}
+            </Form.Group>
             <Offcanvas show ={show} onHide={handleClose} placement ={'end'}>
                 <Offcanvas.Header closeButton>
 
