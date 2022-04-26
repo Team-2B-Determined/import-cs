@@ -16,7 +16,7 @@ const Sorting = () => {
     const location: any = useLocation();
 
     const [numbersInput, setNumbersInput] = useState<string>(location.state === null ? "" : location.state.input)
-    const [numbers, setNumbers] = useState<any[]>([])
+    const [numbers, setNumbers] = useState<any[]>([81, -62, -92, 37, 85])
     const historyRows: HistoryRow[] = JSON.parse(localStorage.getItem("historyRows") || "[]");
     const [sortingAlgorithm, setSortingAlgorithm] = useState<SortingAlgorithm>(location.state === null ? "SelectionSort" : location.state.calculatorFeature)
     const handleSolve = () => {
