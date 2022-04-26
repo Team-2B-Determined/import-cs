@@ -120,7 +120,7 @@ function App() {
                         <Route path="*" element={<Home/>}/>
                         <Route path="/algorithms" element={<Algorithms/>}/>
                         <Route path="/algorithms/sorting" element={<Sorting/>}/>
-                        <Route path="/algorithms/searching" element={<Searching/>}/>
+                        {/*<Route path="/algorithms/searching" element={<Searching/>}/>*/}
                         <Route path="/computations" element={<Computations/>}/>
                         <Route path="/conversions" element={<Conversions/>}/>
                         <Route path="/datastructures" element={<DataStructures/>}/>
