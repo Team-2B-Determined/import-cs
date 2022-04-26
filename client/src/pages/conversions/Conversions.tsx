@@ -82,7 +82,7 @@ const Conversions = () => {
                 <Row>
                     <Form.Group as={Col} controlId="formGridInputBox">
                         <Form.Label>Input Value:</Form.Label>
-                        <Form.Control type="string" placeholder="1011" onChange={handleInputValue}/>
+                        <Form.Control type="string" value={inputValue} onChange={handleInputValue}/>
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridOutputBox">
                         <Form.Label>Output Value:</Form.Label>
