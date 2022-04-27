@@ -14,10 +14,12 @@ type SearchingAlgorithm = keyof typeof SEARCHING_ALGORITHMS
 const Searching = () => {
     const location: any = useLocation();
 
-    const [arrInput, setArrInput] = useState<string>(location.state === null ? "" : location.state.input)
-    const [findInput, setFindInput] = useState<any>(1)
-    const [arr, setArr] = useState<any[]>([])
-    const [find, setFind] = useState<any>(1)
+    const initialInputs =  location.state === null ? ["",""] : location.state.input.split("|")
+
+    const [arrInput, setArrInput] = useState<string>(initialInputs[0])
+    const [findInput, setFindInput] = useState<any>(initialInputs[1])
+    const [arr, setArr] = useState<any[]>([-92, -62, 37, 81, 85])
+    const [find, setFind] = useState<any>(81)
 
     const historyRows: HistoryRow[] = JSON.parse(localStorage.getItem("historyRows") || "[]");
     const [searchingAlgorithm, setSearchingAlgorithm] = useState<SearchingAlgorithm>(location.state === null ? "LinearSearch" : location.state.calculatorFeature)
@@ -26,7 +28,7 @@ const Searching = () => {
         setFind(findInput)
         historyRows.push({
             calculatorFeature: searchingAlgorithm,
-            input: arrInput,
+            input: `${arrInput}|${findInput}`,
             pathname: '/algorithms/searching'
         });
 
@@ -64,8 +66,8 @@ const Searching = () => {
                         <FormControl
                             value={arrInput}
                             onChange={e => setArrInput(e.target.value)}
-                            placeholder="81 -62 -92 37 85"
-                            aria-label="81 -62 -92 37 85"
+                            placeholder="-92, -62, 37, 81, 85"
+                            aria-label="-92, -62, 37, 81, 85"
                             aria-describedby="basic-addon2"
                         />
                     </InputGroup>
@@ -76,8 +78,8 @@ const Searching = () => {
                         <FormControl
                             value={findInput}
                             onChange={e => setFindInput(e.target.value)}
-                            placeholder="81 -62 -92 37 85"
-                            aria-label="81 -62 -92 37 85"
+                            placeholder="81"
+                            aria-label="81"
                             aria-describedby="basic-addon2"
                         />
                         <Button variant="outline-secondary" id="button-addon2" onClick={handleSearch}>
