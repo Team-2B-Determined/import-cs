@@ -4,107 +4,113 @@ import React from "react";
 import displayArray from "../../../displayArray";
 
 
-const _selectionSort = (arr: number[]): any[] => {
-    const steps: Step[] = []
-    arr = [...arr]
+const _binarySearch = (arr: any[], find: any): Step[] => {
+    const steps: Step[] = [{
+        lineNumber: "1",
+        description: "In binary search, the precondition is that the array must already be sorted. Otherwise, it may give an incorrect result"
+    }]
+    steps.push({
+        lineNumber: "2-3",
+        description: "Define the beginning and end of the given array to search."
+    })
+    let start = 0;
+    let end = arr.length - 1;
 
-    for (let i = 0; i < (arr.length - 1); i++) {
+    steps.push({
+        lineNumber: "5",
+        description:
+            "Search the array until we've gone through all possible values with binary search. A trick is to assert that the start index cannot be greater than the end index"
+    })
+    while (start <= end) {
+
+        let mid = Math.floor((start + end) / 2);
+
         steps.push({
-            lineNumber: "3",
-            description: <>minInd is initialized to {i} as the element at that index, {arr[i]}, is the
-                smallest value we know as of this iteration <br/>
-                arr=[{displayArray(arr, [i])}]
-            </>
+            lineNumber: "6",
+            description: <>Establish the midpoint {mid} given the subarray from index {start} to {end}</>
         })
-        let minInd = i
 
-        for (let j = (i + 1); j < arr.length; j++) {
-
-            if (arr[j] < arr[minInd]) {
-                steps.push({
-                    lineNumber: "5-7",
-                    description: <>The current element, {arr[j]}, is less than {arr[minInd]}, so we set minInd
-                        to {j} now <br/>
-                        arr=[{displayArray(arr, [j])}]
-                    </>
-                })
-                minInd = j
-            }
-        }
-
-        if (minInd !== i) {
+        if (arr[mid] === find) {
             steps.push({
-                lineNumber: "11-13",
-                description: <>Swap the elements between indexes {i} and {minInd} since a smaller element was
-                    found<br/>
-                    arr=[{displayArray(arr, [i, minInd])}]
+                lineNumber: "8-10",
+                description: <>Element {find} found at index {mid}! we can now return it and finish the search.
+                    arr=[{displayArray(arr, [mid])}]
                 </>
             })
-            const temp = arr[minInd];
-            arr[minInd] = arr[i];
-            arr[i] = temp;
+            /// return mid
+            return steps;
+        }
+
+        if (find < arr[mid]) {
+            end = mid - 1;
+            steps.push({
+                lineNumber: "12-14",
+                description: <>Since {find} is less than {arr[mid]}, we know we can ignore everything above the midpoint. Let's remove the excess.<br/>
+                    arr=[{displayArray(arr, [mid,arr.length-1])}] <br/>
+                    arr[0:{end}] = [{displayArray(arr.slice(0,mid))}]
+                </>
+            })
         } else {
+            start = mid + 1;
             steps.push({
                 lineNumber: "14-16",
-                description: <>A smaller element than {arr[i]} was not found<br/>
-                    arr=[{displayArray(arr, [i])}]
+                description: <>Since {find} is the same or greater than {arr[mid]}, we know we can ignore everything at and below the midpoint. Let's remove the excess.<br/>
+                    arr=[{displayArray(arr, [0,mid])}] <br/>
+                    arr[{start}:{end+1}] = [{displayArray(arr.slice(start,end+1))}]
                 </>
             })
-            console.log("No need to swap!")
         }
     }
-    steps.push({
-        lineNumber: "18",
-        description: <>Finished! The array is now sorted!<br/>
-            arr=[{displayArray(arr)}]
-        </>
-    })
+
+    steps.push({lineNumber:"18",description:"Element was not found, so return -1 to signal that"})
+
+    // return -1
     return steps
+
 }
 
 
 const links: ExternalLink[] = [
     {
         name: "GeeksForGeeks",
-        url: "https://www.geeksforgeeks.org/selection-sort/"
+        url: "https://www.geeksforgeeks.org/binary-search/"
     },
     {
-        name: "Video (2:42)",
-        url: "https://www.youtube.com/watch?v=g-PGLbMth_g"
+        name: "Video (6:21)",
+        url: "https://youtu.be/P3YID7liBug"
     }
 ]
 
 
-const SelectionSort = ({numbers}: { numbers: number[] }) => {
+const BinarySearch = ({arr, find}: { arr: any[], find: any }) => {
 
     return (
         <CalculatorPage
-            name={"SelectionSort"}
-            steps={_selectionSort(numbers)}
+            name={"BinarySearch"}
+            steps={_binarySearch(arr, find)}
             links={links}
-            codeDisplay={`function selectionSort = arr => {
-        for (let i = 0; i < (arr.length - 1); i++) {
-            let minInd = i
-            for (let j = (i + 1); j < arr.length; j++) {
-                if (arr[j] < arr[minInd]) {
-                    minInd = j
-                }
-            }
-
-            if (minInd !== i) {
-                const temp = arr[minInd];
-                arr[minInd] = arr[i];
-                arr[i] = temp;
-            } else {
-                console.log("No need to swap!")
-            }
+            codeDisplay={`function binarySearch(arr, find) {
+      let start = 0;
+      let end = arr.length - 1;
+    
+      while (start <= end) {
+        let mid = Math.floor((start + end) / 2);
+    
+        if (arr[mid] === find) {
+          return mid;
         }
-        return arr
+    
+        if (find < arr[mid]) {
+          end = mid - 1;
+        } else {
+          start = mid + 1;
+        }
+      }
+      return -1;
     }`}
-            description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\\n\" +\n                    \"\\t1) The subarray which is already sorted. \\n\" +\n                    \"\\te2) Remaining subarray which is unsorted.\\n\" +\n                    \"In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray."}
-            image={"https://i.imgur.com/EerzUpo.png"}
+            description={"Finds an element in a sorted list by comparing the target value to the middle element of the array. If they are not equal, the half in which the target cannot lie is eliminated and the search continues on the remaining half, again taking the middle element to compare to the target value, and repeating this until the target value is found. If the search ends with the remaining half being empty, the target is not in the array."}            image={"https://i.imgur.com/EerzUpo.png"}
         />
     );
 };
 
-export default SelectionSort;
+export default BinarySearch;
