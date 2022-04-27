@@ -5,6 +5,7 @@ import {useLocation} from "react-router-dom";
 import {startCase} from 'lodash';
 import Stack from "../../components/datastructures/singleelement/Stack";
 import Queue from "../../components/datastructures/singleelement/Queue";
+import {BsListUl, BsStack} from "react-icons/bs";
 
 const DATA_STRUCTURE_OPTIONS = {Stack, Queue} as const
 type DataStructureType = keyof typeof DATA_STRUCTURE_OPTIONS
@@ -102,6 +103,7 @@ const ListDataStructure = () => {
 
     return (
         <Container>
+            <h3>{startCase(dataStructure)}<BsListUl size={24} /></h3>
             <Col xs={3}>
                 <DataStructDropdown/>
             </Col>
