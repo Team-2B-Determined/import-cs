@@ -141,7 +141,6 @@ const KeyBindEditor = () => {
      */
     const saveBinds = () => {
         if (validateBinds()) {
-            console.log("savingbinds...");
             let newKeyBindString = [""];
             Object.keys(state).forEach(function (key) {
                 newKeyBindString.push(state[key]);
@@ -161,11 +160,8 @@ const KeyBindEditor = () => {
                             home: state["home"]
                         }
                     }));
-            console.log(formatString);
             saveBindsToAccount()
             window.location.reload();
-        } else {
-            //alert("invalid binds:" + valid.arr.toString());
         }
     }
 
@@ -173,9 +169,7 @@ const KeyBindEditor = () => {
      * Saves current settings to the user's account if they are logged in
      */
     function saveBindsToAccount() {
-        //IF user logged in
         if (AuthService.isLoggedIn()) {
-            //updateKeyboard( localStorage.user.email, newKeybinds.stringified )
             SettingsService.updateKeyboard(localStorage.getItem('keyBinds'));
         }
     }

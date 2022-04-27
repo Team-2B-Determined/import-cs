@@ -1,12 +1,11 @@
 import {Button, Col, Container, Form, FormControl, InputGroup} from "react-bootstrap";
-import React, {ReactNode, useState} from "react";
+import React, {useState} from "react";
 import {HistoryRow} from "../accounts/History";
 import {useLocation} from "react-router-dom";
 import {startCase} from 'lodash';
 import Stack from "../../components/datastructures/singleelement/Stack";
 import Queue from "../../components/datastructures/singleelement/Queue";
-import {BsSortNumericDown, BsStack} from "react-icons/bs";
-import {RiStackLine} from "react-icons/ri";
+import {BsStack} from "react-icons/bs";
 
 const DATA_STRUCTURE_OPTIONS = {Stack, Queue} as const
 type DataStructureType = keyof typeof DATA_STRUCTURE_OPTIONS

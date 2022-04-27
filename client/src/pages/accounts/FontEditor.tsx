@@ -1,4 +1,4 @@
-import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 import React from "react";
 import FormRange from "react-bootstrap/FormRange";
 import AuthService from "../../services/auth.service";
@@ -120,7 +120,6 @@ const FontEditor = () => {
      * Saves current state of fonts preferences to local storage
      */
     const saveFonts = () => {
-        console.log("saving fonts...");
         localStorage.setItem('fontsPref',
             JSON.stringify(
                 {
@@ -149,9 +148,7 @@ const FontEditor = () => {
      * Saves current settings to the user's account if they are logged in
      */
     function saveFontsToAccount() {
-        //IF user logged in
         if (AuthService.isLoggedIn()) {
-            //updateKeyboard( localStorage.user.email, newKeybinds.stringified )
             SettingsService.updateFont(localStorage.getItem('fontsPref'));
         }
     }

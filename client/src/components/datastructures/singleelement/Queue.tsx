@@ -2,7 +2,6 @@ import CalculatorPage, {ExternalLink} from "../../CalculatorPage";
 import {Step} from "../../CodeNavigator";
 import React from "react";
 import displayArray from "../../../displayArray";
-import {forEach} from "react-bootstrap/ElementChildren";
 
 const build = (arr: number[]): any[] => {
     const steps: Step[] = []
