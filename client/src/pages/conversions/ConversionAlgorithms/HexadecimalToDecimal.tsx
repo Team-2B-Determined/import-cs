@@ -81,17 +81,17 @@ const HexadecimalToDecimal = (inputValue: string) => {
             links={links}
             codeDisplay={
                 `let value = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']
-                    let ov = 0
-                    let iv = inputValue.toUpperCase()
-                    let ivArray = iv.split("")
-                    let ivReverse = ivArray.reverse()
-                    for (let p = 0; p < ivReverse.length; p++) {
+                    let decValue = 0
+                    let binValue = inputValue.toUpperCase()
+                    let binArray = binValue.split("")
+                    let binReverse = binArray.reverse()
+                    for (let p = 0; p < binReverse.length; p++) {
                         // p = power
-                        let n = +(value.indexOf(ivReverse[p]))
+                        let n = +(value.indexOf(binReverse[p]))
                         // n = hex value at that power
-                        ov += (n * (16 ** p))
+                        decValue += (n * (16 ** p))
                     }
-                    return binValue.toString()
+                    return decValue.toString()
                 };`
             }
             description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\\n\" +\n                    \"\\t1) The subarray which is already sorted. \\n\" +\n                    \"\\te2) Remaining subarray which is unsorted.\\n\" +\n                    \"In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray."}
