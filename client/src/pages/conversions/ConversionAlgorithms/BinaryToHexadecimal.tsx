@@ -41,7 +41,7 @@ const _BinaryToHexadecimal = (inputValue: string) => {
         let binGroup = binValue.substring(i-4, i)
         let x = binList.indexOf(binGroup)
         steps.push({
-            lineNumber: "9-13",
+            lineNumber: "9,10-13",
             description:
                 <>Current Group of 4 Binary Digits is: {binGroup} <br/>
                 Match Bin with Hex <br/>

@@ -42,7 +42,7 @@ const _DecimalToHexadecimal = (inputValue: string) => {
         else
             ov = r.toString() + ov
         steps.push({
-        lineNumber: "8-12",
+        lineNumber: "8-9,10-12",
         description:
             <>Convert remainder to Hexadecimal value and Add to string <br/>
             Current Hexadecimal String: {ov} <br/>

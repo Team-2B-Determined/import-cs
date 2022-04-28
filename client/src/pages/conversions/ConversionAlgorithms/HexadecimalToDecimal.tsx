@@ -33,7 +33,7 @@ const _HexadecimalToDecimal = (inputValue: string) => {
         // n = hex value at that power
         let v = (n * (16 ** p))
         steps.push({
-            lineNumber: "6-10",
+            lineNumber: "6-9,10",
             description:
                 <>Hexadecimal Number: {inputValue} <br/>
                 The value at location {p} is: {n} <br/>
