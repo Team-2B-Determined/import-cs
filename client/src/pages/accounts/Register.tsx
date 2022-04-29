@@ -54,7 +54,7 @@ export default class Register extends Component<{}, registerState> {
                     authService.login(this.state.email, this.state.password)
                         .then( () => {
                             if (authService.isLoggedIn()) {
-                                //
+                                window.location.href = ('/account')
                             }
                             else {
                                 this.setState({message: "Email already in use"})
