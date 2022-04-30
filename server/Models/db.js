@@ -1,14 +1,11 @@
 const { Sequelize } = require('sequelize');
 require("dotenv").config();
 
-
-//Once we are in production, change devConfig to connect to a different database
-const devConfig = "postgres://mrvuwwyisjimno:e714cf015e8c52869c218cd902d152ae90d7b13f7d13302b852c26c4f87215b3@ec2-34-203-114-67.compute-1.amazonaws.com:5432/d2o4rot4olu8hs";
+const devConfig = require('../Config/config.db')
 const proConfig = process.env.DATABASE_URL; //heroku addons
-
 connectionString = process.env.NODE_ENV === "production" ? proConfig : devConfig
 
-
+//Initialize sequelize connection to database
 const sequelize = new Sequelize(connectionString, {
   dialectOptions: { ssl: {rejectUnauthorized: false}},
   pool: {
@@ -19,6 +16,7 @@ const sequelize = new Sequelize(connectionString, {
   }
 });
 
+//Test connection
 sequelize.authenticate()
     .then(() => {
       console.log('Database connection has been established successfully.');
@@ -27,6 +25,8 @@ sequelize.authenticate()
       console.error('Unable to connect to the database:', err);
     });
 
+
+/// CREATE DB MODULE ///
 const db = {}
 
 db.Sequelize = Sequelize //Sequelize library
@@ -47,6 +47,7 @@ db.users.hasMany(db.history);
 db.history.belongsTo(db.users);
 
 
+//Synchronizes database to model definitions
 db.sequelize.sync()
     .then(() => {console.log("Synchronization completed.")})
     .catch(err => {console.log(err)})

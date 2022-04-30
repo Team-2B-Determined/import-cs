@@ -1,12 +1,14 @@
 const {db} = require("../Models/db");
+const defaultSettings = require('../Config/config.defaultSettings')
 
-//Implement CRUD for settings
 const controllerSettings = {
     retrieveSetting: retrieveSetting,
     updateFont: updateFont,
     updateKeyboard: updateKeyboard
 }
+
     function retrieveSetting(req, res) {
+        //grabs the user
         db.users.findOne({
             where: {email: req.body.email}
         })
@@ -16,28 +18,20 @@ const controllerSettings = {
                         message: "User not found"
                     })
                 }
+                //grabs the users setting
                 db.settings.findOne({
                     where: {UserId: user.id}
                 })
                     .then (setting => {
+                        //if there are no settings, send default
                         if (setting === null) {
                             return res.status(200).send({
-                                darkMode: false,
-                                font: JSON.stringify({
-                                    family: "Lato, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
-                                    fSize: "1.0rem"
-                                }),
-                                keyboardMap: JSON.stringify({KeyBindString: "alt+1,alt+2,alt+3,alt+4,alt+8,alt+9,alt+0",
-                                    KeyBindDict: {
-                                        algorithms: "alt+1",
-                                        computations: "alt+2",
-                                        datastructures: "alt+3",
-                                        conversions: "alt+4",
-                                        account: "alt+8",
-                                        history: "alt+9",
-                                        home: "alt+0"}})
+                                darkMode: defaultSettings.darkMode,
+                                font: defaultSettings.font,
+                                keyboardMap: defaultSettings.keyboardMap
                             })
                         }
+                        //send user's settings
                         res.status(200).send({
                             darkMode: setting.darkMode,
                             font: setting.font,
@@ -54,6 +48,7 @@ const controllerSettings = {
     }
 
     function updateFont(req, res) {
+        //grabs the user
         db.users.findOne({
             where: {email: req.body.email}
         })
@@ -63,14 +58,15 @@ const controllerSettings = {
                     return res.status(404).send({
                         message: "User not found"
                 })}
-
+                //grabs the user's settings, or create new one
                 db.settings.findOrCreate({
                     where: {UserId: user.id},
                     include: [{model: db.users}]
                 })
+                    //update font in database
                     .then(([setting, created]) => {
                         setting.update(({font: req.body.font}))
-                            .then(res.status(200).send({ message: "KeyboardMap updated" }))
+                            .then(res.status(200).send({ message: "Font updated" }))
                             .catch(err => {res.status(500).send({message: err.message})})
                     })
 
@@ -82,6 +78,7 @@ const controllerSettings = {
 
 
     function updateKeyboard(req, res) {
+        //grabs the user
         db.users.findOne({
             where: {email: req.body.email}
         })
@@ -92,10 +89,12 @@ const controllerSettings = {
                         message: "User not found"
                     })
                 }
+                //grabs the user's settings, or create new one
                 db.settings.findOrCreate({
                     where: {UserId: user.id},
                     include: [{model: db.users}]
                 })
+                    //update keyboard in database
                     .then(([setting, created]) => {
                         setting.update(({keyboardMap: req.body.keyboard}))
                             .then(res.status(200).send({ message: "KeyboardMap updated" }))
