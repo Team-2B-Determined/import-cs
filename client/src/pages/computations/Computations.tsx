@@ -57,52 +57,99 @@ const Computations = () => {
                     </div>
                     <br/>
                     <div>For example:</div>
-                    <div>"Now that we know binary numbers, we will learn how to add them. Binary addition is much like
-                        your normal everyday addition (decimal addition), except that it carries on a value of 2 instead
-                        of a value of 10.
+                    <br/>
+                    <div>
+                        In decimal addition, if you add 8 + 2 you get ten, which you write as 10; in the sum this gives a digit 0 and a carry of 1. Something similar happens in binary addition when you add 1 and 1; the result is two (as always), but since two is written as 10 in binary, we get after summing 1 + 1 in binary, a digit 0 and a carry of 1.
+                    </div>
+                    <br/>
+                    <div>
+                        Binary Addition Protocol:
+                        <br/>
+                        0 + 0 = 0
+                        <br/>
+                        0 + 1 = 1
+                        <br/>
+                        1 + 0 = 1
+                        <br/>
+                        1 + 1 = 1 (which is 0 carry 1)
                     </div>
                 </div>
             );
         }
-                /*"For example:" +
-                " In decimal addition, if you add 8 + 2 you get ten, which you write as 10; in the sum this gives a digit 0 and a carry of 1. Something similar happens in binary addition when you add 1 and 1; the result is two (as always), but since two is written as 10 in binary, we get after summing 1 + 1 in binary, a digit 0 and a carry of 1.\n" +
-                "\n" +
-                "Binary Addition Protocol:\n" +
-                "0 + 0 = 0\n" +
-                "0 + 1 = 1\n" +
-                "1 + 0 = 1\n" +
-                "1 + 1 = 10 (which is 0 carry 1)"
-                */
-        if (computation === '-')
-            return "Binary subtraction is one of the four binary operations, where we perform the subtraction method for two binary numbers (comprising only two digits, 0 and 1). " +
-                "This operation is similar to the basic arithmetic subtraction performed on decimal numbers in Maths. " +
-                "Hence, when we subtract 1 from 0, we need to borrow 1 from the next higher order digit, to reduce the digit by 1 and the remainder left here is also 1."+
-                "Binary Subtraction Protocol:\n" +
-                "0 - 0 = 0\n" +
-                "1 - 0 = 1\n" +
-                "1 - 1  =0\n" +
-                "0 - 1 = 1 (Borrow 1)"
-        if (computation === '×')
-            return "Binary multiplication is similar to the multiplication of decimal numbers." +
-                " We have a multiplier and a multiplicand." +
-                " The result of multiplication results in a product. " +
-                "Since only binary digits are involved in binary multiplication, we get to multiply only 0s and 1s." +
-                " The rules for binary multiplication are as follows." +
-                "Binary Addition Protocol:\n" +
-                "0 × 0 = 0\n" +
-                "0 × 1 = 0\n" +
-                "1 × 0  =0\n" +
-                "1 × 1 = 1"
-        if (computation === '÷')
-            return "Binary division, similar to other binary arithmetic operations, is performed on binary numbers. " +
-                "The algorithm for binary division is somewhat similar to decimal division, the only difference here lies in the rules followed using the digits '0' and '1'. " +
-                "Binary multiplication and binary subtraction are the two binary arithmetic operations that are performed while performing binary division. " +
-                "The use of only '0' and '1' makes binary division quite simpler in comparison to decimal division. Other operations that are used while performing binary division are binary multiplication and binary subtraction."+
-                "0 ÷ 1 = 0\n" +
-                "1 ÷ 1 = 1\n" +
-                "Division By Zero is Meaningless"
-    }
+        if (computation === '-'){
+            return ( <div>
+                    <div>Binary subtraction is one of the four binary operations, where we perform the subtraction method for two binary numbers (comprising only two digits, 0 and 1).
+                        This operation is similar to the basic arithmetic subtraction performed on decimal numbers in Maths.
 
+                    </div>
+                    <br/>
+                    <div>For example:</div>
+                    <br/>
+                    <div>
+                        When we subtract 1 from 0, we need to borrow 1 from the next higher order digit, to reduce the digit by 1 and the remainder left here is also 1.
+                    </div>
+                    <br/>
+                    <div>
+                        Binary Subtraction Protocol:
+                        <br/>
+                        0 - 0 = 0
+                        <br/>
+                        1 - 0 = 1
+                        <br/>
+                        1 - 1  =0
+                        <br/>
+                        0 - 1 = 1 (Borrow 1)
+                    </div>
+                </div>
+
+            );
+        }
+
+        if (computation === '×'){
+            return ( <div>
+                    <div>Binary multiplication is similar to the multiplication of decimal numbers.
+                         We have a multiplier and a multiplicand. The result of multiplication results in a product.
+                        Since only binary digits are involved in binary multiplication, we get to multiply only 0s and 1s.
+                    </div>
+                    <br/>
+                    <div>
+                        Binary Multiplication Protocol:
+                        <br/>
+                        0 × 0 = 0
+                        <br/>
+                        0 × 1 = 0
+                        <br/>
+                        1 × 0  =0
+                        <br/>
+                        1 × 1 = 1
+                    </div>
+                </div>
+
+            );
+        }
+
+        if (computation === '÷'){
+            return ( <div>
+                    <div>Binary division, similar to other binary arithmetic operations, is performed on binary numbers.
+                        The algorithm for binary division is somewhat similar to decimal division, the only difference here lies in the rules followed using the digits '0' and '1'.
+                        Binary multiplication and binary subtraction are the two binary arithmetic operations that are performed while performing binary division.
+                        The use of only '0' and '1' makes binary division quite simpler in comparison to decimal division. Other operations that are used while performing binary division are binary multiplication and binary subtraction.
+                    </div>
+                    <br/>
+                    <div>
+                        Binary Division Protocol:
+                        <br/>
+                        0 ÷ 1 = 0
+                        <br/>
+                        1 ÷ 1 = 1
+                        <br/>
+                        Division By Zero is Meaningless
+                    </div>
+                </div>
+            );
+        }
+
+    }
 
     const handleSolve = () => {
         if (!isBinary(numbersInput1) || (!isBinary(numbersInput2))){
