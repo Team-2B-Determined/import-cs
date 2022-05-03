@@ -21,14 +21,14 @@ const Home = () => {
 
     const AlgorithmsTab = () => {
         return <>
-            <a href={"/algorithms"}>View Main Page</a>
+            <a href={"/algorithms"}>View Algorithms Main Page</a>
             <Algorithms/>
         </>
     }
 
     const DataStructuresTab = () => {
         return <>
-            <a href={"/datastructures"}>View Main Page</a>
+            <a href={"/datastructures"}>View Data Structures Main Page</a>
             <DataStructures/>
         </>
     }
