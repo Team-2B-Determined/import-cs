@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 require("dotenv").config();
 
-const devConfig = require('../Config/config.db')
+const devConfig = require('../Config/config.db').dev_db
 const proConfig = process.env.DATABASE_URL; //heroku addons
 connectionString = process.env.NODE_ENV === "production" ? proConfig : devConfig
 
