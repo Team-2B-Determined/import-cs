@@ -82,12 +82,12 @@ const HexadecimalToDecimal = (inputValue: string) => {
             codeDisplay={
                 `let value = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']
                     let decValue = 0
-                    let binValue = inputValue.toUpperCase()
-                    let binArray = binValue.split("")
-                    let binReverse = binArray.reverse()
-                    for (let p = 0; p < binReverse.length; p++) {
+                    let hexValue = inputValue.toUpperCase()
+                    let hexArray = hexValue.split("")
+                    let hexReverse = hexArray.reverse()
+                    for (let p = 0; p < hexReverse.length; p++) {
                         // p = power
-                        let n = +(value.indexOf(binReverse[p]))
+                        let n = +(value.indexOf(hexReverse[p]))
                         // n = hex value at that power
                         decValue += (n * (16 ** p))
                     }
