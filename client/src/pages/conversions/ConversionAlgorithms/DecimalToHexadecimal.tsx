@@ -66,12 +66,8 @@ const _DecimalToHexadecimal = (inputValue: string) => {
 
 const links: ExternalLink[] = [
     {
-        name: "GeeksForGeeks",
-        url: "https://www.geeksforgeeks.org/selection-sort/"
-    },
-    {
-        name: "Video (2:42)",
-        url: "https://www.youtube.com/watch?v=g-PGLbMth_g"
+        name: "wikiHow",
+        url: "https://www.wikihow.com/Convert-from-Decimal-to-Hexadecimal"
     }
 ]
 
@@ -100,7 +96,7 @@ const DecimalToHexadecimal = (inputValue: string) => {
                     return hexValue.toString()
                 };`
             }
-            description={"The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.\\n\" +\n                    \"\\t1) The subarray which is already sorted. \\n\" +\n                    \"\\te2) Remaining subarray which is unsorted.\\n\" +\n                    \"In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray."}
+            description={""}
             image={"https://i.imgur.com/EerzUpo.png"}
         />
     );
