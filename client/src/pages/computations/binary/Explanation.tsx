@@ -82,11 +82,11 @@ const _BinaryToDecimal = (numberInput1: string, numberInput2: string, computatio
 const links: ExternalLink[] = [
     {
         name: "GeeksForGeeks",
-        url: "https://www.geeksforgeeks.org/selection-sort/"
+        url: "https://www.geeksforgeeks.org/binary-representations-in-digital-logic/#:~:text=Binary%20is%20a%20base%2D2,build%20the%20normal%20decimal%20number.&text=The%20binary%20number%20is%20traversed%20from%20left%20to%20right."
     },
     {
-        name: "Video (2:42)",
-        url: "https://www.youtube.com/watch?v=g-PGLbMth_g"
+        name: "Video (5:32)",
+        url: "https://www.youtube.com/watch?v=5OBZYhJnne0"
     }
 ]
 
